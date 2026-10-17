@@ -69,7 +69,7 @@ Total 20:00 (2:30 + 3:00 + 5:00 + 3:00 + 3:30 + 2:00 + 1:00).
 
 ### 1. Problem and India relevance (00:00-02:30)
 
-**On screen:** title slide with `<<TEAM NAME>>` and `<<COLLEGE NAME>>` (add once supplied), then the problem slide with the four India sources.
+**On screen:** title slide with Team Lazarus and MGM's Jawaharlal Nehru Engineering College, then the problem slide with the four India sources.
 
 **Say:**
 
@@ -174,7 +174,7 @@ Only name a partner or timeline if one really exists.
 
 "Everything is in the public repository. Dependencies are locked. The code is MIT licensed, and the datasets keep their own licenses. In the public repository the full test run is 841 passed, 83 skipped and none failed without PyTorch; the skipped tests need private research receipts or the optional PyTorch install.
 
-CardioTwin is a research prototype. Its contribution is a leak-controlled, strictly scored evaluation pipeline and an honest negative result, not a working predictor. Thank you. Team `<<TEAM NAME>>`, `<<COLLEGE NAME>>`."
+CardioTwin is a research prototype. Its contribution is a leak-controlled, strictly scored evaluation pipeline and an honest negative result, not a working predictor. Thank you. Team Lazarus, MGM's Jawaharlal Nehru Engineering College."
 
 ## Results card (show during segment 5; finalist only)
 

@@ -325,15 +325,15 @@ To be filled in by the team. Nothing below has been supplied yet.
 
 | Item | Value |
 | --- | --- |
-| Team name | `<<TEAM NAME>>` |
-| Team members (1-4 full-time students) | `<<MEMBER NAMES>>` |
-| Contact | `<<TEAM LEADER CONTACT>>` |
+| Team name | Lazarus |
+| Team members (1-4 full-time students) | Atharva Kulkarni (Team Leader), Pranav Mirkar, Sumit Jadhav |
+| Contact | Team leader contact details are entered on the Unstop submission form; no phone numbers or emails are published in this repository. |
 
 ### College/Incubator Information
 
 | Item | Value |
 | --- | --- |
-| College / incubator | `<<COLLEGE NAME>>` |
+| College / incubator | MGM's Jawaharlal Nehru Engineering College |
 
 The organizers' folder convention is `Team Name_College Name`. Whether to apply it to this repository or only to the upload is a human decision.
 

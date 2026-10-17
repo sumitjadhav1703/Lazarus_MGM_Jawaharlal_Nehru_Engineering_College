@@ -33,9 +33,9 @@ RIGHT = W - 48
 FLOOR = 52  # content must stay above the source/footer band
 
 PLACEHOLDER = '<font color="#9A5B00"><b>[%s]</b></font>'
-TEAM = PLACEHOLDER % "TEAM NAME - to be supplied"
-COLLEGE = PLACEHOLDER % "COLLEGE - to be supplied"
-LEADER = PLACEHOLDER % "LEADER NAME AND CONTACT - to be supplied"
+TEAM = "Lazarus"
+COLLEGE = "MGM's Jawaharlal Nehru Engineering College"
+LEADER = "Atharva Kulkarni; members Pranav Mirkar, Sumit Jadhav"
 REPO_URL = "https://github.com/sumitjadhav1703/lazarus_ECG_traces"
 VIDEO_URL = PLACEHOLDER % "UNLISTED YOUTUBE URL - to be supplied"
 

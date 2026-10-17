@@ -55,11 +55,11 @@ The frozen model fails our development sensitivity gate. Do not claim that clini
 ## Human-only items (not done)
 
 - [ ] **Registration confirmed by 18 Oct 2026, 19:00 IST.** Keep the platform receipt. Recheck current organizer terms and the submission form.
-- [ ] Final team: team name, college/incubator, and 1-4 eligible full-time student members verified. Replace the `<<TEAM NAME>>`, `<<COLLEGE NAME>>`, `<<MEMBER NAMES>>`, `<<TEAM LEADER CONTACT>>` and `<<YOUTUBE UNLISTED URL>>` markers in README. Do not rely on post-registration changes.
+- [x] Team details filled in README and PDFs: Team Lazarus; MGM's Jawaharlal Nehru Engineering College; Atharva Kulkarni (Team Leader), Pranav Mirkar, Sumit Jadhav. Still verify that every member is a full-time student and confirmed on Unstop. Replace the remaining `<<YOUTUBE UNLISTED URL>>` marker in README after upload. Do not rely on post-registration changes.
 - [ ] Team leader name, phone and email entered in the submission form (not required in README).
 - [ ] Push to the **public GitHub repository** https://github.com/sumitjadhav1703/lazarus_ECG_traces (created, reported public and empty; verify); decide whether to apply the organizers' `Team Name_College Name` naming; organize final materials as `Team Name_College Name`. Review the exact revision first: no raw signals, credentials, private upload files, model binaries or local patient state. Verify anonymous access to every link.
 - [ ] Record a real **20:00** screen-and-voice demonstration with the [video script](video-script.md). Upload as **unlisted YouTube**. Verify anonymous playback, readable UI, audio and exact duration. Put the link in README (`<<YOUTUBE UNLISTED URL>>`).
-- [ ] Fill team/college/leader placeholders in docs/delivery PDFs (slides 1 and 12, `scripts/build_delivery_pdfs.py` lines ~36-40) and rebuild with the documented command (`uv run --with reportlab==4.4.9 python scripts/build_delivery_pdfs.py`); re-check every page.
+- [x] Team, college and leader are filled in the PDFs (rebuilt 17 Oct 2026). Only the demo-video URL placeholder (slide 12) remains: after upload, set `VIDEO_URL` in `scripts/build_delivery_pdfs.py` and rebuild with `uv run --with reportlab==4.4.9 python scripts/build_delivery_pdfs.py`.
 - [ ] Confirm you want `reports/ml-investigation/primary-split.json` (pseudonymous group IDs) published.
 - [ ] Confirm the two contradictions above with the organizers, or note that both readings were satisfied.
 - [ ] Submit **one solution** with the repository link by **20 Oct 2026, 19:00 IST**, leaving time for failures. Verify the platform receipt and the final linked revision. Recheck the [listing](https://unstop.com/hackathons/crp-digital-twin-challenge-2026-happiest-health-1757873) before submitting.
