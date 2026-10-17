@@ -16,7 +16,9 @@ from .store import Store
 
 
 class TwinService:
-    def __init__(self, data_dir, db_path, config, model_dir=None, metrics_path=None):
+    def __init__(self, data_dir, db_path, config, model_dir=None, metrics_path=None, research_model=False):
+        if research_model and not model_dir:
+            raise ValueError("research_model requires a model directory")
         validate_config(config)
         self.config = config
         self.store = Store(db_path)
@@ -27,11 +29,12 @@ class TwinService:
                 self.records.setdefault(record.patient_id, record)
         if not self.records:
             raise ValueError("No downloaded ECG signals available for replay")
+        self.research_model = research_model
         self.predictor = None
         if model_dir:
             from .modeling import Predictor
 
-            self.predictor = Predictor.load(Path(model_dir))
+            self.predictor = Predictor.load(Path(model_dir), research=research_model)
             if self.predictor.config != config:
                 raise ValueError("Runtime config must equal frozen model config")
         self.metrics_path = Path(metrics_path) if metrics_path else None

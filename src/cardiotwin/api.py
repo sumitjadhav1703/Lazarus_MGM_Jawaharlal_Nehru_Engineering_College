@@ -61,7 +61,14 @@ def create_app(service, auto_tick=True, playback_seconds=1.0):
 
     @app.get("/api/health")
     def health():
-        return {"status": "ok", "mode": "historical_simulation", "research_only": True}
+        manifest = service.predictor.manifest if service.predictor else {}
+        return {
+            "status": "ok",
+            "mode": "historical_simulation",
+            "research_only": True,
+            "research_model": service.research_model,
+            "deployment_ready": manifest.get("deployment_ready"),
+        }
 
     @app.get("/api/patients")
     def patients():

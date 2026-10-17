@@ -37,6 +37,11 @@ def main(argv=None):
     evaluate.add_argument("--model", type=Path, required=True)
     serve.add_argument("--model", type=Path)
     serve.add_argument("--metrics", type=Path)
+    serve.add_argument(
+        "--research-model",
+        action="store_true",
+        help="Allow a model package that failed deployment gates (manifest deployment_ready=false); requires --model",
+    )
     serve.add_argument("--db", type=Path, default=Path("data/state.sqlite"))
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
@@ -77,12 +82,14 @@ def main(argv=None):
             from .api import create_app
             from .service import TwinService
 
+            if args.research_model and not args.model:
+                raise ValueError("--research-model requires --model")
             if args.model:
                 frozen = load_config(args.model / "config.json")
                 if args.config and config != frozen:
                     raise ValueError("Explicit runtime config differs from frozen artifact")
                 config = frozen
-            service = TwinService(args.data_dir, args.db, config, args.model, args.metrics)
+            service = TwinService(args.data_dir, args.db, config, args.model, args.metrics, args.research_model)
             uvicorn.run(
                 create_app(service, playback_seconds=args.playback_seconds), host=args.host, port=args.port
             )
