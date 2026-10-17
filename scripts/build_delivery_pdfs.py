@@ -36,7 +36,7 @@ PLACEHOLDER = '<font color="#9A5B00"><b>[%s]</b></font>'
 TEAM = PLACEHOLDER % "TEAM NAME - to be supplied"
 COLLEGE = PLACEHOLDER % "COLLEGE - to be supplied"
 LEADER = PLACEHOLDER % "LEADER NAME AND CONTACT - to be supplied"
-REPO_URL = PLACEHOLDER % "GITHUB URL - to be supplied"
+REPO_URL = "https://github.com/sumitjadhav1703/lazarus_ECG_traces"
 VIDEO_URL = PLACEHOLDER % "UNLISTED YOUTUBE URL - to be supplied"
 
 
@@ -372,8 +372,8 @@ def architecture():
     card(
         c, LEFT, y2, 420, 102, "Shared by runtime and evaluation",
         ["Alert state machine and evaluation code are one code path, so scored behaviour equals served behaviour.",
-         "Default serving refuses failed-gate research models; fused replay is a trusted offline harness."],
-        size=10.5,
+         "Default demo: manufactured data and a synthetic-trained model. Opt-in <i>serve --research-model</i> runs the gate-failed frozen finalist behind a red FAILED banner."],
+        size=10,
     )
     card(
         c, LEFT + 440, y2, 424, 102, "Model families tried (all offline, all development-only)",
@@ -544,7 +544,7 @@ def slide_architecture(c):
         [
             "The labels module (future rhythm intervals) is <b>never imported</b> by runtime code.",
             "Alert and evaluation modules are shared, so the behaviour that is scored is the behaviour that is served.",
-            "Default serving refuses failed-gate research artifacts; the real-prefix fused replay is a trusted offline harness.",
+            "The default demo uses manufactured data and a synthetic-trained model. Opt-in <font face=\"Courier\">cardiotwin serve --research-model</font> runs the gate-failed frozen finalist in the twin under a red \u2018RESEARCH MODEL ... FAILED its acceptance gates\u2019 banner.",
         ],
         LEFT, 215, 864, size=15, gap=10,
     )
@@ -552,24 +552,24 @@ def slide_architecture(c):
 
 def slide_streams(c):
     frame(c, "Two data streams, one model", "Static clinical fields plus dynamic ECG, fused in one logistic regression.", 5,
-          "CHALLENGE_REQUIREMENTS.md; README.md; report.md (27 schema fields, 54 matrix inputs incl. missingness indicators).")
+          "CHALLENGE_REQUIREMENTS.md; README.md; frozen-challenge-fusion/feature_schema.json (27 inputs); src/cardiotwin/features.py (CLINICAL_FIELDS); report.md.")
     card(c, LEFT, 420, 380, 150, "Static stream", [
-        "Paired IRIDIA-AF baseline <b>age and sex</b> only.",
-        "No invented diagnoses, labs or unrelated EHR joins.",
-    ], size=15)
+        "Code supports <b>16 static EHR-style fields</b>; the manufactured demo fills them.",
+        "The real cohort provides <b>age and sex</b> only; nothing else is invented.",
+    ], size=13.5)
     card(c, LEFT, 252, 380, 150, "Dynamic stream", [
         "Causal ECG features: RR variability, beats, signal quality.",
-        "Per-patient baseline state, updated after each prediction.",
-    ], size=15)
+        "Per-patient baseline is twin state shown to the clinician, <b>not a model input</b>.",
+    ], size=13.5)
     card(c, LEFT + 440, 420, 424, 150, "Fused predictor", [
-        "One logistic regression (27 schema fields), development-only calibration, frozen before test.",
+        "One logistic regression, <b>27 inputs</b>: age, sex, their availability flags and 23 ECG features. Development-only calibration, frozen before test.",
         "ECG-only reference is kept as a separate model.",
-    ], size=15)
+    ], size=13.5)
     card(c, LEFT + 440, 252, 424, 150, "Did fusion help? No benefit shown", [
-        "Development: ECG-only reference <b>7/241</b>, fused <b>6/241</b>.",
+        "Development: ECG-only reference <b>7/241</b>, fused <b>6/241</b>; fusion showed no benefit.",
         "Held-out: fused 1/43 and 2/29; the reference issued no warnings (policy threshold 1.0).",
-    ], size=15, accent=RED)
-    bullets(c, ["Baseline-deviation inputs exist in the twin state but are not in the selected predictor."], LEFT, 82, 864, size=13.5)
+    ], size=13.5, accent=RED)
+    bullets(c, ["Baseline deviation is computed for display; no baseline feature is among the 27 model inputs."], LEFT, 82, 864, size=13.5)
 
 
 def slide_data(c):
@@ -616,7 +616,7 @@ def slide_eval(c):
 
 def slide_dashboard(c):
     frame(c, "Dashboard demo (manufactured data)", "Software demonstration of the doctor-facing view; synthetic data is not evidence.", 8,
-          "reports/ml-investigation/frozen-challenge-replay.json (72 steps; passed: true); docs/video-script.md; public repository full suite 836 passed, 83 skipped, 0 failed.")
+          "reports/ml-investigation/frozen-challenge-replay.json (72 steps; passed: true); src/cardiotwin/cli.py and tests/test_research_serving.py (--research-model); research-model run was a local check, no saved receipt; full suite 841 passed, 83 skipped, 0 failed.")
     card(c, LEFT, 420, 280, 210, "What the UI shows", [
         "ECG, trends, per-patient baseline",
         "Signal quality and abstention",
@@ -624,16 +624,17 @@ def slide_dashboard(c):
         "Clinician review of each warning",
     ], size=14.5)
     card(c, LEFT + 292, 420, 280, 210, "What it is not", [
-        "Not real-patient data: manufactured fixtures only.",
-        "Default serving refuses the failed-gate model.",
+        "Default demo data are manufactured, not real patients.",
+        "Default model is synthetic-trained; the real finalist runs only via opt-in <font face=\"Courier\">--research-model</font>, red FAILED banner.",
         "No hospital login, PHI governance or wearable validation.",
     ], size=14.5, accent=RED)
     card(c, LEFT + 584, 420, 280, 210, "Causality and speed checks", [
         "Replay step latency on real prefixes: median <b>25 ms</b>, p95 <b>27 ms</b> (72 steps).",
         "Changing only future ECG or annotations left earlier outputs identical.",
     ], size=14.5)
-    bullets(c, ["Tests: full suite in this public repo on 17 Oct 2026: 836 passed, 83 skipped (private receipts or optional PyTorch), 0 failed."],
-            LEFT, 190, 864, size=14)
+    bullets(c, ["Local proof, <b>in-sample</b>: frozen finalist on one IRIDIA development record gave forecasts at 3600, 7200 and 10800 s (risks 0.0092, 0.0079, 0.0080), 0 warnings, about 26-29 ms per step. This proves the model runs in the twin, not forecasting quality.",
+                "Tests: full suite in this public repo on 17 Oct 2026: 841 passed, 83 skipped (private receipts or optional PyTorch), 0 failed."],
+            LEFT, 190, 864, size=13, gap=6)
 
 
 def slide_results(c):

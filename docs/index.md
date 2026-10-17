@@ -6,7 +6,7 @@ CardioTwin is a research prototype for forecasting a new AF onset 2-10 minutes a
 
 | Document | What it is |
 | --- | --- |
-| [README](../README.md) | Overview, India relevance, quick start, results, limitations |
+| [README](../README.md) | Submission checklist, problem, healthcare use case, technical stack, model details, quick start, results, FAQ, limitations |
 | [Architecture PDF](delivery/architecture.pdf) | Two-path design: online causal replay and offline evaluation |
 | [Presentation PDF](delivery/presentation.pdf) | Slide deck |
 | [Video script](video-script.md) | 20:00 narration, demo commands, recording checklist |
@@ -23,6 +23,8 @@ Frozen clinical (age/sex) plus causal-ECG logistic regression, at most 0.25 asse
 | LTAF external | 2 / 29 | 6.90% |
 
 - Not clearly above random timing; no fusion benefit shown (ECG-only reference 7/241).
+- Per-patient baseline is twin state shown to the clinician, not a model input; the real cohort supplies only age and sex as static fields.
+- Default dashboard demo is manufactured data; the real frozen model replays only in opt-in `--research-model` mode (banner, in-sample record).
 - Deep-learning arms (RR-TCN16 4/241 and 7/241, waveform CNN 4/241) and the ECGFounder attempt (no outcome results) did not change this.
 - Details: [investigation report](../reports/ml-investigation/report.md), [model card](../reports/ml-investigation/frozen-challenge-fusion/model_card.md), [requirements audit](../reports/ml-investigation/CHALLENGE_REQUIREMENTS.md).
 

@@ -9,7 +9,7 @@ This file is a script, not the recording. The recording, upload and public link 
 - Say "research prototype" in the first minute and the last minute.
 - Never say "accurate", "validated", "clinically ready" or "predicts AF". Say "tries to forecast" or "forecasts weakly".
 - Show the weak results as the headline, not as a footnote.
-- The dashboard runs on **manufactured demo data**. Say so on camera each time it is on screen. Real-data results come from saved evaluation files, never from the dashboard.
+- The default dashboard runs on **manufactured demo data** with a model trained on that synthetic data. Say so on camera each time it is on screen. Real-data results come from saved evaluation files, never from the dashboard. If you also show research mode (segment 3), say the record is in-sample and that this shows the model runs, not that it forecasts well.
 - Do not present synthetic or SHDB-AF numbers as results. SHDB-AF gets one sentence at most (an earlier cohort that left zero eligible events).
 - Do not say anything about Indian performance. We have no Indian data.
 
@@ -23,22 +23,33 @@ npm ci --prefix dashboard
 npm run build --prefix dashboard
 
 uv run cardiotwin demo --output data/demo
-uv run cardiotwin audit --data-dir data/demo --output reports/ml-v2-audit
-uv run python scripts/run_ml_experiments.py --data-dir data/demo --audit reports/ml-v2-audit \
-  --artifacts artifacts/ml-v2-reviewed --output reports/ml-improvements/development-ablations.json \
+uv run cardiotwin audit --data-dir data/demo --output data/ml-audit
+uv run python scripts/run_ml_experiments.py --data-dir data/demo --audit data/ml-audit \
+  --artifacts data/ml-artifacts --output data/ml-experiments/development-ablations.json \
   --synthetic --false-warning-budget 1 --minimum-sensitivity 0.5
 # open the JSON and read recommended_artifact (it was patient_class when last run)
-uv run cardiotwin evaluate --data-dir data/demo --audit reports/ml-v2-audit \
-  --model artifacts/ml-v2-reviewed/patient_class --output reports/ml-v2-evaluation
+uv run cardiotwin evaluate --data-dir data/demo --audit data/ml-audit \
+  --model data/ml-artifacts/patient_class --output data/ml-evaluation
 ```
+
+These `data/` paths are gitignored, unlike the earlier `reports/ml-v2-*` paths. Rehearse them once from a clean clone; they have not been re-run exactly as written.
 
 On camera in segment 3 (start the server before the segment, or type it live):
 
 ```bash
-uv run cardiotwin serve --data-dir data/demo --model artifacts/ml-v2-reviewed/patient_class \
-  --metrics reports/ml-v2-evaluation/evaluation.json --db data/ml-v2-state.sqlite
+uv run cardiotwin serve --data-dir data/demo --model data/ml-artifacts/patient_class \
+  --metrics data/ml-evaluation/evaluation.json --db data/state.sqlite
 # slower playback: add --playback-seconds 2
 ```
+
+Optional, only if prepared and rehearsed: the real frozen finalist on one real development record, in research mode. This needs IRIDIA-AF downloaded from Zenodo 8405941 and the frozen model directory, neither of which is shipped in the repository.
+
+```bash
+uv run python scripts/prepare_single_record_replay.py --source <IRIDIA data dir> --record <record id> --output data/replay-one
+uv run cardiotwin serve --research-model --data-dir data/replay-one --model <frozen model dir> --db data/research-state.sqlite
+```
+
+The dashboard then shows a red banner: the model FAILED its acceptance gates and is not for clinical use; records from its development cohort are in-sample. Check `--help` of the helper script first.
 
 Open http://127.0.0.1:8000. Use a fresh `--db` path if you change the model or config. Demo patient 000 has an intentional unreliable segment for the abstention demo.
 
@@ -80,7 +91,7 @@ Everything you see today is a research prototype on public retrospective data. I
 
 The offline path builds labels and evaluates. Labels code is never imported by the runtime. Patient-level training, freezing with checksums, then complete chronological replay and event-level scoring.
 
-The challenge asks for fusion of static health records and dynamic sensor data. We have two streams. The static stream is paired age and sex from the IRIDIA-AF record. We did not invent diagnoses or lab values. The dynamic stream is causal ECG features plus the patient baseline. Both enter one logistic regression. That is our frozen finalist. We keep a separate ECG-only reference so we can ask whether the clinical inputs helped. As you will see, they did not.
+The challenge asks for fusion of static health records and dynamic sensor data. We have two streams. The static stream is paired age and sex from the IRIDIA-AF record. We did not invent diagnoses or lab values. Our code supports sixteen static fields, and the manufactured demo fills all of them to exercise the pipeline, but the real cohort has only age and sex. Whether age and sex alone count as static health records is a judgement call, and fusion showed no benefit. The dynamic stream is twenty-three causal ECG features. Both enter one logistic regression, twenty-seven inputs in all: age, sex, their two availability flags and the ECG features. That is our frozen finalist. The per-patient baseline is persistent twin state that we show the clinician. It is not an input to the model. We keep a separate ECG-only reference so we can ask whether the clinical inputs helped. As you will see, they did not.
 
 The alert and evaluation code is shared between the runtime and offline scoring, so the policy we score is the policy that runs."
 
@@ -90,14 +101,15 @@ The alert and evaluation code is shared between the runtime and offline scoring,
 
 **Say and do** (adjust wording to the actual UI labels during rehearsal):
 
-- 05:30. "First, an important disclosure. This dashboard runs on a manufactured demo cohort that our code generates. It is a software demonstration. It is not patient data and not evidence. The real-data model that failed our acceptance gate is deliberately not served here; the normal serving path refuses it, and we have not changed that."
+- 05:30. "First, an important disclosure. This dashboard runs on a manufactured demo cohort that our code generates. It is a software demonstration. It is not patient data and not evidence. The model behind it was trained on that synthetic data. The real-data model failed our acceptance gate, and the normal serving path refuses it. We added an explicit opt-in research mode, with a red banner, that can replay it; we use it at most once, later in this segment."
 - 06:00. Open the page. Select a demo patient. "This is the doctor-facing view: ECG trace, trends, the patient's baseline, signal quality and the risk panel."
 - 06:45. Click **Start**. "Playback is accelerated, thirty historical seconds per wall second. Each tick is a forecast built only from the previous ten minutes." Click **Pause**, then **Step** twice. "Step advances one decision."
-- 07:45. Point at the baseline and trend panels. "The baseline evolves as state. It is updated after each prediction."
+- 07:45. Point at the baseline and trend panels. "The baseline evolves as state. It is updated after each prediction. It is shown for context and quality checks; it is not an input to the frozen model."
 - 08:15. When a warning appears, open the warning history and review timeline, and click the clinician review action on one warning. "A clinician can review a warning, and that is stored with the warning history."
 - 09:00. Select demo patient 000 and run to its unreliable segment. "This patient has an intentional bad stretch. The system abstains instead of forecasting. Abstention is part of the design."
 - 09:30. "When the model does not produce a warning, the UI does not invent one."
 - 09:50. Open the evaluation view. "This is the demo cohort's evaluation file. Again, manufactured."
+- 10:00. Optional, if prepared: show the research-mode banner on a real development record. "This is the real frozen model, replayed in research mode. The banner says it failed its acceptance gates. This record is from its own development cohort, so it is in-sample. In a local run it produced forecasts at the one-, two- and three-hour marks with risks around 0.008 to 0.009, and no warnings in the first three hours. That shows the model runs in the twin. It says nothing about forecasting quality." Skip this if it was not rehearsed; the segment still fits.
 - 10:10. Show the replay-receipt slide. "On real IRIDIA development prefixes, a separate replay receipt records 72 steps, a median of 25 milliseconds and a p95 of 27 milliseconds per step. It also shows that changing only the future ECG or annotations leaves all earlier outputs identical. That is a causality check, not a performance claim."
 
 ### 4. Evaluation method (10:30-13:30)
@@ -111,6 +123,8 @@ The alert and evaluation code is shared between the runtime and offline scoring,
 We split by patient, never by window. Fitting, early-stopping, calibration and policy groups are disjoint. We froze the model, calibration and alert policy before the held-out cohorts were opened. Those cohorts are now examined, so they cannot be used for tuning again.
 
 We replay whole recordings in time order. Quality-rejected stretches, missed events and time with no label stay in. One warning can match at most one event, using the inclusive two-to-ten-minute window. False warnings are counted per eligible hour. Warnings that land during AF, in post-AF washout or in unknown time are reported separately, not hidden.
+
+Counting rules: an event is eligible if at least twelve minutes of labelled non-AF history precede it, the episode lasts at least thirty seconds, and ten minutes of washout follow any earlier AF. False warnings are divided by eligible hours, not all monitored hours.
 
 The data: the IRIDIA-AF database has 167 recordings from 152 patients, about 6,690 monitoring hours. Our development set is 121 patient groups with 241 events. The frozen primary held-out set is 31 groups with 43 events. LTAF is an external set with 29 events across 84 recording groups. For LTAF, patient identity across records is unverified.
 
@@ -154,11 +168,11 @@ Only name a partner or timeline if one really exists.
 
 ### 7. Reproducibility and close (19:00-20:00)
 
-**On screen:** the public repository page and the README top box. Repository: `<<GITHUB REPOSITORY URL>>`.
+**On screen:** the public repository page and the README top box. Repository: https://github.com/sumitjadhav1703/lazarus_ECG_traces (confirm it is public first).
 
 **Say:**
 
-"Everything is in the public repository. Dependencies are locked. The code is MIT licensed, and the datasets keep their own licenses. In the public repository the full test run is 836 passed, 83 skipped and none failed; the skipped tests need private research receipts or the optional PyTorch install.
+"Everything is in the public repository. Dependencies are locked. The code is MIT licensed, and the datasets keep their own licenses. In the public repository the full test run is 841 passed, 83 skipped and none failed without PyTorch; the skipped tests need private research receipts or the optional PyTorch install.
 
 CardioTwin is a research prototype. Its contribution is a leak-controlled, strictly scored evaluation pipeline and an honest negative result, not a working predictor. Thank you. Team `<<TEAM NAME>>`, `<<COLLEGE NAME>>`."
 
@@ -184,7 +198,7 @@ Setup
 
 Content
 - [ ] "Research prototype" said in the first and last minute.
-- [ ] "Manufactured demo data" said and shown every time the dashboard is on screen.
+- [ ] "Manufactured demo data" said and shown every time the default dashboard is on screen; the research-mode banner stays visible if shown.
 - [ ] Results card and chance slides match the numbers in this file.
 - [ ] No claim of clinical readiness, accuracy, Indian validation or fusion benefit.
 
@@ -195,4 +209,4 @@ After recording
 - [ ] Audio audible and UI readable at 720p and 1080p.
 - [ ] Link placed in README (`<<YOUTUBE UNLISTED URL>>`) and in the submission form.
 
-Segment 3 shows manufactured data only. The repository has a real-data replay receipt, but the failed-gate model is not served. Do not change that to make the demo look better.
+Segment 3 shows manufactured data and a synthetic-trained model by default. The real frozen model is replayed only through the opt-in research mode, with its red banner and an in-sample record, and only if rehearsed. The default server still refuses the failed-gate model. Do not change that to make the demo look better.
