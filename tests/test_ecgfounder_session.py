@@ -372,6 +372,7 @@ def test_publication_rejects_bundle_membership_drift(tmp_path, monkeypatch, chan
 
 def test_original_clock_exhaustion_preserved_before_authority(tmp_path, monkeypatch):
     h = fixture(tmp_path, monkeypatch)
+    monkeypatch.setattr(time, "monotonic", lambda: 100_000.0)  # fresh CI runners have short uptime
     with pytest.raises(TimeoutError):
         h.m.run_session(
             h.declaration,

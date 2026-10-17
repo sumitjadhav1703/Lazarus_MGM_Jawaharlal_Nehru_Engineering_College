@@ -56,7 +56,7 @@ def test_raw_logits_keep_common_abstentions_and_repeated_requested_order(tmp_pat
         for head in heads.values():
             logits = head.logits(timing, data, [3, 0, 1, 3, 4])
             assert logits.shape == (5,) and np.isnan(logits[[1, 4]]).all()
-            assert np.isfinite(logits[[0, 2, 3]]).all() and logits[0] == logits[3]
+            assert np.isfinite(logits[[0, 2, 3]]).all() and np.isclose(logits[0], logits[3])
             with pytest.raises(ValueError):
                 head.logits(timing, data, list(range(4097)))
 

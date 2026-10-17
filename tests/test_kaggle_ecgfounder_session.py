@@ -262,8 +262,9 @@ def test_worker_pip_stays_in_group_then_execs_direct_caller_with_original_clock(
     assert env["TMPDIR"] == str(project / "scratch")
 
 
-def test_hard_alarm_rejects_exhausted_original_clock_before_launch():
+def test_hard_alarm_rejects_exhausted_original_clock_before_launch(monkeypatch):
     m = load()
+    monkeypatch.setattr(time, "monotonic", lambda: 100_000.0)  # fresh CI runners have short uptime
     with pytest.raises(TimeoutError, match="reserve exhausted"):
         m.arm_clock(time.monotonic() - 41101, datetime.fromisoformat("2026-10-18T03:30:00+00:00"))
 

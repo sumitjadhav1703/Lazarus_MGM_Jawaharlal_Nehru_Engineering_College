@@ -748,6 +748,7 @@ def test_cli_preserves_original_preflight_failure_and_never_extracts(tmp_path, m
 
 def test_cli_extract_uses_first_bootstrap_start_before_preflight(tmp_path, monkeypatch):
     module = cli_module()
+    monkeypatch.setattr(runner.time, "monotonic", lambda: 100_000.0)  # fresh CI runners have short uptime
     monkeypatch.setattr(
         module, "preflight", lambda *a, **k: pytest.fail("preflight after whole-session deadline")
     )
