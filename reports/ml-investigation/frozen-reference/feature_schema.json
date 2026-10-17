@@ -1,0 +1,10 @@
+{
+  "features": [
+    "ecg_hr",
+    "ecg_hr_trend",
+    "ecg_pnn50",
+    "ecg_rmssd",
+    "ecg_rr_mean",
+    "ecg_sdnn"
+  ]
+}

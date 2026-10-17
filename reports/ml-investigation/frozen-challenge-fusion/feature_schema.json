@@ -1,0 +1,31 @@
+{
+  "features": [
+    "clinical_age",
+    "clinical_age_available",
+    "clinical_sex_male",
+    "clinical_sex_male_available",
+    "ecg_hr",
+    "ecg_hr_300s",
+    "ecg_hr_60s",
+    "ecg_hr_60s_vs_300s_delta",
+    "ecg_hr_trend",
+    "ecg_pnn50",
+    "ecg_rmssd",
+    "ecg_rmssd_300s",
+    "ecg_rmssd_60s",
+    "ecg_rmssd_60s_vs_300s_delta",
+    "ecg_rr_cv",
+    "ecg_rr_cv_300s",
+    "ecg_rr_cv_60s",
+    "ecg_rr_cv_60s_vs_300s_delta",
+    "ecg_rr_iqr",
+    "ecg_rr_lag1_corr",
+    "ecg_rr_mad",
+    "ecg_rr_mean",
+    "ecg_rr_median",
+    "ecg_rr_sample_entropy",
+    "ecg_sd1",
+    "ecg_sd2",
+    "ecg_sdnn"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "version": "af-forecast-investigation-v1",
+  "feature_version": "causal-rr-v2",
+  "provisional": true,
+  "target": {
+    "history_seconds": 600,
+    "gap_seconds": 120,
+    "horizon_seconds": 600,
+    "cadence_seconds": 30,
+    "min_episode_seconds": 30,
+    "washout_seconds": 600
+  },
+  "quality": {
+    "max_missing_fraction": 0.05,
+    "max_flatline_fraction": 0.2,
+    "min_peaks": 10,
+    "max_lead_disagreement": 0.5
+  },
+  "baseline": {
+    "minimum_updates": 5,
+    "max_updates": 240
+  },
+  "alert": {
+    "threshold": 1.0,
+    "release_threshold": 0.7499999999999999,
+    "persistence_seconds": 60,
+    "cooldown_seconds": 600,
+    "max_false_warnings_per_hour": 0.25,
+    "min_event_sensitivity": 0.0
+  },
+  "audit": {
+    "min_event_subjects": 12,
+    "min_test_event_subjects": 3,
+    "n_rhythm_is_other": false,
+    "test_fraction": 0.2
+  },
+  "seed": 42,
+  "training": {
+    "sample_weighting": "patient_class",
+    "calibration_c": 100.0
+  }
+}

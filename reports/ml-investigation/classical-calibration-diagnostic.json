@@ -1,0 +1,76 @@
+{
+  "scope": "Development-only diagnostic;no posthoc variant selection",
+  "candidate": "logistic_current_recipe",
+  "folds": [
+    {
+      "fold": 0,
+      "calibration_variants": {
+        "raw": {
+          "auroc": 0.5732753472579923,
+          "pr_auc": 0.016002017854367313,
+          "brier": 0.21214678551796123,
+          "group_macro_brier": 0.21007180638167902
+        },
+        "1.0": {
+          "auroc": 0.42672465274200766,
+          "pr_auc": 0.009519560964640822,
+          "brier": 0.010766277774510115,
+          "group_macro_brier": 0.0129824113009342
+        },
+        "100.0": {
+          "auroc": 0.42672465274200766,
+          "pr_auc": 0.009519560964640822,
+          "brier": 0.010766350022547179,
+          "group_macro_brier": 0.012982460845545832
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "calibration_variants": {
+        "raw": {
+          "auroc": 0.500956782725714,
+          "pr_auc": 0.010413136014992497,
+          "brier": 0.21554188920615294,
+          "group_macro_brier": 0.214979797895586
+        },
+        "1.0": {
+          "auroc": 0.500956782725714,
+          "pr_auc": 0.010413136014992497,
+          "brier": 0.008983785944351104,
+          "group_macro_brier": 0.013628535161588146
+        },
+        "100.0": {
+          "auroc": 0.500956782725714,
+          "pr_auc": 0.010413136014992497,
+          "brier": 0.008983792643116094,
+          "group_macro_brier": 0.013628549961641798
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "calibration_variants": {
+        "raw": {
+          "auroc": 0.6312939257940456,
+          "pr_auc": 0.010863852276855102,
+          "brier": 0.2074577480701429,
+          "group_macro_brier": 0.21259944128000496
+        },
+        "1.0": {
+          "auroc": 0.6312939257940456,
+          "pr_auc": 0.010863852276855102,
+          "brier": 0.005988726580093806,
+          "group_macro_brier": 0.009974365205660876
+        },
+        "100.0": {
+          "auroc": 0.6312939257940456,
+          "pr_auc": 0.010863852276855102,
+          "brier": 0.005988698918160771,
+          "group_macro_brier": 0.009974345114291178
+        }
+      }
+    }
+  ],
+  "interpretation": "Pooled OOF AUROC mixes independently calibrated folds;within-fold calibration may reverse ranking. Probability fit and grouped event utility remain the reported comparison metrics."
+}

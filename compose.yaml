@@ -1,0 +1,14 @@
+services:
+  cardiotwin:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/app/data:ro
+      - ./artifacts:/app/artifacts:ro
+      - ./reports:/app/reports:ro
+      - twin-state:/app/runtime
+    command: ["serve", "--host", "0.0.0.0", "--data-dir", "/app/data/demo", "--model", "/app/artifacts/ml-v2-reviewed/patient_class", "--metrics", "/app/reports/ml-v2-evaluation/evaluation.json", "--db", "/app/runtime/ml-v2-state.sqlite"]
+
+volumes:
+  twin-state:

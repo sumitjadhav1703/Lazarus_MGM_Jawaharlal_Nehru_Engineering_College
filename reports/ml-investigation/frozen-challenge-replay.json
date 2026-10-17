@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "model_version": "investigation-logistic_combined-a5fbcb844aba",
+  "model_sha256": "55f602615f44a02fdd7f90647b08740bbeaa74ecaaff2dd2f8d85fcb05a79a02",
+  "manifest_sha256": "3f6e3e31d042030def7399c3d8b5649488c93a37d4e19cd24507e3a042d5dfc8",
+  "split_sha256": "a5fbcb844abaeff2c30b1b16587f6fecbb057c81d2e80678c408158f0c903536",
+  "source_record": "record_000",
+  "source_record_contract_sha256": "a7c49033b2484026cc097d8682430860166925e42978b99de02540c9215de52f",
+  "selection_summary_sha256": "bdd6fd1d357be588f30a209fe50bbae56f487f84a53495be43f8cd6118cfbeb7",
+  "scope": "Real development ECG copied to temporary NPZ; research-only TwinService harness",
+  "decision_boundary_seconds": 1800,
+  "decisions_per_variant": 60,
+  "available_decisions_per_variant": [
+    36,
+    36
+  ],
+  "future_ecg_and_annotation_mutation": "Only samples/annotation after1800s differ",
+  "identical": [
+    "all earlier forecasts",
+    "features",
+    "baselines",
+    "warnings",
+    "timelines"
+  ],
+  "history_sha256": "2adb61276ab5e1cc914f511259752ed43669921c1bab8d48287a49766a834a31",
+  "default_loader_refused": true,
+  "available_replay_step_latency_seconds": {
+    "count": 72,
+    "median": 0.0251716460006719,
+    "p95": 0.027379864799877397,
+    "scope": "Both temporary real-prefix variants; ECG/features/prediction/alert/store/state response"
+  },
+  "persisted_waveform_keys": false,
+  "wall_seconds": 3.1180008750015986
+}
