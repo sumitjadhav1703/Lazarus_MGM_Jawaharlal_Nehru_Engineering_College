@@ -9,15 +9,15 @@ CardioTwin is a research prototype for forecasting a new AF onset 2-10 minutes a
 | [README](../README.md) | Submission checklist, problem, healthcare use case, technical stack, model details, quick start, results, FAQ, limitations |
 | [Architecture PDF](delivery/architecture.pdf) | Two-path design: online causal replay and offline evaluation |
 | [Presentation PDF](delivery/presentation.pdf) | Slide deck |
-| [Media details, chapters and captions](video/README.md) | Local 20:00 export verified; required unlisted link pending |
+| [Media details, chapters and captions](video/README.md) | [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto); English captions and seven chapters |
 | [Video script](video-script.md) | 20:00 narration, demo commands, recording checklist |
-| [Submission checklist](submission.md) | All 12 form items, supplied materials, pending video link and platform actions |
+| [Submission checklist](submission.md) | All 12 repository form items supplied; team confirmation and final platform submission remain unverified |
 
 ## Reviewer route
 
 Start with the README's result and architecture, follow its synthetic demo commands to inspect replay, signal quality, warnings and clinician review, then read the saved real-data report and model card. The demo shows software behaviour; the real finalist failed its forecasting gates.
 
-The public repository includes source, tests, locked dependencies, curated reports and PDFs. Raw ECG, frozen model binaries, local patient state and complete private research receipts are omitted. The [canonical GitHub repository](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College) was verified public on 19 Oct 2026. The unlisted YouTube link remains pending; see the [delivery status](submission.md).
+The public repository includes source, tests, locked dependencies, curated reports and PDFs. Raw ECG, frozen model binaries, local patient state and complete private research receipts are omitted. The [canonical GitHub repository](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College) was verified public on 19 Oct 2026. [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto). Anonymous playback was verified on 19 Oct 2026; see the [delivery status](submission.md) for outstanding platform actions.
 
 ## Honest-results summary
 

@@ -10,7 +10,7 @@ CardioTwin is a research prototype that tries to forecast a **new atrial-fibrill
 
 ## Submission checklist
 
-The 12 items in the submission form are mapped below. Source, reports, team information and PDFs are supplied. The unlisted YouTube link is pending; this checklist does not establish registration or submission success.
+The 12 items in the submission form are mapped below. Source, reports, team information and PDFs are supplied. The Unlisted YouTube demo is supplied below, with English captions and seven chapters. Anonymous repository, PDF and video access was checked on 19 Oct 2026. This checklist does not establish registration or final Unstop submission success.
 
 | Form item | Where | Status |
 | --- | --- | --- |
@@ -21,11 +21,11 @@ The 12 items in the submission form are mapped below. Source, reports, team info
 | Healthcare Use Case | [Healthcare Use Case and Impact](#healthcare-use-case-and-impact) | Done |
 | Technical Stack | [Technical Stack](#technical-stack) | Done |
 | AI/ML Model or Framework Details | [AI/ML Model or Framework Details](#aiml-model-or-framework-details) | Done |
-| 15-20 minute Demo Video (unlisted YouTube link) | [Demo Video](#demo-video); script in [docs/video-script.md](docs/video-script.md) | 20:00 local export verified; unlisted upload and link pending |
+| 15-20 minute Demo Video (unlisted YouTube link) | [Demo Video](#demo-video); script in [docs/video-script.md](docs/video-script.md) | Supplied: [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto); 20:00 local export |
 | Open-source License Details | [Open-source License Details](#open-source-license-details) ([LICENSE](LICENSE), [DATA_LICENSE.md](DATA_LICENSE.md)) | Done |
 | Architecture Diagram (PDF/PPT) | [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf); also [Architecture Diagram](#architecture-diagram) | Supplied |
 | Presentation (PDF/PPT) | [docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) | Supplied with team and college |
-| All files and links are publicly accessible without additional permissions | Repository and PDF links supplied; [video status](#demo-video) | Pending overall: video upload/access check and final anonymous link checks outstanding |
+| All files and links are publicly accessible without additional permissions | Repository and PDF links supplied; [video status](#demo-video) | Verified 19 Oct 2026: public repository and PDFs; Unlisted video plays without signing in |
 
 Public GitHub repository (separate form field): [Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College), verified public 19 Oct 2026. Its name follows the team/college convention. Verify anonymous access to the final repository, PDFs and video before submitting (see [submission checklist](docs/submission.md)).
 
@@ -336,7 +336,7 @@ Team and college information are supplied below. Platform-only details and video
 | --- | --- |
 | Team name | Lazarus |
 | Team members (1-4 full-time students) | Atharva Kulkarni (Team Leader), Pranav Mirkar, Sumit Jadhav |
-| Contact | Team leader contact details are entered on the Unstop submission form; no phone numbers or emails are published in this repository. |
+| Contact | Team leader contact details belong in the Unstop registration/profile; complete entry is unverified. No phone numbers or emails are published in this repository. |
 
 ### College/Incubator Information
 
@@ -348,11 +348,11 @@ The repository is named `Lazarus_MGM_Jawaharlal_Nehru_Engineering_College` using
 
 ### Demo Video
 
-**Unlisted YouTube link: pending upload.** The improved local export is exactly **20:00**, with larger synchronized visuals, a fuller manufactured-data dashboard walkthrough, normalized free local Kokoro male narration with more conversational wording, seven chapters and selectable English captions. A midpoint frame from each of the 37 visual units was inspected, and the complete file decoded without errors. Four diagrams explain the forecast window, runtime pipeline, patient roles and measured results. Full subjective playback remains pending. The original 19:59 draft is retained. The recorded listing/form wording differs on duration, so the submission target is exactly 20:00. Script: [docs/video-script.md](docs/video-script.md). The required public video link is still outstanding. [Media details](docs/video/README.md), [chapters](docs/video/chapters.md) and [captions](docs/video/captions.srt) are supplied.
+**[Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto).** Uploaded 19 October 2026 with English captions and seven description chapters; anonymous playback was verified. The improved local export is exactly **20:00**, with larger synchronized visuals, a fuller manufactured-data dashboard walkthrough, normalized free local Kokoro male narration with more conversational wording, seven chapters and selectable English captions. A midpoint frame from each of the 37 visual units was inspected, and the complete file decoded without errors. Four diagrams explain the forecast window, runtime pipeline, patient roles and measured results. Full subjective playback remains pending. The original 19:59 draft is retained. The recorded listing/form wording differs on duration, so the submission target is exactly 20:00. Script: [docs/video-script.md](docs/video-script.md). The video is Unlisted: anyone with its link can watch without an access request. [Media details](docs/video/README.md), [chapters](docs/video/chapters.md) and [captions](docs/video/captions.srt) are supplied.
 
 ### Presentation
 
-[docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) (12 slides). Architecture: [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf). The presentation includes team, college and member details; the architecture PDF describes the system. The presentation's demo-video URL remains pending until upload.
+[docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) (12 slides). Architecture: [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf). The presentation includes team, college and member details; the architecture PDF describes the system. The presentation includes a clickable link to the uploaded Unlisted demo on slide 12.
 
 ### Repository
 

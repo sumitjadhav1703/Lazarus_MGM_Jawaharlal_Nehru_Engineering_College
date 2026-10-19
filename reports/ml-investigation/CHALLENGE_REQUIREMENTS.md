@@ -1,5 +1,7 @@
 # CardioTwin challenge requirements and priorities
 
+> Delivery update, 19 October 2026: [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto) is uploaded; current publication and remaining platform actions are tracked in [the submission checklist](../../docs/submission.md). The dated research findings below are unchanged.
+
 Verified 10 October 2026, approximately 01:55 IST. This is a dated requirements audit, not registration, publication or submission confirmation. The team's new priority is challenge compliance. Preserve the earlier unrestricted scientific comparison as a separate reference.
 
 ## Official sources and required package

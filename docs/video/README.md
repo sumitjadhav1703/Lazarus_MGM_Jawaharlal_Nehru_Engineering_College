@@ -1,6 +1,6 @@
 # Demonstration media
 
-A local 20:00 submission export was built on 18 October and updated with four diagrams on 19 October 2026 at 1920x1080, 30 fps, with H.264 video and AAC audio. The MP4 is not stored in this source repository. The required unlisted YouTube URL is pending; until it is added and verified, the video and overall public-access form items remain incomplete.
+A local 20:00 submission export was built on 18 October and updated with four diagrams on 19 October 2026 at 1920x1080, 30 fps, with H.264 video and AAC audio. The MP4 is not stored in this source repository. [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto). Uploaded as Unlisted on 19 October 2026; anyone with the link can watch. English captions are attached and seven chapters are in the description. Signed-out playback was checked separately from the logged-in Studio session.
 
 - [Chapters](chapters.md) follow the actual export timing.
 - [English captions](captions.srt) are included as a sidecar and as a selectable track in the local MP4. Word timing is approximate within measured short speech chunks; review synchronization before relying on captions as a verbatim timed transcript.
@@ -12,6 +12,6 @@ A midpoint frame from all 37 visual units was inspected and the full MP4 decoded
 
 The video quotes the recorded 17 October test figures. Current software verification belongs in the repository's Verification section and GitHub Actions, not in those historical figures. The forecasting findings and failed acceptance gates are unchanged.
 
-Upload the reviewed MP4 as Unlisted, attach captions if desired, use the chapter list in the description, then verify playback without signing in. Add the verified URL to README and the delivery PDF builder. Upload and submission are separate actions; a local file does not complete them.
+The verified URL is in README, the documentation map, this media guide, chapters, the production script and the delivery PDF builder/presentation. Upload and final Unstop submission are separate actions; final platform submission is not claimed here.
 
 Voice tooling: [kokoro-onnx](https://github.com/thewh1teagle/kokoro-onnx) is MIT licensed; the [Kokoro-82M model](https://huggingface.co/hexgrad/Kokoro-82M) is Apache-2.0 licensed. No hosted speech API or paid account was used. The model and media build environment are not shipped in this repository.

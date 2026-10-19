@@ -1,6 +1,6 @@
 # Challenge delivery checklist
 
-Status as of 19 Oct 2026. Team information, source, curated evidence and PDFs are supplied; the canonical GitHub repository is verified public. A local 20:00 synthetic-voice export is verified; chapters and captions are in [docs/video](video/README.md). Final video upload/link, registration and submission remain unverified. Official rules and wording conflicts are in the [requirements audit](../reports/ml-investigation/CHALLENGE_REQUIREMENTS.md) (dated 10 Oct 2026; recheck the listing).
+Status as of 19 Oct 2026. Team information, source, curated evidence and PDFs are supplied; the canonical GitHub repository is verified public. A local 20:00 synthetic-voice export is verified; chapters and captions are in [docs/video](video/README.md). [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto) is uploaded with English captions and chapters; anonymous playback verified 19 Oct 2026. Existing registration was visible in the signed-in Unstop account on 19 Oct 2026; the original timestamped receipt, individual member confirmations and final submission remain unverified. Official rules and wording conflicts are in the [requirements audit](../reports/ml-investigation/CHALLENGE_REQUIREMENTS.md) (dated 10 Oct 2026; recheck the listing).
 
 ## Deadlines (IST)
 
@@ -18,7 +18,7 @@ The Unstop listing (API fetch, 17 Oct 2026) and form contradict each other. Ask 
 
 ## Unstop form items (README must contain these literally)
 
-Mapped in the README [Submission checklist](../README.md#submission-checklist): Team Details, College/Incubator Information, Project Title, Problem Statement, Healthcare Use Case, Technical Stack, AI/ML Model or Framework Details, 15-20 minute Demo Video (unlisted YouTube link), Open-source License Details, Architecture Diagram (PDF/PPT), Presentation (PDF/PPT), All files and links are publicly accessible without additional permissions. The GitHub URL is a separate form field. Canonical public repository: [Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College), verified 19 Oct 2026. Verify the final reviewed revision before submitting. The README table tracks all 12 checklist items. Written materials and PDFs are supplied; the unlisted video link and overall public-access confirmation remain pending.
+Mapped in the README [Submission checklist](../README.md#submission-checklist): Team Details, College/Incubator Information, Project Title, Problem Statement, Healthcare Use Case, Technical Stack, AI/ML Model or Framework Details, 15-20 minute Demo Video (unlisted YouTube link), Open-source License Details, Architecture Diagram (PDF/PPT), Presentation (PDF/PPT), All files and links are publicly accessible without additional permissions. The GitHub URL is a separate form field. Canonical public repository: [Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College), verified 19 Oct 2026. Verify the final reviewed revision before submitting. The README table tracks all 12 checklist items. Written materials, PDFs and the Unlisted video link are supplied; repository/PDF access and signed-out video playback were verified 19 Oct 2026.
 
 ## Technical items
 
@@ -54,21 +54,22 @@ The frozen model fails our development sensitivity gate. Do not claim that clini
 
 ## Delivery and platform actions
 
-- [ ] **Registration confirmed by 18 Oct 2026, 19:00 IST.** Keep the platform receipt. Recheck current organizer terms and the submission form.
-- [x] Team details filled in README and presentation PDF: Team Lazarus; MGM's Jawaharlal Nehru Engineering College; Atharva Kulkarni (Team Leader), Pranav Mirkar, Sumit Jadhav. Still verify that every member is a full-time student and confirmed on Unstop. Add the verified unlisted YouTube link to README after upload. Do not rely on post-registration changes.
-- [ ] Team leader name, phone and email entered in the submission form (not required in README).
+- [x] Existing registration visible in Unstop on 19 Oct 2026 (Team Lazarus; three expected members listed). Keep the original registration receipt; its timestamp and each member confirmation were not verified by this check.
+- [x] Team details filled in README and presentation PDF: Team Lazarus; MGM's Jawaharlal Nehru Engineering College; Atharva Kulkarni (Team Leader), Pranav Mirkar, Sumit Jadhav. Still verify that every member is a full-time student and confirmed on Unstop. The verified Unlisted YouTube link is now in README. Do not rely on post-registration changes.
+- [ ] Verify leader contact and eligibility details in the registered account. The current submission form asks for the repository URL and 12 README declarations; it has no separate contact fields.
 - [x] Canonical **public GitHub repository** verified 19 Oct 2026: [Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College). Its name follows the team/college convention.
-- [ ] Publish and verify the final reviewed documentation/PDF/video-support revision. Review the exact revision for raw signals, credentials, private upload files, model binaries or local patient state. Verify anonymous access to every final link.
+- [x] Publish and verify reviewed documentation/PDF/video-support updates. Changed-file anonymous hashes and repository/PDF access are checked; no raw recordings, model binaries or local patient state are shipped. A scoped inventory review is not an exhaustive secret scan.
 - [x] Local first draft exists: 19:59, 1920×1080 at 30 fps, synthetic TTS narration and manufactured-data dashboard footage. It is not a published submission video.
 - [x] Improved **20:00** local export with captions, seven chapters and four explanatory diagrams built and inspected; full decode passed. Original draft retained. Full subjective playback remains pending.
-- [ ] Upload the reviewed export as **unlisted YouTube**. Verify anonymous playback, readable UI, audio and exact duration. Add the link to README and the submission form. A local file is not a completed upload.
-- [x] Team, college and leader are filled in the presentation PDF (rebuilt 17 Oct 2026). The demo-video URL is explicitly marked pending (slide 12): after upload, set `VIDEO_URL` in `scripts/build_delivery_pdfs.py` and rebuild with `uv run --with reportlab==4.4.9 python scripts/build_delivery_pdfs.py`.
-- [ ] Review the final public contents, including `reports/ml-investigation/primary-split.json` (pseudonymous group IDs), as part of the final publication check.
+- [x] Upload the improved export as **Unlisted YouTube**: [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto). English captions, description and chapters are saved; signed-out playback was verified. Local duration is exactly 20:00. Full subjective listening remains pending.
+- [ ] Enter the canonical repository link in the Unstop submission form and verify the final success receipt.
+- [x] Team, college and leader are filled in the presentation PDF; its 19 Oct update adds the clickable Unlisted video URL on slide 12. `VIDEO_URL` is preserved in `scripts/build_delivery_pdfs.py` for reproducible rebuilds.
+- [x] Scoped public inventory and `reports/ml-investigation/primary-split.json` reviewed: pseudonymous group IDs, no direct identity keys found. This is not an exhaustive secret scan.
 - [ ] Confirm the two contradictions above with the organizers, or note that both readings were satisfied.
 - [ ] Submit **one solution** with the repository link by **20 Oct 2026, 19:00 IST**, leaving time for failures. Verify the platform receipt and the final linked revision. Recheck the [listing](https://unstop.com/hackathons/crp-digital-twin-challenge-2026-happiest-health-1757873) before submitting.
 - [x] Optional fresh-cohort check (MIT-BIH AFDB): dropped by the team. The loader would yield no eligible events without new code and the expected event count is small, so it has little statistical value. Not required for submission.
 
-GitHub visibility and the improved local 20:00 export are verified. No registration receipt, unlisted YouTube upload, platform contact details or submission success is claimed here.
+GitHub visibility, repository/PDF links, the improved local 20:00 export and uploaded Unlisted video playback are verified. Existing registration was visible in the signed-in account; the original timestamped receipt, complete team/contact confirmation and final Unstop submission success are not claimed here.
 
 ## Rebuilding the delivery PDFs
 

@@ -1,5 +1,7 @@
 # CardioTwin evidence-driven ML investigation
 
+> Delivery update, 19 October 2026: [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto) is uploaded; current publication and remaining platform actions are tracked in [the submission checklist](../../docs/submission.md). The dated research findings below are unchanged.
+
 Some referenced artifacts (model binaries, caches, intermediate receipts) are not shipped in this repository.
 
 Status: development extraction, audit and bounded classical comparisons are complete; the local neural screen ended at its three-hour cap, and the private Kaggle GPU comparison completed with a budget-exhausted screen. Interrupted runs are preserved, with verified warm RR-cache reuse for the local neural restart. Unrestricted and challenge-constrained selections are recorded, and both classical artifacts were actually frozen before held-out access. All four frozen primary/external evaluations are complete; all predeclared endpoint checks and independent final evidence verification are complete. No forecasting superiority is claimed.

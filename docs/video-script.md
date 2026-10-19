@@ -2,7 +2,7 @@
 
 Target: one **20:00** screen-and-voice demonstration, uploaded as **unlisted YouTube**. The Unstop listing says "minimum 20 min" and the submission form says "15-20 min" (see [submission checklist](submission.md)); exactly 20:00 satisfies both. Check the exported file's duration, not this schedule.
 
-Production status, 19 October 2026: a separate local export measures exactly 20:00 at 1920×1080 and 30 fps, with locally generated Kokoro am_michael narration, manufactured-data dashboard footage, seven chapters and English captions. The 19 October voice revision uses more conversational wording and measured short speech chunks; the earlier exports are preserved. Four diagrams were added for the forecasting window, runtime architecture, patient roles and measured outcomes. Frame/layout inspection and a full decode check passed. Full subjective playback and the unlisted YouTube upload/access check remain pending. The checklist below is a reusable recording guide, not evidence that every item was performed. See [media details](video/README.md).
+Production status, 19 October 2026: a separate local export measures exactly 20:00 at 1920×1080 and 30 fps, with locally generated Kokoro am_michael narration, manufactured-data dashboard footage, seven chapters and English captions. The 19 October voice revision uses more conversational wording and measured short speech chunks; the earlier exports are preserved. Four diagrams were added for the forecasting window, runtime architecture, patient roles and measured outcomes. Frame/layout inspection and a full decode check passed. [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto) was uploaded with English captions and seven chapters on 19 October; anonymous playback was verified. Full subjective playback remains pending. The checklist below is a reusable recording guide, not evidence that every item was performed. See [media details](video/README.md).
 
 ## Ground rules for the narrator
 
@@ -204,10 +204,11 @@ Content
 
 After recording
 - [ ] Exported duration is exactly 20:00 (check the file, then the YouTube player).
-- [ ] Uploaded as **Unlisted**, not Private or Public.
+- [x] Uploaded as **Unlisted**: [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto).
 - [ ] Anonymous check: open the link in a private window of a different browser, signed out of Google. It must play without login or an access request.
 - [ ] Audio audible and UI readable at 720p and 1080p.
-- [ ] Verified unlisted link placed in README and in the submission form.
+- [x] Verified Unlisted link placed in README and delivery documents.
+- [ ] Repository link entered and final submission confirmed in Unstop.
 
 Segment 3 shows manufactured data and a synthetic-trained model by default. The optional real-record replay is omitted from this production. Any later use requires the opt-in research mode, a visible red banner and an explicitly in-sample development record. The default server still refuses the failed-gate model. Do not change that to make the demo look better.
 

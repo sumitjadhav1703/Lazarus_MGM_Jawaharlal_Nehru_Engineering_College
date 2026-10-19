@@ -1,6 +1,6 @@
 # Video chapters
 
-These chapter timestamps match the local 20:00 submission export. The unlisted YouTube link is pending.
+These chapter timestamps match the local 20:00 submission export. [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto). The chapter list is also in its YouTube description.
 
 ```text
 00:00 Problem and honest headline
