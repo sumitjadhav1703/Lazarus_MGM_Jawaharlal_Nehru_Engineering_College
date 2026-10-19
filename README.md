@@ -1,46 +1,99 @@
-# CardioTwin
+# 🫀 CardioTwin
 
-CardioTwin is a research prototype that tries to forecast a **new atrial-fibrillation (AF) onset 2-10 minutes ahead** from the preceding 10 minutes of ECG plus paired age and sex, with one decision every 30 seconds. A FastAPI/SQLite service replays each patient's historical ECG as a causal "digital twin" and a React dashboard shows the ECG, trends, risk, signal quality, warnings and clinician review. The main contribution is a leak-controlled, strictly scored evaluation pipeline and an honest result: **on the public data we tested, forecasting is weak.**
+**Causal ECG replay · AF-onset forecasting research · Team Lazarus**
 
-> **Read this first.**
-> - **Research prototype.** Not a medical device. Not clinically ready. No treatment advice.
-> - **No Indian-population evidence.** All data are public retrospective recordings (IRIDIA-AF, LTAF). Nothing here has been validated in an Indian cohort.
-> - **Weak results, stated plainly.** The frozen model catches 6 of 241 development events, 1 of 43 on the primary held-out cohort and 2 of 29 on the external cohort (2-7% sensitivity against our own 50% target). It is not clearly better than random warning timing, and we did not show a benefit from adding clinical inputs. The acceptance gates failed (`deployment_ready` is false); the default server refuses this model, and it can only be replayed in an explicit, bannered research mode.
-> - **The default dashboard demo uses manufactured data and a model trained on that synthetic data.** It is a software demonstration, not patient evidence. The real frozen model can be replayed on a real record only in opt-in research mode, which proves it runs in the twin, not that it forecasts well ([details](#replay-the-real-frozen-model-research-mode)).
+**[▶️ Watch the 20-minute demo](https://youtu.be/4CJFCPdKEto) · [📑 Presentation PDF](docs/delivery/presentation.pdf) · [🧩 Architecture PDF](docs/delivery/architecture.pdf)**
 
-## Submission checklist
+[🚀 Run the demo](#quick-start) · [📊 See the results](#results) · [✅ All 12 submission items](#submission-checklist) · [📚 Documentation](docs/index.md)
 
-The 12 items in the submission form are mapped below. Source, reports, team information and PDFs are supplied. The Unlisted YouTube demo is supplied below, with English captions and seven chapters. Anonymous repository, PDF and video access was checked on 19 Oct 2026. This checklist does not establish registration or final Unstop submission success.
+CardioTwin asks whether historical ECG plus age and sex can warn about a **new atrial-fibrillation (AF) episode before it starts**. It combines a reproducible evaluation pipeline with a patient-state replay service and a dashboard for human review.
 
-| Form item | Where | Status |
-| --- | --- | --- |
-| Team details | [Team Details](#team-details) | Supplied |
-| College/Incubator information | [College/Incubator Information](#collegeincubator-information) | Supplied |
-| Project Title | [Project Title](#project-title) | Done |
-| Problem Statement | [Problem Statement](#problem-statement) | Done |
-| Healthcare Use Case | [Healthcare Use Case and Impact](#healthcare-use-case-and-impact) | Done |
-| Technical Stack | [Technical Stack](#technical-stack) | Done |
-| AI/ML Model or Framework Details | [AI/ML Model or Framework Details](#aiml-model-or-framework-details) | Done |
-| 15-20 minute Demo Video (unlisted YouTube link) | [Demo Video](#demo-video); script in [docs/video-script.md](docs/video-script.md) | Supplied: [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto); 20:00 local export |
-| Open-source License Details | [Open-source License Details](#open-source-license-details) ([LICENSE](LICENSE), [DATA_LICENSE.md](DATA_LICENSE.md)) | Done |
-| Architecture Diagram (PDF/PPT) | [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf); also [Architecture Diagram](#architecture-diagram) | Supplied |
-| Presentation (PDF/PPT) | [docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) | Supplied with team and college |
-| All files and links are publicly accessible without additional permissions | Repository and PDF links supplied; [video status](#demo-video) | Verified 19 Oct 2026: public repository and PDFs; Unlisted video plays without signing in |
+| At a glance | What it means |
+| --- | --- |
+| 🎯 Forecast target | A new AF onset **2–10 minutes ahead** |
+| ⏱️ Available signal | The **preceding 10 minutes of ECG**; one decision every **30 seconds** |
+| 🧠 Frozen finalist | Logistic regression with **23 ECG features, age, sex and 2 availability flags** |
+| 🖥️ Software | FastAPI + SQLite replay service; React dashboard |
 
-Public GitHub repository (separate form field): [Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College), verified public 19 Oct 2026. Its name follows the team/college convention. Verify anonymous access to the final repository, PDFs and video before submitting (see [submission checklist](docs/submission.md)).
+> [!IMPORTANT]
+> **Research prototype, not clinically ready.** Not a medical device; no treatment advice or Indian-population validation.
+>
+> **Real-data forecasting was weak:** 6/241 development events, 1/43 primary held-out events and 2/29 external events detected. The acceptance gates failed against our own 50% sensitivity target. Useful prediction above random timing and a benefit from clinical fusion were not established.
+>
+> **The video and default dashboard use manufactured data and a synthetic-trained model.** They demonstrate software behavior, not patient performance. The default server refuses the gate-failed real model (`deployment_ready=false`); explicit, bannered [research replay](#replay-the-real-frozen-model-research-mode) is available separately.
 
 ## Reviewer guide
 
-1. Read the result and research boundaries above, then the [architecture PDF](docs/delivery/architecture.pdf).
-2. Follow [Quick start](#quick-start) for the synthetic software demonstration: start replay, inspect ECG and risk, pause/step, inspect the unreliable segment, review a warning and open evaluation. Synthetic warnings show the workflow, not forecasting evidence.
-3. Compare the saved real-data [results](#results), [model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md) and [investigation report](reports/ml-investigation/report.md). The real frozen finalist failed its acceptance gates; optional research replay requires the separate model and data.
-4. Use the [submission checklist](docs/submission.md) for the 12 form items and remaining upload/submission actions.
+Choose the path that fits your review. You do not need to read every technical section first.
+
+| I want to… | Start here |
+| --- | --- |
+| 🎬 See the prototype in action | [Watch the demo](https://youtu.be/4CJFCPdKEto), or jump to the [dashboard at 05:30](https://youtu.be/4CJFCPdKEto?t=330) |
+| 🧩 Understand the system | [Flowcharts](#architecture-diagram) → [architecture PDF](docs/delivery/architecture.pdf) |
+| 📊 Assess the evidence | [Results](#results) → [model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md) → [investigation report](reports/ml-investigation/report.md) |
+| 🚀 Run it locally | [Quick start](#quick-start); start replay, inspect ECG/risk, pause/step, inspect the unreliable segment, review a warning and open evaluation |
+| ✅ Check the challenge requirements | [12-item checklist](#submission-checklist) → [delivery checklist](docs/submission.md) |
+
+Synthetic warnings show the workflow, not forecasting evidence. The real frozen finalist failed its acceptance gates; optional research replay requires the separate model and data.
 
 This repository supplies application and research source, locked dependencies, tests, curated evaluation reports, model identity/configuration and delivery PDFs. Raw signals, frozen model binaries, local SQLite state and the complete private research receipt collection are omitted. The synthetic demo is reproducible from source; the shipped reports document the real-data result but do not provide a runnable frozen-model package.
 
+## Demo Video
+
+### [▶️ Watch CardioTwin on YouTube — 20:00](https://youtu.be/4CJFCPdKEto)
+
+**Unlisted · English captions · 7 chapters · Uploaded 19 October 2026**
+
+[Dashboard walkthrough — 05:30](https://youtu.be/4CJFCPdKEto?t=330) · [Real-data results — 13:30](https://youtu.be/4CJFCPdKEto?t=810) · [Limitations — 17:00](https://youtu.be/4CJFCPdKEto?t=1020)
+
+[![Manufactured-data CardioTwin dashboard preview; click to watch the demo](dashboard/screenshots/overview-desktop.png)](https://youtu.be/4CJFCPdKEto)
+
+*Preview: manufactured ECG and patient profiles, with a synthetic-trained model. This screen shows software behavior, not clinical evidence.*
+
+<details>
+<summary>Recording, narration and media verification details</summary>
+
+**[Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto).** Uploaded 19 October 2026 with English captions and seven description chapters; anonymous playback was verified. The improved local export is exactly **20:00**, with larger synchronized visuals, a fuller manufactured-data dashboard walkthrough, normalized free local Kokoro male narration with more conversational wording, seven chapters and selectable English captions. A midpoint frame from each of the 37 visual units was inspected, and the complete file decoded without errors. Four diagrams explain the forecast window, runtime pipeline, patient roles and measured results. Full subjective playback remains pending. The original 19:59 draft is retained. The recorded listing/form wording differs on duration, so the submission target is exactly 20:00. Script: [docs/video-script.md](docs/video-script.md). The video is Unlisted: anyone with its link can watch without an access request. [Media details](docs/video/README.md), [chapters](docs/video/chapters.md) and [captions](docs/video/captions.srt) are supplied.
+
+</details>
+
+### Presentation
+
+[docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) (12 slides). Architecture: [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf). The presentation includes team, college and member details; the architecture PDF describes the system. The presentation includes a clickable link to the uploaded Unlisted demo on slide 12.
+
+
+
+## Submission checklist
+
+All **12 mandatory README items** are mapped below. ✅ means the submission material is supplied; it does not mean the model passed its research acceptance gates. Repository/PDF access and signed-out video playback were verified on **19 October 2026**. Team Lazarus’s Unstop entry was submitted and its saved repository URL and all 12 selections were reopened and verified that day.
+
+| Form item | Where | Status |
+| --- | --- | --- |
+| Team details | [Team Details](#team-details) | ✅ Supplied |
+| College/Incubator information | [College/Incubator Information](#collegeincubator-information) | ✅ Supplied |
+| Project Title | [Project Title](#project-title) | ✅ Done |
+| Problem Statement | [Problem Statement](#problem-statement) | ✅ Done |
+| Healthcare Use Case | [Healthcare Use Case and Impact](#healthcare-use-case-and-impact) | ✅ Done |
+| Technical Stack | [Technical Stack](#technical-stack) | ✅ Done |
+| AI/ML Model or Framework Details | [AI/ML Model or Framework Details](#aiml-model-or-framework-details) | ✅ Done |
+| 15-20 minute Demo Video (unlisted YouTube link) | [Demo Video](#demo-video); script in [docs/video-script.md](docs/video-script.md) | ✅ Supplied: [Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto); 20:00 local export |
+| Open-source License Details | [Open-source License Details](#open-source-license-details) ([LICENSE](LICENSE), [DATA_LICENSE.md](DATA_LICENSE.md)) | ✅ Done |
+| Architecture Diagram (PDF/PPT) | [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf); also [Architecture Diagram](#architecture-diagram) | ✅ Supplied |
+| Presentation (PDF/PPT) | [docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) | ✅ Supplied with team and college |
+| All files and links are publicly accessible without additional permissions | Repository and PDF links supplied; [video status](#demo-video) | ✅ Verified 19 Oct 2026: public repository and PDFs; Unlisted video plays without signing in |
+
+Public GitHub repository (separate form field): [Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College), verified public 19 Oct 2026. Its name follows the team/college convention. The entry links to this public repository; the [delivery checklist](docs/submission.md) contains the detailed preparation record.
+
 ## Contents
 
+[Watch](#demo-video) · [Run](#quick-start) · [Results](#results) · [Requirements](#submission-checklist) · [Team](#team-details)
+
+<details>
+<summary>Browse all sections</summary>
+
 [Project Title](#project-title) | [Problem Statement](#problem-statement) | [Healthcare Use Case and Impact](#healthcare-use-case-and-impact) | [What it does](#what-it-does) | [Architecture Diagram](#architecture-diagram) | [Technical Stack](#technical-stack) | [AI/ML Model or Framework Details](#aiml-model-or-framework-details) | [Quick start](#quick-start) | [Results](#results) | [Methodology and leakage controls](#methodology-and-leakage-controls) | [Deep-learning work](#deep-learning-work) | [FAQ for technical reviewers](#faq-for-technical-reviewers) | [Repository map](#repository-map) | [Limitations](#limitations) | [Future validation plan](#future-validation-plan) | [Team and submission details](#team-and-submission-details) | [Open-source License Details](#open-source-license-details) | [Citations and data sources](#citations-and-data-sources) | [Documentation map](docs/index.md)
+
+</details>
 
 ## Project Title
 
@@ -50,14 +103,21 @@ This repository supplies application and research source, locked dependencies, t
 
 **Question.** Can a wearable-style ECG stream plus basic clinical history warn a clinician minutes before a new AF episode? The target is a new AF onset only, not heart attack, stroke or epilepsy.
 
+
+
 ### India relevance
 
 National AF data for India are lacking. Community estimates range from about 0.1% to 5% depending on method and age. The sources we rely on, and nothing more:
+
+<details>
+<summary>Read the India sources, sample sizes and caveats</summary>
 
 - A door-to-door survey of 4,281 adults in rural Andhra Pradesh found AF in 0.32% (95% CI 0.17-0.54), 1.5% above age 60 and 3.5% above 75. Earlier Indian studies range from 0.1% to 1.6%. [Saggu et al., Indian Heart J 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9039683).
 - Single-lead ECG screening of 354 people aged 50+ in six rural Gujarat villages found 5.1% AF (95% CI 2.7-8.7). This is a small convenience sample. [Soni et al., JMIR Public Health Surveill 2016](https://pmc.ncbi.nlm.nih.gov/articles/PMC5083844). (Saggu 2022 describes the same study as 1.6%; we have not reconciled the two.)
 - India's ischemic stroke burden in GBD 2019 was 535,700 incident cases (95% UI 453,200-631,800), 271,200 deaths and 5,689,300 DALYs. These are ischemic stroke figures only; we do not claim any share is caused by AF. [Goyal et al., J Clin Med 2025](https://pmc.ncbi.nlm.nih.gov/articles/PMC12609587/).
 - Prevention gap: the Kerala-AF Registry (3,421 AF patients, 53 hospitals, 2016-17) had a mean CHA2DS2-VASc of 2.8, and NOAC use was only about 5-6% in its rate/rhythm cohort of 2,901. [Calvert et al., J Arrhythmia 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11317704/).
+
+</details>
 
 These sources motivate the question. They do not show that this tool would help. We have no Indian data and no clinical partner (see [Future validation plan](#future-validation-plan)).
 
@@ -83,22 +143,41 @@ Screenshots: [overview](dashboard/screenshots/overview-desktop.png), [evaluation
 
 ## Architecture Diagram
 
-```
-ONLINE (runtime, causal only)
-  historical ECG --> TwinService (30 s ticks) --> features (running baseline kept as twin state)
-        --> Predictor (frozen model) --> alert state machine --> SQLite store
-        --> FastAPI --> React dashboard
-        (baseline updated after the prediction; not a model input)
+The system has two separate paths. Future rhythm labels belong to offline training and evaluation, never to runtime inputs.
 
-OFFLINE (labels and evaluation, never imported by runtime)
-  data / labels --> cohort audit --> grouped patient-level training
-        --> freeze (manifest + checksums) --> complete chronological replay
-        --> event-level scoring (one-to-one matching, false warnings per eligible hour)
+### Runtime: historical signal to saved review
+
+```mermaid
+flowchart LR
+    E["Historical ECG<br/>preceding 600 seconds"] --> P["Causal features + quality<br/>frozen risk scorer"]
+    C["Paired age + sex<br/>availability flags"] --> P
+    P --> A["Warning policy<br/>persistence + cooldown"]
+    A --> S["SQLite<br/>patient state + warnings"]
+    S --> D["FastAPI + React<br/>dashboard + review"]
 ```
+
+Replay advances every **30 seconds**. The baseline is updated **after prediction** and retained as patient context; it is **not an input to the frozen finalist**. The warning state machine includes hysteresis. SQLite also stores the cursor and review history.
+
+### Offline: data to a frozen, evaluated model
+
+```mermaid
+flowchart LR
+    L["Data + offline labels"] --> Q["Cohort audit<br/>patient-group splits"]
+    Q --> T["Grouped training<br/>separate calibration + policy"]
+    T --> F["Freeze<br/>manifest + checksums"]
+    F --> R["Complete chronological replay<br/>one-to-one event scoring"]
+```
+
+Scoring counts false warnings per eligible hour, including the full accounting of rejected forecasts, misses and unknown outcomes.
 
 `alerts.py` and `evaluation.py` are shared by runtime and offline scoring, so the policy that is scored is the policy that runs. PDF version: [architecture.pdf](docs/delivery/architecture.pdf). Slides: [presentation.pdf](docs/delivery/presentation.pdf).
 
 ## Technical Stack
+
+**Python / scikit-learn** for the frozen model, **FastAPI / SQLite** for replay and saved state, **React / Vite** for the dashboard, and **uv / Docker / GitHub Actions** for reproducibility and software checks. XGBoost and optional PyTorch support the research comparisons.
+
+<details>
+<summary>Expand the complete dependency and locked-version table</summary>
 
 Constraints are from [pyproject.toml](pyproject.toml) and [dashboard/package.json](dashboard/package.json); locked versions are from `uv.lock` and `dashboard/package-lock.json`.
 
@@ -125,6 +204,8 @@ Constraints are from [pyproject.toml](pyproject.toml) and [dashboard/package.jso
 | Delivery PDFs | ReportLab 4.4.9 via `scripts/build_delivery_pdfs.py` | |
 | CI | GitHub Actions ([checks.yml](.github/workflows/checks.yml)) | |
 
+</details>
+
 ## AI/ML Model or Framework Details
 
 **Frozen challenge finalist: logistic regression.** Version `investigation-logistic_combined-a5fbcb844aba`. Median imputation, standard scaling, logistic regression (C=100, seed 42), then a sigmoid calibrator fitted on separate calibration groups. Full details: [model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md), [config.json](reports/ml-investigation/frozen-challenge-fusion/config.json), [manifest.json](reports/ml-investigation/frozen-challenge-fusion/manifest.json).
@@ -135,6 +216,9 @@ Constraints are from [pyproject.toml](pyproject.toml) and [dashboard/package.jso
 - **Alert policy** (`config.json`): threshold 0.013468, release threshold 0.010101, persistence 60 s, cooldown 600 s, at most 0.25 false warnings per eligible hour (our research assumption). A state machine applies hysteresis and abstains on poor signal quality.
 - **Groups:** 85 fitting, 18 calibration and 18 policy patient groups from the 121 development groups, disjoint from the 31 primary test groups.
 - **Status:** `deployment_ready=false`; every acceptance gate failed. Results: [Results](#results).
+
+<details>
+<summary>Other models tried — development-only comparisons</summary>
 
 **Other models tried (all development-only; none became the finalist):**
 
@@ -148,6 +232,8 @@ Constraints are from [pyproject.toml](pyproject.toml) and [dashboard/package.jso
 | ECGFounder frozen encoder | Foundation-model features (attempt) | No outcome fit: 0 fits; the last private Kaggle job failed during pip setup |
 
 See [Deep-learning work](#deep-learning-work) for the caveats and the chance comparison.
+
+</details>
 
 ## Quick start
 
@@ -179,7 +265,25 @@ Open http://127.0.0.1:8000 (API docs at `/docs`). Press Start for accelerated pl
 
 Notes: the synthetic demo `audit` exits 0, while an `audit` of an infeasible real-data cohort exits 2; `train` exits 2 on `constraint_not_met`. Use a single replay worker. The demo API binds to localhost and has no hospital authentication or audit governance: do not expose it for a care workflow.
 
+### Verification
+
+<details>
+<summary>Software check commands, measured runs and skipped-test scope</summary>
+
+```bash
+OMP_NUM_THREADS=1 uv run pytest
+uv run ruff check src tests scripts
+npm run build --prefix dashboard
+```
+
+In this public repository, on 19 Oct 2026, the full suite gave **842 passed, 83 skipped, 0 failed** without PyTorch (241.04 s). Ruff and the dashboard production build also passed. Synthetic ECGFounder tests now use an explicit historical clock; the production experiment deadline remains unchanged. The artifact-integrity fixture uses a persistence interval longer than its positive run to avoid numerical threshold ties. With the optional `--extra neural` (PyTorch) the same command gave 948 passed, 37 skipped, 0 failed, measured earlier on 17 Oct 2026 before five tests were added; the PyTorch run has not been repeated since. Skipped tests need private research receipts that are not shipped here (each test names the missing file) or PyTorch.
+
+</details>
+
 ### Replay the real frozen model (research mode)
+
+<details>
+<summary>Advanced: separate data/model requirements and research-only replay</summary>
 
 The default demo above never serves the real finalist. An explicit opt-in lets the gate-failed model run in the twin:
 
@@ -193,15 +297,10 @@ uv run cardiotwin serve --research-model --model <frozen model dir> --data-dir <
 - To replay one real record, `scripts/prepare_single_record_replay.py --source DATA_DIR --record RECORD_ID --output DIR [--split-file primary-split.json]` builds a one-record data directory (output must be fresh; the ECG is symlinked). With `--split-file` it refuses records in the frozen test groups, so held-out records are not replayed. Real data are not shipped: download IRIDIA-AF from [Zenodo 8405941](https://zenodo.org/records/8405941) (see the real-data pipeline below). The frozen model binary is also not shipped (see [Limitations](#limitations)); its identity and hashes are in the [model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md).
 - **Proof it runs (local run, 17 Oct 2026; not a shipped receipt).** The frozen model `investigation-logistic_combined-a5fbcb844aba` on IRIDIA development record `record_000` produced forecasts at 3,600 / 7,200 / 10,800 s with risks 0.00920 / 0.00787 / 0.00804, no warnings in the first 10,800 s, and about 26-29 ms per step. That record belongs to the model's development cohort, so it is **in-sample**. This shows the model runs in the twin. It says nothing about forecasting quality.
 
-**Verification:**
+</details>
 
-```bash
-OMP_NUM_THREADS=1 uv run pytest
-uv run ruff check src tests scripts
-npm run build --prefix dashboard
-```
-
-In this public repository, on 19 Oct 2026, the full suite gave **842 passed, 83 skipped, 0 failed** without PyTorch (241.04 s). Ruff and the dashboard production build also passed. Synthetic ECGFounder tests now use an explicit historical clock; the production experiment deadline remains unchanged. The artifact-integrity fixture uses a persistence interval longer than its positive run to avoid numerical threshold ties. With the optional `--extra neural` (PyTorch) the same command gave 948 passed, 37 skipped, 0 failed, measured earlier on 17 Oct 2026 before five tests were added; the PyTorch run has not been repeated since. Skipped tests need private research receipts that are not shipped here (each test names the missing file) or PyTorch.
+<details>
+<summary>Advanced: real-data acquisition and research pipeline</summary>
 
 **Real-data research pipeline (optional, large).** Full IRIDIA-AF acquisition needs about 21.49 GB peak. Each command has `--help`; output directories must be fresh and the frozen primary split must not be regenerated in response to results.
 
@@ -211,6 +310,8 @@ uv run python scripts/prepare_research_data.py iridia --output data/iridia-af --
 uv run python scripts/prepare_research_data.py ltaf --output data/ltaf --metadata-only
 uv run python scripts/run_investigation.py --help   # split, cache, audit, ladder, neural, select, freeze, evaluate
 ```
+
+</details>
 
 ## Results
 
@@ -228,6 +329,11 @@ The separately kept ECG-only reference detects 7/241 in development, 0/43 on the
 
 ### What we found when we checked against chance
 
+**The key caution:** 392 of 398 LTAF warning starts were unassessable. A low assessed false-warning rate alone does not establish forecasting skill. Clinical fusion showed no benefit.
+
+<details>
+<summary>Expand the chance analysis, calibration diagnostic and replay measurements</summary>
+
 An independent re-analysis of the saved predictions re-applied the same alert policy to risk scores shifted to random times within each recording.
 
 - **Not clearly above chance.** Development: 6 detections observed versus about 4.5 expected at random timing (range 1-7; chance of at least 6 about 0.33). Held-out: 3 detections in 72 events (1 + 2) versus about 0.7 expected, uncorrected p about 0.035. That is three events, the intervals include zero, and it was a post-hoc check, so we do not treat it as evidence of skill.
@@ -244,6 +350,8 @@ An independent re-analysis of the saved predictions re-applied the same alert po
 
 Full detail: [investigation report](reports/ml-investigation/report.md), [frozen model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md), [challenge requirements audit](reports/ml-investigation/CHALLENGE_REQUIREMENTS.md).
 
+</details>
+
 ## Methodology and leakage controls
 
 - **Causal inputs only.** Runtime features use the available trailing ECG, forward-causal filters and missing-gap masks. No future samples, future annotations, onset IDs or pair IDs. Label code is offline and never imported by runtime code.
@@ -256,6 +364,9 @@ Full detail: [investigation report](reports/ml-investigation/report.md), [frozen
 
 ## Deep-learning work
 
+<details>
+<summary>Expand the deep-learning architectures, results and limits</summary>
+
 All deep-learning arms are development-only and none became the frozen finalist.
 
 | Arm | Description | Development result |
@@ -266,7 +377,12 @@ All deep-learning arms are development-only and none became the frozen finalist.
 
 Related: precursor ranking caught 5/241 versus 6/241 for the pointwise control (advancement rejected). No reviewed model approaches the 50% research sensitivity goal. Code: `neural.py`, `neural_architectures.py` (optional PyTorch), `ecgfounder*.py`.
 
+</details>
+
 ## FAQ for technical reviewers
+
+<details>
+<summary>Expand the technical questions and answers</summary>
 
 **Why 2-10 minutes?** It is our design choice, set in [config.json](reports/ml-investigation/frozen-challenge-fusion/config.json) (`gap_seconds` 120, `horizon_seconds` 600). A warning counts only if the onset follows it by 2 to 10 minutes inclusive. Neither the organizers nor a clinical study fixed this window, and we do not claim it is the clinically right lead time.
 
@@ -286,7 +402,12 @@ Related: precursor ranking caught 5/241 versus 6/241 for the pointwise control (
 
 **Does the dashboard risk equal the evaluated risk?** Unverified. The service and the offline evaluation use the same extractor and predictor classes, but a parity test has not been run.
 
+</details>
+
 ## Repository map
+
+<details>
+<summary>Expand the source map, API endpoints and artifact handling</summary>
 
 | Path | Responsibility |
 | --- | --- |
@@ -303,6 +424,8 @@ Related: precursor ranking caught 5/241 versus 6/241 for the pointwise control (
 | `reports/ml-investigation/` | [Report](reports/ml-investigation/report.md), [requirements audit](reports/ml-investigation/CHALLENGE_REQUIREMENTS.md), [model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md) |
 
 API: `/api/health`, `/api/patients`, `/api/patients/{id}/state`, `/forecast`, `/warnings`, POST `/api/patients/{id}/replay`, POST `/api/patients/{id}/warnings/{warning_id}/review`, `/api/metrics`. Every forecast carries its timestamp, target interval, data quality, prior baseline, model version, availability reason and uncertainty context. SQLite cursor/baseline/alert/warning commits are atomic. Load **trusted local model artifacts only** (joblib is a Python object format).
+
+</details>
 
 ## Limitations
 
@@ -328,7 +451,7 @@ Planned, not started, and no clinical partner is secured:
 
 ## Team and submission details
 
-Team and college information are supplied below. Platform-only details and video upload status are tracked in the [submission checklist](docs/submission.md).
+Team and college information are supplied below. The video is linked near the top of this page; the [delivery checklist](docs/submission.md) preserves the detailed preparation record.
 
 ### Team Details
 
@@ -346,19 +469,11 @@ Team and college information are supplied below. Platform-only details and video
 
 The repository is named `Lazarus_MGM_Jawaharlal_Nehru_Engineering_College` using the team/college convention.
 
-### Demo Video
-
-**[Watch the Unlisted CardioTwin demo](https://youtu.be/4CJFCPdKEto).** Uploaded 19 October 2026 with English captions and seven description chapters; anonymous playback was verified. The improved local export is exactly **20:00**, with larger synchronized visuals, a fuller manufactured-data dashboard walkthrough, normalized free local Kokoro male narration with more conversational wording, seven chapters and selectable English captions. A midpoint frame from each of the 37 visual units was inspected, and the complete file decoded without errors. Four diagrams explain the forecast window, runtime pipeline, patient roles and measured results. Full subjective playback remains pending. The original 19:59 draft is retained. The recorded listing/form wording differs on duration, so the submission target is exactly 20:00. Script: [docs/video-script.md](docs/video-script.md). The video is Unlisted: anyone with its link can watch without an access request. [Media details](docs/video/README.md), [chapters](docs/video/chapters.md) and [captions](docs/video/captions.srt) are supplied.
-
-### Presentation
-
-[docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) (12 slides). Architecture: [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf). The presentation includes team, college and member details; the architecture PDF describes the system. The presentation includes a clickable link to the uploaded Unlisted demo on slide 12.
-
 ### Repository
 
-[Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College) — public repository verified on 19 Oct 2026. Verify that the final reviewed revision and delivery files are published before submission.
+[Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College) — public repository verified on 19 Oct 2026. The repository URL and all 12 README declarations were saved in Team Lazarus’s Unstop submission on 19 October 2026.
 
-Challenge: CRP Digital Twin Challenge 2026 (Happiest Health) on Unstop. Registration closes 18 Oct 2026 19:00 IST; submission is due 20 Oct 2026 19:00 IST.
+Challenge: CRP Digital Twin Challenge 2026 (Happiest Health) on Unstop. The recorded registration deadline was 18 Oct 2026 19:00 IST; the submission deadline is 20 Oct 2026 19:00 IST. The entry was submitted on 19 October, before that deadline.
 
 ## Open-source License Details
 
