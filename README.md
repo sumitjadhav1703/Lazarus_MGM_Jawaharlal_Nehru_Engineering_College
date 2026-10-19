@@ -147,7 +147,12 @@ The system has two separate paths. Future rhythm labels belong to offline traini
 
 ### Runtime: historical signal to saved review
 
-```mermaid
+![Runtime flow: historical ECG and age/sex through causal scoring, warning policy, saved state and dashboard review](docs/images/runtime-flow.svg)
+
+<details>
+<summary>Editable Mermaid source</summary>
+
+```text
 flowchart LR
     E["Historical ECG<br/>preceding 600 seconds"] --> P["Causal features + quality<br/>frozen risk scorer"]
     C["Paired age + sex<br/>availability flags"] --> P
@@ -156,17 +161,26 @@ flowchart LR
     S --> D["FastAPI + React<br/>dashboard + review"]
 ```
 
+</details>
+
 Replay advances every **30 seconds**. The baseline is updated **after prediction** and retained as patient context; it is **not an input to the frozen finalist**. The warning state machine includes hysteresis. SQLite also stores the cursor and review history.
 
 ### Offline: data to a frozen, evaluated model
 
-```mermaid
+![Offline flow: cohort audit and grouped learning, frozen artifact, complete chronological replay and event scoring](docs/images/evaluation-flow.svg)
+
+<details>
+<summary>Editable Mermaid source</summary>
+
+```text
 flowchart LR
     L["Data + offline labels"] --> Q["Cohort audit<br/>patient-group splits"]
     Q --> T["Grouped training<br/>separate calibration + policy"]
     T --> F["Freeze<br/>manifest + checksums"]
     F --> R["Complete chronological replay<br/>one-to-one event scoring"]
 ```
+
+</details>
 
 Scoring counts false warnings per eligible hour, including the full accounting of rejected forecasts, misses and unknown outcomes.
 
