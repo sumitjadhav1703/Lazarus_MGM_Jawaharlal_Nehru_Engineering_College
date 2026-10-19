@@ -129,6 +129,8 @@ def test_complete_review_replays_full_cohort_and_detects_changed_artifact(tmp_pa
     from cardiotwin.config import load_config
     rows, events, roles, pairs = study_fixture()
     cfg = load_config('configs/precursor-cycle.json')
+    # Require 90s beyond the synthetic 60s positive run, avoiding fitted-risk threshold ties.
+    cfg['alert']['persistence_seconds'] = 90
     audit_dir = tmp_path/'audit'
     audit_dir.mkdir()
     (audit_dir/'pairs.jsonl').write_text(''.join(json.dumps(asdict(p))+'\n' for p in pairs))

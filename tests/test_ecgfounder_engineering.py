@@ -5,6 +5,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from conftest import HistoricalECGFounderDatetime
 
 ROOT = Path(__file__).parents[1]
 
@@ -15,6 +16,8 @@ def module(name="run_ecgfounder_engineering"):
     spec = importlib.util.spec_from_file_location(name, path)
     result = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(result)
+    if hasattr(result, "datetime"):
+        result.datetime = HistoricalECGFounderDatetime
     return result
 
 

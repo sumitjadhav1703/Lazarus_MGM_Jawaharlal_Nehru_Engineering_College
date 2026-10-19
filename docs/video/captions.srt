@@ -1,0 +1,1485 @@
+1
+00:00:00,400 --> 00:00:04,301
+Imagine a clinician reviewing a long ECG
+recording.
+
+2
+00:00:04,301 --> 00:00:08,690
+Detecting atrial fibrillation after it
+begins is one question.
+
+3
+00:00:08,690 --> 00:00:14,542
+Our question is harder: could the
+preceding signal support a warning before
+
+4
+00:00:14,542 --> 00:00:16,492
+a new episode starts?
+
+5
+00:00:16,492 --> 00:00:22,344
+CardioTwin is a research prototype for
+that question, built for the CRP
+
+6
+00:00:22,344 --> 00:00:27,220
+Digital Twin Challenge by Team Lazarus
+from MGM's Jawaharlal Nehru
+
+7
+00:00:27,220 --> 00:00:28,196
+Engineering College.
+
+8
+00:00:28,196 --> 00:00:33,072
+It combines historical ECG, permitted
+patient context, persistent state and
+
+9
+00:00:33,072 --> 00:00:34,535
+a review dashboard.
+
+10
+00:00:34,535 --> 00:00:40,387
+The practical idea is to make a future
+warning inspectable rather than
+
+11
+00:00:40,387 --> 00:00:42,337
+display an unexplained number.
+
+12
+00:00:42,337 --> 00:00:48,189
+The intended output is a reviewable
+warning, with evidence and an explicit
+
+13
+00:00:48,189 --> 00:00:49,164
+availability reason.
+
+14
+00:00:49,826 --> 00:00:56,666
+Here is the result early: the frozen
+finalist caught six of two hundred and
+
+15
+00:00:56,666 --> 00:01:01,063
+forty-one development events, one of
+forty-three primary held-out events,
+
+16
+00:01:01,063 --> 00:01:03,995
+and two of twenty-nine external events.
+
+17
+00:01:03,995 --> 00:01:09,858
+These results miss our own fifty percent
+sensitivity target by a wide
+
+18
+00:01:09,858 --> 00:01:10,347
+margin.
+
+19
+00:01:10,347 --> 00:01:15,721
+We are presenting a functioning research
+workflow and an honest negative
+
+20
+00:01:15,721 --> 00:01:16,210
+finding.
+
+21
+00:01:16,210 --> 00:01:20,119
+A working interface does not establish
+useful forecasting.
+
+22
+00:01:20,119 --> 00:01:25,982
+Later, we will explain why even a low
+false-warning rate needs careful
+
+23
+00:01:25,982 --> 00:01:26,470
+interpretation.
+
+24
+00:01:27,132 --> 00:01:33,652
+The intended use case matters in India,
+but we have no Indian recordings or
+
+25
+00:01:33,652 --> 00:01:34,584
+local validation.
+
+26
+00:01:34,584 --> 00:01:39,707
+We therefore make no claim about Indian
+performance, clinical benefit or
+
+27
+00:01:39,707 --> 00:01:40,172
+deployment.
+
+28
+00:01:40,172 --> 00:01:44,364
+Public retrospective data can help
+investigate an engineering question;
+
+29
+00:01:44,364 --> 00:01:49,487
+they cannot substitute for evidence from
+the population and care setting
+
+30
+00:01:49,487 --> 00:01:52,747
+where a tool would actually be used.
+
+31
+00:01:52,747 --> 00:01:57,405
+Clinical review and prospective evaluation
+would be separate future work.
+
+32
+00:01:58,066 --> 00:02:04,321
+Our fixed contract uses the preceding ten
+minutes of ECG, with one decision
+
+33
+00:02:04,321 --> 00:02:11,537
+every thirty seconds, to try to forecast a
+new AF onset two to ten minutes
+
+34
+00:02:11,537 --> 00:02:12,018
+ahead.
+
+35
+00:02:12,018 --> 00:02:15,867
+It is not a heart-attack or stroke
+forecast.
+
+36
+00:02:15,867 --> 00:02:20,197
+During this video, manufactured dashboard
+examples demonstrate the software.
+
+37
+00:02:20,197 --> 00:02:23,565
+Saved real-data evaluations establish the
+weak results.
+
+38
+00:02:23,565 --> 00:02:29,339
+Keeping those two forms of evidence
+separate is central to the project.
+
+39
+00:02:30,400 --> 00:02:34,121
+Follow the online path from left to right.
+
+40
+00:02:34,121 --> 00:02:38,308
+The replay service advances historical ECG
+in thirty-second ticks.
+
+41
+00:02:38,308 --> 00:02:43,889
+At each decision it reads only the
+preceding ten minutes, extracts features,
+
+42
+00:02:43,889 --> 00:02:46,215
+and applies shared signal-quality checks.
+
+43
+00:02:46,215 --> 00:02:52,262
+It builds the feature row from the
+previous patient baseline, scores it with
+
+44
+00:02:52,262 --> 00:02:55,518
+frozen model weights, then updates the
+baseline.
+
+45
+00:02:55,518 --> 00:02:59,704
+An alert state machine applies
+persistence, hysteresis and cooldown.
+
+46
+00:02:59,704 --> 00:03:04,821
+Cursor, baseline, alert state and warning
+are committed together in SQLite.
+
+47
+00:03:04,821 --> 00:03:08,542
+FastAPI exposes that state, and React
+renders it.
+
+48
+00:03:08,542 --> 00:03:13,659
+Restarting the service should continue
+from the saved cursor rather than
+
+49
+00:03:13,659 --> 00:03:15,054
+repeat a decision.
+
+50
+00:03:15,054 --> 00:03:17,845
+Each patient keeps separate replay state.
+
+51
+00:03:18,491 --> 00:03:24,219
+The offline path answers a different
+question: did warnings arrive before
+
+52
+00:03:24,219 --> 00:03:25,781
+real annotated events?
+
+53
+00:03:25,781 --> 00:03:30,468
+Annotation-derived future labels belong in
+training and evaluation, never
+
+54
+00:03:30,468 --> 00:03:32,551
+among runtime predictor inputs.
+
+55
+00:03:32,551 --> 00:03:37,238
+Patient groups are separated before
+fitting, calibration and policy
+
+56
+00:03:37,238 --> 00:03:37,758
+selection.
+
+57
+00:03:37,758 --> 00:03:42,445
+Model packages bind their configuration,
+feature schema and checksums.
+
+58
+00:03:42,445 --> 00:03:47,653
+Complete chronological evaluation then
+uses the same alert implementation as
+
+59
+00:03:47,653 --> 00:03:52,860
+replay, so our reported policy is tied to
+executable behavior.
+
+60
+00:03:52,860 --> 00:03:56,505
+A saved test-access ledger records
+evaluation use;
+
+61
+00:03:56,505 --> 00:04:00,150
+it does not magically certify historical
+blinding.
+
+62
+00:04:00,796 --> 00:04:05,132
+The challenge asks for static and dynamic
+data fusion.
+
+63
+00:04:05,132 --> 00:04:10,912
+The real static stream contains paired age
+and sex from IRIDIA-AF metadata.
+
+64
+00:04:10,912 --> 00:04:14,766
+We did not invent diagnoses or laboratory
+values.
+
+65
+00:04:14,766 --> 00:04:19,101
+The dynamic stream contains twenty-three
+causal ECG features describing
+
+66
+00:04:19,101 --> 00:04:22,473
+heart rate, RR variability and recent
+changes.
+
+67
+00:04:22,473 --> 00:04:27,290
+The frozen logistic finalist has
+twenty-seven named inputs: those ECG
+
+68
+00:04:27,290 --> 00:04:31,144
+features, age, sex and their two
+availability flags.
+
+69
+00:04:31,144 --> 00:04:33,552
+Missing values are handled explicitly.
+
+70
+00:04:33,552 --> 00:04:39,815
+The running personal baseline is
+persistent twin state, but it is not an
+
+71
+00:04:39,815 --> 00:04:41,741
+input to this finalist.
+
+72
+00:04:41,741 --> 00:04:45,113
+Some exploratory model variants used
+baseline features;
+
+73
+00:04:45,113 --> 00:04:48,485
+that does not change the finalist's
+schema.
+
+74
+00:04:48,485 --> 00:04:53,302
+Our ECG-only reference tests whether
+adding age and sex helped.
+
+75
+00:04:53,948 --> 00:04:58,254
+That distinction defines our digital twin:
+a patient-specific historical
+
+76
+00:04:58,254 --> 00:05:03,517
+state and inspectable replay, not a
+simulated anatomical heart and not
+
+77
+00:05:03,517 --> 00:05:04,953
+continuous model retraining.
+
+78
+00:05:04,953 --> 00:05:10,216
+The code supports more clinical fields
+than the real cohort supplies.
+
+79
+00:05:10,216 --> 00:05:14,522
+Manufactured profiles exercise parts of
+the interface without becoming
+
+80
+00:05:14,522 --> 00:05:16,914
+evidence of richer real-world fusion.
+
+81
+00:05:16,914 --> 00:05:19,785
+The comparison found no fusion benefit.
+
+82
+00:05:19,785 --> 00:05:24,570
+We preserve that conclusion alongside the
+software capability, rather than
+
+83
+00:05:24,570 --> 00:05:29,354
+infer better prediction from the presence
+of two input streams.
+
+84
+00:05:30,400 --> 00:05:34,894
+This dashboard footage uses manufactured
+ECG and manufactured clinical
+
+85
+00:05:34,894 --> 00:05:38,888
+profiles, with a model trained on
+synthetic examples.
+
+86
+00:05:38,888 --> 00:05:42,384
+It demonstrates software behavior, not
+patient performance.
+
+87
+00:05:42,384 --> 00:05:47,876
+The normal server refuses the real
+finalist because it failed acceptance
+
+88
+00:05:47,876 --> 00:05:48,375
+gates.
+
+89
+00:05:48,375 --> 00:05:54,367
+An explicit research mode exists, with a
+red warning banner, but no
+
+90
+00:05:54,367 --> 00:05:57,862
+real-record replay is shown in this video.
+
+91
+00:05:57,862 --> 00:06:01,857
+The real-data results appear separately in
+saved reports.
+
+92
+00:06:02,510 --> 00:06:06,352
+Start with the patient selector and
+record-relative clock.
+
+93
+00:06:06,352 --> 00:06:12,114
+The recent ECG panel displays the last ten
+seconds, while prediction uses
+
+94
+00:06:12,114 --> 00:06:14,034
+the preceding ten minutes.
+
+95
+00:06:14,034 --> 00:06:17,395
+Heart-rate and RR trends summarize earlier
+decisions.
+
+96
+00:06:17,395 --> 00:06:20,756
+The patient-context panel contains
+manufactured values here;
+
+97
+00:06:20,756 --> 00:06:25,078
+the real IRIDIA cohort supplies age and
+sex only.
+
+98
+00:06:25,078 --> 00:06:28,439
+The displayed ECG is downsampled for
+readability;
+
+99
+00:06:28,439 --> 00:06:33,241
+it is not the exact array used for feature
+extraction.
+
+100
+00:06:33,241 --> 00:06:38,042
+Displaying fewer points is a presentation
+choice, while prediction still
+
+101
+00:06:38,042 --> 00:06:41,403
+uses the complete specified trailing
+signal window.
+
+102
+00:06:41,403 --> 00:06:46,205
+Source sampling rate, signal quality and
+forecast availability are visible
+
+103
+00:06:46,205 --> 00:06:51,487
+so a reviewer can understand what the
+score actually rests on.
+
+104
+00:06:52,140 --> 00:06:57,431
+Replay is accelerated: thirty historical
+seconds advance per wall second at
+
+105
+00:06:57,431 --> 00:06:58,875
+the default setting.
+
+106
+00:06:58,875 --> 00:07:04,166
+This is historical simulation, not a
+connected wearable or live hospital
+
+107
+00:07:04,166 --> 00:07:04,647
+feed.
+
+108
+00:07:04,647 --> 00:07:09,457
+Early decisions remain unavailable until
+enough history and prior reliable
+
+109
+00:07:09,457 --> 00:07:10,900
+baseline updates exist.
+
+110
+00:07:10,900 --> 00:07:15,710
+Warm-up is an explicit state, not a
+missing zero-risk prediction.
+
+111
+00:07:15,710 --> 00:07:21,002
+Watch the clock and availability reason
+together as the recording advances.
+
+112
+00:07:21,655 --> 00:07:23,979
+Pause holds the current position.
+
+113
+00:07:23,979 --> 00:07:28,629
+Step advances one decision, which makes
+changes easier to inspect.
+
+114
+00:07:28,629 --> 00:07:34,673
+The forecast panel shows an issue time,
+the future target interval and the
+
+115
+00:07:34,673 --> 00:07:36,067
+frozen model version.
+
+116
+00:07:36,067 --> 00:07:41,646
+Its percentage is a calibrated model
+score, not an assurance of clinical
+
+117
+00:07:41,646 --> 00:07:42,111
+probability.
+
+118
+00:07:42,111 --> 00:07:47,225
+Quality acceptance alone does not
+guarantee a forecast: history, warm-up and
+
+119
+00:07:47,225 --> 00:07:50,480
+a loaded compatible model are also
+required.
+
+120
+00:07:51,133 --> 00:07:55,684
+The baseline stores earlier reliable
+feature statistics and updates after
+
+121
+00:07:55,684 --> 00:07:56,139
+prediction.
+
+122
+00:07:56,139 --> 00:08:01,145
+Its movement does not mean the model is
+learning new weights.
+
+123
+00:08:01,145 --> 00:08:06,606
+For the real finalist it is contextual
+state, not a predictor input.
+
+124
+00:08:06,606 --> 00:08:12,067
+The evidence table lists large
+contributions to the raw model score and
+
+125
+00:08:12,067 --> 00:08:15,253
+compares available values with earlier
+baseline context.
+
+126
+00:08:15,253 --> 00:08:20,259
+These are model explanations, not causes
+of AF and not treatment
+
+127
+00:08:20,259 --> 00:08:20,714
+recommendations.
+
+128
+00:08:21,367 --> 00:08:25,456
+Warnings require persistent elevated
+scores under the configured policy.
+
+129
+00:08:25,456 --> 00:08:30,453
+The record captures issue time, future
+interval, model identity and feature
+
+130
+00:08:30,453 --> 00:08:30,907
+evidence.
+
+131
+00:08:30,907 --> 00:08:36,813
+A reviewer can mark it reviewed, dismissed
+or pending and add a note.
+
+132
+00:08:36,813 --> 00:08:39,993
+That action becomes part of persistent
+history.
+
+133
+00:08:39,993 --> 00:08:45,899
+Human review does not turn a false warning
+into a correct prediction, and
+
+134
+00:08:45,899 --> 00:08:49,533
+the software offers no diagnosis or
+treatment decision.
+
+135
+00:08:50,186 --> 00:08:53,875
+Manufactured patient zero has an
+intentional unreliable stretch.
+
+136
+00:08:53,875 --> 00:08:58,486
+Here we inspect the quality reason and
+unavailable forecast together.
+
+137
+00:08:58,486 --> 00:09:03,097
+Abstention means the system declines to
+issue a usable score;
+
+138
+00:09:03,097 --> 00:09:06,786
+it does not mean the patient is safe.
+
+139
+00:09:06,786 --> 00:09:11,397
+In real-data evaluation, rejected time and
+events missed during abstention
+
+140
+00:09:11,397 --> 00:09:12,319
+remain visible.
+
+141
+00:09:12,319 --> 00:09:17,391
+Otherwise a model could look better simply
+by refusing the difficult
+
+142
+00:09:17,391 --> 00:09:17,852
+periods.
+
+143
+00:09:18,506 --> 00:09:23,520
+When no warning is issued, the interface
+preserves that state without
+
+144
+00:09:23,520 --> 00:09:24,888
+inventing an alert.
+
+145
+00:09:24,888 --> 00:09:29,447
+A low score or quiet warning list is not
+reassurance.
+
+146
+00:09:29,447 --> 00:09:34,462
+Reset restarts this patient's replay and
+clears its warning and review
+
+147
+00:09:34,462 --> 00:09:34,917
+history;
+
+148
+00:09:34,917 --> 00:09:36,741
+pause merely stops progression.
+
+149
+00:09:36,741 --> 00:09:42,212
+The saved state is useful for inspection,
+but this synthetic example cannot
+
+150
+00:09:42,212 --> 00:09:43,579
+establish clinical reliability.
+
+151
+00:09:44,233 --> 00:09:47,818
+This evaluation screen is still
+manufactured data.
+
+152
+00:09:47,818 --> 00:09:52,429
+It exercises metric presentation,
+calibration plots, misses and warning
+
+153
+00:09:52,429 --> 00:09:52,941
+outcomes.
+
+154
+00:09:52,941 --> 00:09:58,576
+Do not read these attractive demo numbers
+as the project's real-data
+
+155
+00:09:58,576 --> 00:09:59,088
+results.
+
+156
+00:09:59,088 --> 00:10:03,698
+Those are the weak frozen evaluations we
+show next.
+
+157
+00:10:04,352 --> 00:10:09,002
+A separate saved real-development-prefix
+receipt records seventy-two replay
+
+158
+00:10:09,002 --> 00:10:13,652
+steps, median twenty-five milliseconds and
+p ninety-five twenty-seven
+
+159
+00:10:13,652 --> 00:10:15,396
+milliseconds per step.
+
+160
+00:10:15,396 --> 00:10:20,627
+Future-only signal or annotation changes
+left earlier outputs identical.
+
+161
+00:10:20,627 --> 00:10:26,440
+That checks causal behavior and local
+execution cost, not forecasting
+
+162
+00:10:26,440 --> 00:10:29,347
+usefulness or wearable hardware
+performance.
+
+163
+00:10:30,400 --> 00:10:34,470
+Our evaluation starts with the unit of
+independence.
+
+164
+00:10:34,470 --> 00:10:39,048
+Overlapping ECG windows from one person
+share substantial physiological
+
+165
+00:10:39,048 --> 00:10:39,556
+information.
+
+166
+00:10:39,556 --> 00:10:45,152
+Randomly mixing those windows between
+training and testing would answer an
+
+167
+00:10:45,152 --> 00:10:48,713
+easier question than generalization to
+another person.
+
+168
+00:10:48,713 --> 00:10:53,291
+We separate patient groups and preserve
+their chronological streams,
+
+169
+00:10:53,291 --> 00:10:54,817
+including negative-only recordings.
+
+170
+00:10:54,817 --> 00:10:58,887
+Software success and model usefulness are
+assessed separately.
+
+171
+00:10:59,530 --> 00:11:03,876
+Fitting, early-stopping, calibration and
+policy roles are disjoint where
+
+172
+00:11:03,876 --> 00:11:05,324
+those stages apply.
+
+173
+00:11:05,324 --> 00:11:10,635
+Model weights, calibration and warning
+policy were frozen before primary and
+
+174
+00:11:10,635 --> 00:11:11,601
+external evaluation.
+
+175
+00:11:11,601 --> 00:11:17,395
+Those cohorts have now been examined and
+cannot be described as untouched
+
+176
+00:11:17,395 --> 00:11:19,326
+for another tuning cycle.
+
+177
+00:11:19,326 --> 00:11:24,154
+Fresh output directories and source-bound
+receipts preserve what was run.
+
+178
+00:11:24,154 --> 00:11:28,983
+Future model selection needs development
+evidence and a fresh confirmation
+
+179
+00:11:28,983 --> 00:11:29,465
+cohort.
+
+180
+00:11:30,109 --> 00:11:31,877
+We replay whole recordings.
+
+181
+00:11:31,877 --> 00:11:37,181
+Each warning can match at most one
+eligible event within the inclusive
+
+182
+00:11:37,181 --> 00:11:41,159
+two-to-ten-minute interval, and each event
+can be matched once.
+
+183
+00:11:41,159 --> 00:11:45,579
+Missed events stay in sensitivity even
+when every opportunity was
+
+184
+00:11:45,579 --> 00:11:46,021
+unavailable.
+
+185
+00:11:46,021 --> 00:11:49,557
+Current AF, washout and unknown-outcome
+warnings receive separate
+
+186
+00:11:49,557 --> 00:11:49,999
+accounting.
+
+187
+00:11:49,999 --> 00:11:56,187
+They must not disappear from the report
+simply because they do not fit the
+
+188
+00:11:56,187 --> 00:11:57,513
+primary assessment question.
+
+189
+00:11:58,156 --> 00:12:00,160
+The denominator is crucial.
+
+190
+00:12:00,160 --> 00:12:04,169
+Assessed false warnings are divided by
+labelled, forecast-eligible
+
+191
+00:12:04,169 --> 00:12:07,175
+monitoring hours, including
+quality-rejected eligible windows.
+
+192
+00:12:07,175 --> 00:12:13,688
+Using all recorded hours would let unknown
+or excluded time dilute the rate.
+
+193
+00:12:13,688 --> 00:12:16,194
+Coverage is a separate quantity.
+
+194
+00:12:16,194 --> 00:12:20,703
+Event eligibility requires sufficient
+labelled non-AF history, a minimum
+
+195
+00:12:20,703 --> 00:12:24,711
+thirty-second episode, the target interval
+and post-AF washout.
+
+196
+00:12:24,711 --> 00:12:31,225
+Report both counts and rates so a small
+denominator cannot hide behind a
+
+197
+00:12:31,225 --> 00:12:31,726
+percentage.
+
+198
+00:12:32,369 --> 00:12:37,332
+IRIDIA-AF contains one hundred and
+sixty-seven recordings from one hundred
+
+199
+00:12:37,332 --> 00:12:42,791
+and fifty-two patients, about six thousand
+six hundred and ninety monitoring
+
+200
+00:12:42,791 --> 00:12:43,288
+hours.
+
+201
+00:12:43,288 --> 00:12:49,243
+Our development cohort has one hundred and
+twenty-one patient groups and two
+
+202
+00:12:49,243 --> 00:12:51,725
+hundred and forty-one eligible events;
+
+203
+00:12:51,725 --> 00:12:56,688
+the frozen primary cohort has thirty-one
+groups and forty-three events.
+
+204
+00:12:56,688 --> 00:13:00,658
+LTAF contributes twenty-nine events across
+eighty-four recording groups.
+
+205
+00:13:00,658 --> 00:13:05,125
+Cross-record patient identity is
+unverified there, so recording groups
+
+206
+00:13:05,125 --> 00:13:08,102
+cannot simply be called independent
+people.
+
+207
+00:13:08,746 --> 00:13:14,242
+Our operating assumptions are at most zero
+point two five assessed false
+
+208
+00:13:14,242 --> 00:13:19,280
+warnings per eligible hour and at least
+fifty percent event sensitivity.
+
+209
+00:13:19,280 --> 00:13:24,318
+These are our research criteria, not a
+clinical standard or organizer
+
+210
+00:13:24,318 --> 00:13:25,234
+accuracy requirement.
+
+211
+00:13:25,234 --> 00:13:29,357
+Passing one criterion cannot compensate
+for failing the other.
+
+212
+00:13:30,400 --> 00:13:33,292
+These are the frozen finalist's results.
+
+213
+00:13:33,292 --> 00:13:35,703
+The dashboard examples have ended.
+
+214
+00:13:36,350 --> 00:13:40,694
+Development caught six of two hundred and
+forty-one events.
+
+215
+00:13:40,694 --> 00:13:44,556
+The primary held-out cohort caught one of
+forty-three.
+
+216
+00:13:44,556 --> 00:13:46,969
+LTAF caught two of twenty-nine.
+
+217
+00:13:46,969 --> 00:13:52,761
+Sensitivity is roughly two to seven
+percent, far below our fifty percent
+
+218
+00:13:52,761 --> 00:13:53,244
+target.
+
+219
+00:13:53,244 --> 00:13:57,105
+Acceptance fails despite assessed
+false-warning rates below budget.
+
+220
+00:13:57,105 --> 00:14:00,002
+Most events receive no advance warning.
+
+221
+00:14:00,649 --> 00:14:07,173
+Primary AUROC is zero point six one one,
+and LTAF AUROC is zero point six
+
+222
+00:14:07,173 --> 00:14:08,043
+three one.
+
+223
+00:14:08,043 --> 00:14:10,652
+Ranking performance summarizes scores
+across thresholds;
+
+224
+00:14:10,652 --> 00:14:16,741
+it does not tell us how many events this
+warning policy catches at the
+
+225
+00:14:16,741 --> 00:14:17,611
+operating budget.
+
+226
+00:14:17,611 --> 00:14:20,655
+The low event counts remain the headline.
+
+227
+00:14:21,303 --> 00:14:25,844
+We independently compared saved score
+timing with random within-record
+
+228
+00:14:25,844 --> 00:14:27,358
+shifts, without refitting.
+
+229
+00:14:27,358 --> 00:14:32,403
+Development observed six detections
+against about four point five expected
+
+230
+00:14:32,403 --> 00:14:33,917
+at random timing.
+
+231
+00:14:33,917 --> 00:14:38,963
+The held-out cohorts together observed
+three of seventy-two against about
+
+232
+00:14:38,963 --> 00:14:40,981
+zero point seven expected.
+
+233
+00:14:40,981 --> 00:14:46,532
+Only three events, intervals including
+zero, and a post-hoc check cannot
+
+234
+00:14:46,532 --> 00:14:47,541
+establish skill.
+
+235
+00:14:47,541 --> 00:14:50,568
+We claim no demonstrated event-level
+skill.
+
+236
+00:14:51,216 --> 00:14:53,426
+LTAF illustrates the denominator problem.
+
+237
+00:14:53,426 --> 00:14:56,963
+There were three hundred and ninety-eight
+warning starts.
+
+238
+00:14:56,963 --> 00:15:01,384
+Three hundred and ninety-two were
+unassessable: two hundred and twenty-two
+
+239
+00:15:01,384 --> 00:15:05,804
+during AF, seventy-seven in washout and
+ninety-three in unknown time.
+
+240
+00:15:05,804 --> 00:15:08,457
+Only four were assessed false warnings.
+
+241
+00:15:08,457 --> 00:15:13,762
+Its zero point zero zero eight assessed
+rate therefore needs the whole
+
+242
+00:15:13,762 --> 00:15:15,530
+warning inventory beside it.
+
+243
+00:15:15,530 --> 00:15:20,835
+The same warning time placed randomly
+gives about zero point one zero
+
+244
+00:15:20,835 --> 00:15:23,045
+assessed false warnings per hour.
+
+245
+00:15:23,693 --> 00:15:25,865
+Fusion also failed to help.
+
+246
+00:15:25,865 --> 00:15:30,211
+The ECG-only reference caught seven
+development events, compared with six
+
+247
+00:15:30,211 --> 00:15:32,384
+for age, sex and ECG.
+
+248
+00:15:32,384 --> 00:15:37,598
+Development Brier score was zero point
+zero zero eight three eight four,
+
+249
+00:15:37,598 --> 00:15:43,247
+versus zero point zero zero eight three
+five eight for the observed constant
+
+250
+00:15:43,247 --> 00:15:44,116
+base-rate reference.
+
+251
+00:15:44,116 --> 00:15:48,461
+A smaller-looking probability error is not
+sufficient when the reference
+
+252
+00:15:48,461 --> 00:15:49,765
+performs as well.
+
+253
+00:15:50,413 --> 00:15:54,108
+Other attempts included gradient boosting,
+personal-baseline features,
+
+254
+00:15:54,108 --> 00:15:59,388
+ectopy-like motifs, RR temporal CNNs
+catching four and seven development
+
+255
+00:15:59,388 --> 00:16:05,196
+events, a waveform CNN catching four while
+occupying warning state about
+
+256
+00:16:05,196 --> 00:16:10,475
+thirty-three percent of the time, and
+precursor ranking catching five.
+
+257
+00:16:10,475 --> 00:16:13,115
+ECGFounder produced no outcome fit;
+
+258
+00:16:13,115 --> 00:16:18,923
+the last cloud job failed during
+dependency setup before data reads.
+
+259
+00:16:18,923 --> 00:16:22,090
+Engineering progress is not predictive
+evidence.
+
+260
+00:16:22,738 --> 00:16:27,233
+A development-fold calibration defect
+reversed ranking from zero point five
+
+261
+00:16:27,233 --> 00:16:30,830
+seven three to zero point four two seven.
+
+262
+00:16:30,830 --> 00:16:34,426
+Frozen finalists have positive slopes and
+are unaffected.
+
+263
+00:16:34,426 --> 00:16:37,573
+A later exploratory guard rejects
+non-positive slopes;
+
+264
+00:16:37,573 --> 00:16:42,069
+it does not repair history or change these
+saved results.
+
+265
+00:16:42,716 --> 00:16:47,337
+Published comparison claims use different
+reporting and omit the operating
+
+266
+00:16:47,337 --> 00:16:49,186
+false-alarm evidence we need.
+
+267
+00:16:49,186 --> 00:16:55,193
+We therefore keep them as context, not
+proof that our target is achievable.
+
+268
+00:16:55,193 --> 00:16:59,352
+Closed attempts remain preserved, with
+their failures and limitations.
+
+269
+00:17:00,400 --> 00:17:03,031
+The limits extend beyond sensitivity.
+
+270
+00:17:03,031 --> 00:17:08,293
+These are retrospective public recordings,
+not a prospective device study.
+
+271
+00:17:08,293 --> 00:17:14,082
+There is no Indian-population evidence, no
+secured clinical partner and no
+
+272
+00:17:14,082 --> 00:17:15,135
+treatment advice.
+
+273
+00:17:15,135 --> 00:17:18,818
+LTAF patient independence across records
+is unverified.
+
+274
+00:17:18,818 --> 00:17:23,554
+Development estimates follow exploration
+across many candidates, and already
+
+275
+00:17:23,554 --> 00:17:28,290
+examined test cohorts cannot supply a
+fresh confirmation claim.
+
+276
+00:17:28,290 --> 00:17:33,026
+Clinical metadata are limited, signal
+preprocessing is source-specific, and
+
+277
+00:17:33,026 --> 00:17:37,236
+RR variability is not automatically
+validated normal-to-normal heart-rate
+
+278
+00:17:37,236 --> 00:17:37,763
+variability.
+
+279
+00:17:37,763 --> 00:17:41,972
+Local replay latency describes this
+software and workload;
+
+280
+00:17:41,972 --> 00:17:47,761
+it does not certify battery use, wireless
+reliability or continuous wearable
+
+281
+00:17:47,761 --> 00:17:48,813
+hardware performance.
+
+282
+00:17:48,813 --> 00:17:54,076
+The dashboard's manufactured profiles must
+remain visibly separate from real
+
+283
+00:17:54,076 --> 00:17:55,128
+patient evidence.
+
+284
+00:17:55,768 --> 00:18:00,729
+A future validation program would begin
+with an ethically approved clinical
+
+285
+00:18:00,729 --> 00:18:03,886
+partner and a clearly specified monitoring
+setting.
+
+286
+00:18:03,886 --> 00:18:08,847
+Before fitting a new model, declare the
+target, patient roles, missing-data
+
+287
+00:18:08,847 --> 00:18:11,553
+rules, warning budget and advancement
+gates.
+
+288
+00:18:11,553 --> 00:18:15,613
+Diagnose measurement and calibration
+first, then compare against simple
+
+289
+00:18:15,613 --> 00:18:18,319
+references on the same complete timelines.
+
+290
+00:18:18,319 --> 00:18:22,829
+Preserve failed attempts rather than
+silently change thresholds after seeing
+
+291
+00:18:22,829 --> 00:18:23,280
+results.
+
+292
+00:18:23,280 --> 00:18:28,692
+If a model earns further study, use a
+fresh prospective silent evaluation:
+
+293
+00:18:28,692 --> 00:18:33,653
+log alerts without showing them to
+clinicians, then assess events, false
+
+294
+00:18:33,653 --> 00:18:36,359
+warnings, coverage and burden with
+uncertainty.
+
+295
+00:18:36,359 --> 00:18:41,320
+Only later could a separate study examine
+whether acting on warnings
+
+296
+00:18:41,320 --> 00:18:42,222
+improves care.
+
+297
+00:18:42,222 --> 00:18:45,830
+None of those stages has been completed
+here.
+
+298
+00:18:45,830 --> 00:18:51,242
+For this submission, the appropriate
+action is to preserve the weak result
+
+299
+00:18:51,242 --> 00:18:56,203
+and make the workflow inspectable,
+reproducible and clear about what remains
+
+300
+00:18:56,203 --> 00:18:56,654
+unmeasured.
+
+301
+00:18:56,654 --> 00:18:59,360
+The acceptance gates remain research
+assumptions.
+
+302
+00:19:00,400 --> 00:19:05,374
+The repository shown here is Lazarus, MGM,
+Jawaharlal Nehru Engineering
+
+303
+00:19:05,374 --> 00:19:07,861
+College, under sumitjadhav1703 on GitHub.
+
+304
+00:19:07,861 --> 00:19:12,834
+It ships source, locked dependencies,
+tests, selected evaluation reports and
+
+305
+00:19:12,834 --> 00:19:13,829
+submission documents.
+
+306
+00:19:13,829 --> 00:19:19,300
+Raw ECG, model binaries, local patient
+state and private research receipts
+
+307
+00:19:19,300 --> 00:19:20,295
+are omitted.
+
+308
+00:19:20,295 --> 00:19:26,263
+The recorded public test run on
+seventeenth October had eight hundred and
+
+309
+00:19:26,263 --> 00:19:29,745
+forty-one passes and eighty-three skips
+without PyTorch;
+
+310
+00:19:29,745 --> 00:19:33,227
+this is not a fresh test claim.
+
+311
+00:19:33,227 --> 00:19:37,703
+The full canonical repository address
+stays visible on screen.
+
+312
+00:19:37,703 --> 00:19:40,190
+Data retain their own licences;
+
+313
+00:19:40,190 --> 00:19:42,179
+code is MIT licensed.
+
+314
+00:19:42,815 --> 00:19:45,113
+CardioTwin remains a research prototype.
+
+315
+00:19:45,113 --> 00:19:50,630
+Its contribution is a causal replay
+system, explicit evaluation gates and a
+
+316
+00:19:50,630 --> 00:19:52,469
+documented negative forecasting result.
+
+317
+00:19:52,469 --> 00:19:57,066
+A usable interface has not made the model
+clinically useful.
+
+318
+00:19:57,066 --> 00:19:59,364
+Thank you from Team Lazarus.

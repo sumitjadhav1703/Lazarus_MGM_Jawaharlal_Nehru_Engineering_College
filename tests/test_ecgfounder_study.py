@@ -16,6 +16,8 @@ from cardiotwin.features import FEATURE_VERSION
 from cardiotwin.investigation import CACHE_VERSION
 from cardiotwin.precursor import LINEAR_SCHEMA, compact_cache_binding
 
+pytestmark = pytest.mark.usefixtures("historical_ecgfounder_clock")
+
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()

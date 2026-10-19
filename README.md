@@ -10,24 +10,33 @@ CardioTwin is a research prototype that tries to forecast a **new atrial-fibrill
 
 ## Submission checklist
 
-Items required by the Unstop submission form, mapped to where they are in this repository. Placeholders are for the team to fill; nothing marked "to supply" has been provided yet.
+The 12 items in the submission form are mapped below. Source, reports, team information and PDFs are supplied. The unlisted YouTube link is pending; this checklist does not establish registration or submission success.
 
 | Form item | Where | Status |
 | --- | --- | --- |
-| Team details | [Team Details](#team-details) | To supply |
-| College/Incubator information | [College/Incubator Information](#collegeincubator-information) | To supply |
+| Team details | [Team Details](#team-details) | Supplied |
+| College/Incubator information | [College/Incubator Information](#collegeincubator-information) | Supplied |
 | Project Title | [Project Title](#project-title) | Done |
 | Problem Statement | [Problem Statement](#problem-statement) | Done |
 | Healthcare Use Case | [Healthcare Use Case and Impact](#healthcare-use-case-and-impact) | Done |
 | Technical Stack | [Technical Stack](#technical-stack) | Done |
 | AI/ML Model or Framework Details | [AI/ML Model or Framework Details](#aiml-model-or-framework-details) | Done |
-| 15-20 minute Demo Video (unlisted YouTube link) | [Demo Video](#demo-video); script in [docs/video-script.md](docs/video-script.md) | Recording and link to supply |
+| 15-20 minute Demo Video (unlisted YouTube link) | [Demo Video](#demo-video); script in [docs/video-script.md](docs/video-script.md) | 20:00 local export verified; unlisted upload and link pending |
 | Open-source License Details | [Open-source License Details](#open-source-license-details) ([LICENSE](LICENSE), [DATA_LICENSE.md](DATA_LICENSE.md)) | Done |
-| Architecture Diagram (PDF/PPT) | [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf); also [Architecture Diagram](#architecture-diagram) | Done; team and college placeholders to fill |
-| Presentation (PDF/PPT) | [docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) | Done; team and college placeholders to fill |
-| Public GitHub repository | https://github.com/sumitjadhav1703/lazarus_ECG_traces | Target repository; confirm it is public and holds this revision before submitting |
+| Architecture Diagram (PDF/PPT) | [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf); also [Architecture Diagram](#architecture-diagram) | Supplied |
+| Presentation (PDF/PPT) | [docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) | Supplied with team and college |
+| All files and links are publicly accessible without additional permissions | Repository and PDF links supplied; [video status](#demo-video) | Pending overall: video upload/access check and final anonymous link checks outstanding |
 
-All links must be public. The organizers' folder convention is `Team Name_College Name`; applying it is a human decision (see [submission checklist](docs/submission.md)).
+Public GitHub repository (separate form field): [Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College), verified public 19 Oct 2026. Its name follows the team/college convention. Verify anonymous access to the final repository, PDFs and video before submitting (see [submission checklist](docs/submission.md)).
+
+## Reviewer guide
+
+1. Read the result and research boundaries above, then the [architecture PDF](docs/delivery/architecture.pdf).
+2. Follow [Quick start](#quick-start) for the synthetic software demonstration: start replay, inspect ECG and risk, pause/step, inspect the unreliable segment, review a warning and open evaluation. Synthetic warnings show the workflow, not forecasting evidence.
+3. Compare the saved real-data [results](#results), [model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md) and [investigation report](reports/ml-investigation/report.md). The real frozen finalist failed its acceptance gates; optional research replay requires the separate model and data.
+4. Use the [submission checklist](docs/submission.md) for the 12 form items and remaining upload/submission actions.
+
+This repository supplies application and research source, locked dependencies, tests, curated evaluation reports, model identity/configuration and delivery PDFs. Raw signals, frozen model binaries, local SQLite state and the complete private research receipt collection are omitted. The synthetic demo is reproducible from source; the shipped reports document the real-data result but do not provide a runnable frozen-model package.
 
 ## Contents
 
@@ -192,7 +201,7 @@ uv run ruff check src tests scripts
 npm run build --prefix dashboard
 ```
 
-In this public repository, on 17 Oct 2026, the full suite gave 841 passed, 83 skipped, 0 failed without PyTorch. With the optional `--extra neural` (PyTorch) the same command gave 948 passed, 37 skipped, 0 failed, measured earlier on 17 Oct 2026 before five tests were added; the PyTorch run has not been repeated since. Skipped tests need private research receipts that are not shipped here (each test names the missing file) or PyTorch.
+In this public repository, on 19 Oct 2026, the full suite gave **842 passed, 83 skipped, 0 failed** without PyTorch (241.04 s). Ruff and the dashboard production build also passed. Synthetic ECGFounder tests now use an explicit historical clock; the production experiment deadline remains unchanged. The artifact-integrity fixture uses a persistence interval longer than its positive run to avoid numerical threshold ties. With the optional `--extra neural` (PyTorch) the same command gave 948 passed, 37 skipped, 0 failed, measured earlier on 17 Oct 2026 before five tests were added; the PyTorch run has not been repeated since. Skipped tests need private research receipts that are not shipped here (each test names the missing file) or PyTorch.
 
 **Real-data research pipeline (optional, large).** Full IRIDIA-AF acquisition needs about 21.49 GB peak. Each command has `--help`; output directories must be fresh and the frozen primary split must not be regenerated in response to results.
 
@@ -319,7 +328,7 @@ Planned, not started, and no clinical partner is secured:
 
 ## Team and submission details
 
-To be filled in by the team. Nothing below has been supplied yet.
+Team and college information are supplied below. Platform-only details and video upload status are tracked in the [submission checklist](docs/submission.md).
 
 ### Team Details
 
@@ -335,19 +344,19 @@ To be filled in by the team. Nothing below has been supplied yet.
 | --- | --- |
 | College / incubator | MGM's Jawaharlal Nehru Engineering College |
 
-The organizers' folder convention is `Team Name_College Name`. Whether to apply it to this repository or only to the upload is a human decision.
+The repository is named `Lazarus_MGM_Jawaharlal_Nehru_Engineering_College` using the team/college convention.
 
 ### Demo Video
 
-15-20 minute demo video (the listing says minimum 20 minutes; the script targets exactly 20:00 to satisfy both). Unlisted YouTube link: `<<YOUTUBE UNLISTED URL>>`. Script: [docs/video-script.md](docs/video-script.md). The recording has not been made.
+**Unlisted YouTube link: pending upload.** The improved local export is exactly **20:00**, with larger synchronized visuals, a fuller manufactured-data dashboard walkthrough, normalized synthetic narration, seven chapters and selectable English captions. A midpoint frame from each of the 37 visual units was inspected, and the complete file decoded without errors. Four diagrams explain the forecast window, runtime pipeline, patient roles and measured results. Full subjective playback remains pending. The original 19:59 draft is retained. The recorded listing/form wording differs on duration, so the submission target is exactly 20:00. Script: [docs/video-script.md](docs/video-script.md). The required public video link is still outstanding. [Media details](docs/video/README.md), [chapters](docs/video/chapters.md) and [captions](docs/video/captions.srt) are supplied.
 
 ### Presentation
 
-[docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) (12 slides). Architecture: [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf). Both still carry team and college placeholders.
+[docs/delivery/presentation.pdf](docs/delivery/presentation.pdf) (12 slides). Architecture: [docs/delivery/architecture.pdf](docs/delivery/architecture.pdf). The presentation includes team, college and member details; the architecture PDF describes the system. The presentation's demo-video URL remains pending until upload.
 
 ### Repository
 
-https://github.com/sumitjadhav1703/lazarus_ECG_traces (target; confirm it is public and contains this revision).
+[Lazarus_MGM_Jawaharlal_Nehru_Engineering_College](https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College) — public repository verified on 19 Oct 2026. Verify that the final reviewed revision and delivery files are published before submission.
 
 Challenge: CRP Digital Twin Challenge 2026 (Happiest Health) on Unstop. Registration closes 18 Oct 2026 19:00 IST; submission is due 20 Oct 2026 19:00 IST.
 

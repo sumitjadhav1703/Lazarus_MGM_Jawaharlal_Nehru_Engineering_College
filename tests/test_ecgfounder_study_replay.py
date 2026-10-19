@@ -14,6 +14,8 @@ from cardiotwin import ecgfounder_compare as comparison
 from cardiotwin import ecgfounder_study as study
 from cardiotwin.precursor import freeze_policy_frontiers
 
+pytestmark = pytest.mark.usefixtures("historical_ecgfounder_clock")
+
 
 class ReplayModel(execution.SyntheticModel):
     def get_params(self, deep=False):

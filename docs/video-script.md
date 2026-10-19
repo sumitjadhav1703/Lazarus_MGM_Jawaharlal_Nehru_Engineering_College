@@ -1,8 +1,8 @@
 # Twenty-minute demonstration script
 
-Target: one real **20:00** screen-and-voice recording, uploaded as **unlisted YouTube**. The Unstop listing says "minimum 20 min" and the submission form says "15-20 min" (see [submission checklist](submission.md)); exactly 20:00 satisfies both. Check the exported file's duration, not this schedule.
+Target: one **20:00** screen-and-voice demonstration, uploaded as **unlisted YouTube**. The Unstop listing says "minimum 20 min" and the submission form says "15-20 min" (see [submission checklist](submission.md)); exactly 20:00 satisfies both. Check the exported file's duration, not this schedule.
 
-This file is a script, not the recording. The recording, upload and public link are still to be done by the team.
+Production status, 19 October 2026: a separate local export measures exactly 20:00 at 1920×1080 and 30 fps, with synthetic narration, manufactured-data dashboard footage, seven chapters and English captions. Four diagrams were added for the forecasting window, runtime architecture, patient roles and measured outcomes. Frame/layout inspection and a full decode check passed. Full subjective playback and the unlisted YouTube upload/access check remain pending. The checklist below is a reusable recording guide, not evidence that every item was performed. See [media details](video/README.md).
 
 ## Ground rules for the narrator
 
@@ -45,7 +45,7 @@ uv run cardiotwin serve --data-dir data/demo --model data/ml-artifacts/patient_c
 Optional, only if prepared and rehearsed: the real frozen finalist on one real development record, in research mode. This needs IRIDIA-AF downloaded from Zenodo 8405941 and the frozen model directory, neither of which is shipped in the repository.
 
 ```bash
-uv run python scripts/prepare_single_record_replay.py --source <IRIDIA data dir> --record <record id> --output data/replay-one
+uv run python scripts/prepare_single_record_replay.py --source <IRIDIA data dir> --record <record id> --split-file <primary-split.json> --output data/replay-one
 uv run cardiotwin serve --research-model --data-dir data/replay-one --model <frozen model dir> --db data/research-state.sqlite
 ```
 
@@ -69,112 +69,112 @@ Total 20:00 (2:30 + 3:00 + 5:00 + 3:00 + 3:30 + 2:00 + 1:00).
 
 ### 1. Problem and India relevance (00:00-02:30)
 
-**On screen:** title slide with Team Lazarus and MGM's Jawaharlal Nehru Engineering College, then the problem slide with the four India sources.
+**On screen:** Team Lazarus title, concrete monitoring use case, target interval, then weak real-data headline. India sources remain contextual only.
 
 **Say:**
 
-"This is CardioTwin, a research prototype for the CRP Digital Twin Challenge. We asked one narrow question. Can a wearable-style ECG stream, plus basic clinical history, warn a clinician a few minutes before a new episode of atrial fibrillation?
+"Imagine a clinician reviewing a long ECG recording. Detecting atrial fibrillation after it begins is one question. Our question is harder: could the preceding signal support a warning before a new episode starts? CardioTwin is a research prototype for that question, built for the CRP Digital Twin Challenge by Team Lazarus from MGM's Jawaharlal Nehru Engineering College. It combines historical ECG, permitted patient context, persistent state and a review dashboard. The practical idea is to make a future warning inspectable rather than display an unexplained number. The intended output is a reviewable warning, with evidence and an explicit availability reason.
 
-The exact target is a new AF onset between two and ten minutes ahead. The input is the last ten minutes of ECG, and we decide every thirty seconds. It is not heart attack, and it is not stroke.
+Here is the result early: the frozen finalist caught six of two hundred and forty-one development events, one of forty-three primary held-out events, and two of twenty-nine external events. These results miss our own fifty percent sensitivity target by a wide margin. We are presenting a functioning research workflow and an honest negative finding. A working interface does not establish useful forecasting. Later, we will explain why even a low false-warning rate needs careful interpretation.
 
-Why India? National AF data are lacking. Community surveys give very different numbers. A door-to-door survey of 4,281 adults in rural Andhra Pradesh found AF in 0.32 percent, rising to 3.5 percent above age 75. A small screening of 354 people over 50 in rural Gujarat found 5.1 percent. India's ischemic stroke burden in the 2019 Global Burden of Disease estimate was about 535,700 new cases. We do not claim how much of that is AF. And in the Kerala-AF registry of 3,421 patients, only about 5 to 6 percent of the rate and rhythm cohort were on newer oral anticoagulants. These sources motivate the question. They do not show that our tool would help.
+The intended use case matters in India, but we have no Indian recordings or local validation. We therefore make no claim about Indian performance, clinical benefit or deployment. Public retrospective data can help investigate an engineering question; they cannot substitute for evidence from the population and care setting where a tool would actually be used. Clinical review and prospective evaluation would be separate future work.
 
-Everything you see today is a research prototype on public retrospective data. It has not been tested on any Indian patient, and the forecasting results are weak. We will show you that first."
+Our fixed contract uses the preceding ten minutes of ECG, with one decision every thirty seconds, to try to forecast a new AF onset two to ten minutes ahead. It is not a heart-attack or stroke forecast. During this video, manufactured dashboard examples demonstrate the software. Saved real-data evaluations establish the weak results. Keeping those two forms of evidence separate is central to the project."
 
 ### 2. Architecture and the two data streams (02:30-05:30)
 
-**On screen:** `docs/delivery/architecture.pdf`, then the README architecture diagram. Point at each box as you name it.
+**On screen:** architecture cards and pipeline diagram; show input, frozen scorer, alert policy, database and UI in order.
 
 **Say:**
 
-"The design has two paths. The online path is what runs at replay time, and it is strictly causal. A replay service feeds each patient's historical ECG in thirty-second ticks. Features are computed from the trailing ECG only. A per-patient running baseline is updated after the prediction, never before. The frozen model scores the row, an alert state machine applies persistence, hysteresis and cooldown, and the result is committed to SQLite in one atomic transaction. FastAPI serves it to the React dashboard.
+"Follow the online path from left to right. The replay service advances historical ECG in thirty-second ticks. At each decision it reads only the preceding ten minutes, extracts features, and applies shared signal-quality checks. It builds the feature row from the previous patient baseline, scores it with frozen model weights, then updates the baseline. An alert state machine applies persistence, hysteresis and cooldown. Cursor, baseline, alert state and warning are committed together in SQLite. FastAPI exposes that state, and React renders it. Restarting the service should continue from the saved cursor rather than repeat a decision. Each patient keeps separate replay state.
 
-The offline path builds labels and evaluates. Labels code is never imported by the runtime. Patient-level training, freezing with checksums, then complete chronological replay and event-level scoring.
+The offline path answers a different question: did warnings arrive before real annotated events? Annotation-derived future labels belong in training and evaluation, never among runtime predictor inputs. Patient groups are separated before fitting, calibration and policy selection. Model packages bind their configuration, feature schema and checksums. Complete chronological evaluation then uses the same alert implementation as replay, so our reported policy is tied to executable behavior. A saved test-access ledger records evaluation use; it does not magically certify historical blinding.
 
-The challenge asks for fusion of static health records and dynamic sensor data. We have two streams. The static stream is paired age and sex from the IRIDIA-AF record. We did not invent diagnoses or lab values. Our code supports sixteen static fields, and the manufactured demo fills all of them to exercise the pipeline, but the real cohort has only age and sex. Whether age and sex alone count as static health records is a judgement call, and fusion showed no benefit. The dynamic stream is twenty-three causal ECG features. Both enter one logistic regression, twenty-seven inputs in all: age, sex, their two availability flags and the ECG features. That is our frozen finalist. The per-patient baseline is persistent twin state that we show the clinician. It is not an input to the model. We keep a separate ECG-only reference so we can ask whether the clinical inputs helped. As you will see, they did not.
+The challenge asks for static and dynamic data fusion. The real static stream contains paired age and sex from IRIDIA-AF metadata. We did not invent diagnoses or laboratory values. The dynamic stream contains twenty-three causal ECG features describing heart rate, RR variability and recent changes. The frozen logistic finalist has twenty-seven named inputs: those ECG features, age, sex and their two availability flags. Missing values are handled explicitly. The running personal baseline is persistent twin state, but it is not an input to this finalist. Some exploratory model variants used baseline features; that does not change the finalist's schema. Our ECG-only reference tests whether adding age and sex helped.
 
-The alert and evaluation code is shared between the runtime and offline scoring, so the policy we score is the policy that runs."
+That distinction defines our digital twin: a patient-specific historical state and inspectable replay, not a simulated anatomical heart and not continuous model retraining. The code supports more clinical fields than the real cohort supplies. Manufactured profiles exercise parts of the interface without becoming evidence of richer real-world fusion. The comparison found no fusion benefit. We preserve that conclusion alongside the software capability, rather than infer better prediction from the presence of two input streams."
 
 ### 3. Live dashboard replay (05:30-10:30)
 
-**On screen:** terminal with the `serve` command, then http://127.0.0.1:8000. Keep a corner label "Manufactured demo data" visible.
+**On screen:** captured dashboard replay with a persistent Manufactured demo data label. This production does not include the optional real-record replay. Timestamp bullets are editorial anchors; fit narration and captions inside the five-minute segment.
 
-**Say and do** (adjust wording to the actual UI labels during rehearsal):
+**Say and do:**
 
-- 05:30. "First, an important disclosure. This dashboard runs on a manufactured demo cohort that our code generates. It is a software demonstration. It is not patient data and not evidence. The model behind it was trained on that synthetic data. The real-data model failed our acceptance gate, and the normal serving path refuses it. We added an explicit opt-in research mode, with a red banner, that can replay it; we use it at most once, later in this segment."
-- 06:00. Open the page. Select a demo patient. "This is the doctor-facing view: ECG trace, trends, the patient's baseline, signal quality and the risk panel."
-- 06:45. Click **Start**. "Playback is accelerated, thirty historical seconds per wall second. Each tick is a forecast built only from the previous ten minutes." Click **Pause**, then **Step** twice. "Step advances one decision."
-- 07:45. Point at the baseline and trend panels. "The baseline evolves as state. It is updated after each prediction. It is shown for context and quality checks; it is not an input to the frozen model."
-- 08:15. When a warning appears, open the warning history and review timeline, and click the clinician review action on one warning. "A clinician can review a warning, and that is stored with the warning history."
-- 09:00. Select demo patient 000 and run to its unreliable segment. "This patient has an intentional bad stretch. The system abstains instead of forecasting. Abstention is part of the design."
-- 09:30. "When the model does not produce a warning, the UI does not invent one."
-- 09:50. Open the evaluation view. "This is the demo cohort's evaluation file. Again, manufactured."
-- 10:00. Optional, if prepared: show the research-mode banner on a real development record. "This is the real frozen model, replayed in research mode. The banner says it failed its acceptance gates. This record is from its own development cohort, so it is in-sample. In a local run it produced forecasts at the one-, two- and three-hour marks with risks around 0.008 to 0.009, and no warnings in the first three hours. That shows the model runs in the twin. It says nothing about forecasting quality." Skip this if it was not rehearsed; the segment still fits.
-- 10:10. Show the replay-receipt slide. "On real IRIDIA development prefixes, a separate replay receipt records 72 steps, a median of 25 milliseconds and a p95 of 27 milliseconds per step. It also shows that changing only the future ECG or annotations leaves all earlier outputs identical. That is a causality check, not a performance claim."
+- 05:30. "This dashboard footage uses manufactured ECG and manufactured clinical profiles, with a model trained on synthetic examples. It demonstrates software behavior, not patient performance. The normal server refuses the real finalist because it failed acceptance gates. An explicit research mode exists, with a red warning banner, but no real-record replay is shown in this video. The real-data results appear separately in saved reports."
+- 06:00. Open the page and select a demo patient. "Start with the patient selector and record-relative clock. The recent ECG panel displays the last ten seconds, while prediction uses the preceding ten minutes. Heart-rate and RR trends summarize earlier decisions. The patient-context panel contains manufactured values here; the real IRIDIA cohort supplies age and sex only. The displayed ECG is downsampled for readability; it is not the exact array used for feature extraction. Displaying fewer points is a presentation choice, while prediction still uses the complete specified trailing signal window. Source sampling rate, signal quality and forecast availability are visible so a reviewer can understand what the score actually rests on."
+- 06:45. Click **Start**. "Replay is accelerated: thirty historical seconds advance per wall second at the default setting. This is historical simulation, not a connected wearable or live hospital feed. Early decisions remain unavailable until enough history and prior reliable baseline updates exist. Warm-up is an explicit state, not a missing zero-risk prediction. Watch the clock and availability reason together as the recording advances." Click **Pause**, then **Step** twice. "Pause holds the current position. Step advances one decision, which makes changes easier to inspect. The forecast panel shows an issue time, the future target interval and the frozen model version. Its percentage is a calibrated model score, not an assurance of clinical probability. Quality acceptance alone does not guarantee a forecast: history, warm-up and a loaded compatible model are also required."
+- 07:45. Point at baseline, trends and evidence. "The baseline stores earlier reliable feature statistics and updates after prediction. Its movement does not mean the model is learning new weights. For the real finalist it is contextual state, not a predictor input. The evidence table lists large contributions to the raw model score and compares available values with earlier baseline context. These are model explanations, not causes of AF and not treatment recommendations."
+- 08:15. Inspect a warning and its review action. "Warnings require persistent elevated scores under the configured policy. The record captures issue time, future interval, model identity and feature evidence. A reviewer can mark it reviewed, dismissed or pending and add a note. That action becomes part of persistent history. Human review does not turn a false warning into a correct prediction, and the software offers no diagnosis or treatment decision."
+- 09:00. Show the unreliable demo stretch. "Manufactured patient zero has an intentional unreliable stretch. Here we inspect the quality reason and unavailable forecast together. Abstention means the system declines to issue a usable score; it does not mean the patient is safe. In real-data evaluation, rejected time and events missed during abstention remain visible. Otherwise a model could look better simply by refusing the difficult periods."
+- 09:30. Inspect no-warning state. "When no warning is issued, the interface preserves that state without inventing an alert. A low score or quiet warning list is not reassurance. Reset restarts this patient's replay and clears its warning and review history; pause merely stops progression. The saved state is useful for inspection, but this synthetic example cannot establish clinical reliability."
+- 09:50. Open Evaluation. "This evaluation screen is still manufactured data. It exercises metric presentation, calibration plots, misses and warning outcomes. Do not read these attractive demo numbers as the project's real-data results. Those are the weak frozen evaluations we show next."
+- 10:00. Optional real-record replay remains omitted from this production. "If a later demonstration uses research mode, retain the failed-gates banner, use a development-only record and disclose its in-sample status. Do not present it as fresh evaluation."
+- 10:10. Show the real-prefix receipt. "A separate saved real-development-prefix receipt records seventy-two replay steps, median twenty-five milliseconds and p ninety-five twenty-seven milliseconds per step. Future-only signal or annotation changes left earlier outputs identical. That checks causal behavior and local execution cost, not forecasting usefulness or wearable hardware performance."
 
 ### 4. Evaluation method (10:30-13:30)
 
-**On screen:** the evaluation-flow slide, then the Methodology section of the README.
+**On screen:** evaluation-flow slide, patient roles, warning/event matching and eligible-hour denominator.
 
 **Say:**
 
-"This is where most of our effort went, because easy evaluations flatter weak models.
+"Our evaluation starts with the unit of independence. Overlapping ECG windows from one person share substantial physiological information. Randomly mixing those windows between training and testing would answer an easier question than generalization to another person. We separate patient groups and preserve their chronological streams, including negative-only recordings. Software success and model usefulness are assessed separately.
 
-We split by patient, never by window. Fitting, early-stopping, calibration and policy groups are disjoint. We froze the model, calibration and alert policy before the held-out cohorts were opened. Those cohorts are now examined, so they cannot be used for tuning again.
+Fitting, early-stopping, calibration and policy roles are disjoint where those stages apply. Model weights, calibration and warning policy were frozen before primary and external evaluation. Those cohorts have now been examined and cannot be described as untouched for another tuning cycle. Fresh output directories and source-bound receipts preserve what was run. Future model selection needs development evidence and a fresh confirmation cohort.
 
-We replay whole recordings in time order. Quality-rejected stretches, missed events and time with no label stay in. One warning can match at most one event, using the inclusive two-to-ten-minute window. False warnings are counted per eligible hour. Warnings that land during AF, in post-AF washout or in unknown time are reported separately, not hidden.
+We replay whole recordings. Each warning can match at most one eligible event within the inclusive two-to-ten-minute interval, and each event can be matched once. Missed events stay in sensitivity even when every opportunity was unavailable. Current AF, washout and unknown-outcome warnings receive separate accounting. They must not disappear from the report simply because they do not fit the primary assessment question.
 
-Counting rules: an event is eligible if at least twelve minutes of labelled non-AF history precede it, the episode lasts at least thirty seconds, and ten minutes of washout follow any earlier AF. False warnings are divided by eligible hours, not all monitored hours.
+The denominator is crucial. Assessed false warnings are divided by labelled, forecast-eligible monitoring hours, including quality-rejected eligible windows. Using all recorded hours would let unknown or excluded time dilute the rate. Coverage is a separate quantity. Event eligibility requires sufficient labelled non-AF history, a minimum thirty-second episode, the target interval and post-AF washout. Report both counts and rates so a small denominator cannot hide behind a percentage.
 
-The data: the IRIDIA-AF database has 167 recordings from 152 patients, about 6,690 monitoring hours. Our development set is 121 patient groups with 241 events. The frozen primary held-out set is 31 groups with 43 events. LTAF is an external set with 29 events across 84 recording groups. For LTAF, patient identity across records is unverified.
+IRIDIA-AF contains one hundred and sixty-seven recordings from one hundred and fifty-two patients, about six thousand six hundred and ninety monitoring hours. Our development cohort has one hundred and twenty-one patient groups and two hundred and forty-one eligible events; the frozen primary cohort has thirty-one groups and forty-three events. LTAF contributes twenty-nine events across eighty-four recording groups. Cross-record patient identity is unverified there, so recording groups cannot simply be called independent people.
 
-Our own criteria are at most 0.25 false warnings per eligible hour and 50 percent sensitivity. We set those ourselves. The organizers published no accuracy threshold."
+Our operating assumptions are at most zero point two five assessed false warnings per eligible hour and at least fifty percent event sensitivity. These are our research criteria, not a clinical standard or organizer accuracy requirement. Passing one criterion cannot compensate for failing the other."
 
 ### 5. Honest results and what failed (13:30-17:00)
 
-**On screen:** the results card (below), then the chance-comparison slide, then the failures slide.
+**On screen:** finalist results card, chance comparison and closed-attempt summary. Keep counts beside percentages.
 
 **Say:**
 
-"Here are the results for the frozen finalist.
+"These are the frozen finalist's results. The dashboard examples have ended.
 
-On development, 6 of 241 events detected. On the primary held-out set, 1 of 43. On LTAF, 2 of 29. That is two to seven percent sensitivity, against our 50 percent target. The gate fails.
+Development caught six of two hundred and forty-one events. The primary held-out cohort caught one of forty-three. LTAF caught two of twenty-nine. Sensitivity is roughly two to seven percent, far below our fifty percent target. Acceptance fails despite assessed false-warning rates below budget. Most events receive no advance warning.
 
-Held-out AUROC is 0.611 on the primary set and 0.631 on LTAF. That is a weak ranking signal.
+Primary AUROC is zero point six one one, and LTAF AUROC is zero point six three one. Ranking performance summarizes scores across thresholds; it does not tell us how many events this warning policy catches at the operating budget. The low event counts remain the headline.
 
-Then we checked against chance. We shifted the saved risk scores to random times within each recording and re-applied the same alert policy. In development we would expect about 4.5 detections at random timing, and we observed 6. That is indistinguishable. On the held-out sets, 3 of 72 events versus about 0.7 expected. That looks better, but it is three events, the intervals include zero, and it was a post-hoc check. We make no claim of skill.
+We independently compared saved score timing with random within-record shifts, without refitting. Development observed six detections against about four point five expected at random timing. The held-out cohorts together observed three of seventy-two against about zero point seven expected. Only three events, intervals including zero, and a post-hoc check cannot establish skill. We claim no demonstrated event-level skill.
 
-LTAF shows only four assessed false warnings, which looks great. It is not skill. Of 398 warning starts, 392 fell in time that cannot be assessed: 222 during AF, 77 in washout, 93 unknown. Placing the same warning time at random would give about 0.10 assessed false warnings per hour, not 0.008.
+LTAF illustrates the denominator problem. There were three hundred and ninety-eight warning starts. Three hundred and ninety-two were unassessable: two hundred and twenty-two during AF, seventy-seven in washout and ninety-three in unknown time. Only four were assessed false warnings. Its zero point zero zero eight assessed rate therefore needs the whole warning inventory beside it. The same warning time placed randomly gives about zero point one zero assessed false warnings per hour.
 
-The clinical inputs did not help. The ECG-only reference caught 7 of 241, the fused model 6. Probabilities were no better than a constant base rate in development: Brier 0.008384 against 0.008358.
+Fusion also failed to help. The ECG-only reference caught seven development events, compared with six for age, sex and ECG. Development Brier score was zero point zero zero eight three eight four, versus zero point zero zero eight three five eight for the observed constant base-rate reference. A smaller-looking probability error is not sufficient when the reference performs as well.
 
-What else did not work. Gradient boosting, a per-patient baseline, ectopy-like motifs, an RR temporal CNN at 4 and 7 of 241, a waveform CNN with a causal temporal head at 4 of 241 but warning 33 percent of the time, and a precursor ranking at 5 of 241. A frozen ECG foundation model, ECGFounder, never produced an outcome fit: our last cloud job failed in dependency setup before reading data.
+Other attempts included gradient boosting, personal-baseline features, ectopy-like motifs, RR temporal CNNs catching four and seven development events, a waveform CNN catching four while occupying warning state about thirty-three percent of the time, and precursor ranking catching five. ECGFounder produced no outcome fit; the last cloud job failed during dependency setup before data reads. Engineering progress is not predictive evidence.
 
-We also found a calibration defect. On development fold 0 the calibrators learned negative slopes and reversed the ranking, from 0.573 to 0.427. It does not affect the frozen held-out models, and we added a guard in the training code, for exploratory use only.
+A development-fold calibration defect reversed ranking from zero point five seven three to zero point four two seven. Frozen finalists have positive slopes and are unaffected. A later exploratory guard rejects non-positive slopes; it does not repair history or change these saved results.
 
-For context, the closest published design on the same database reports an AUROC of 0.657 to 0.680 in an abstract, without false-alarm rates. We did not find any source showing this kind of warning is achievable at our false-alarm budget."
+Published comparison claims use different reporting and omit the operating false-alarm evidence we need. We therefore keep them as context, not proof that our target is achievable. Closed attempts remain preserved, with their failures and limitations."
 
 ### 6. Limitations and future validation (17:00-19:00)
 
-**On screen:** limits slide, then validation-plan slide.
+**On screen:** limitations and prospective validation plan. Label future work as proposed.
 
 **Say:**
 
-"The limits. This is retrospective public data. We have no Indian-population evidence. The LTAF groups are recording IDs, and patient independence is unverified. The held-out cohorts are used up for this model family, and our development numbers come from choosing among many candidates, so they are exploratory. This is not a medical device and gives no treatment advice.
+"The limits extend beyond sensitivity. These are retrospective public recordings, not a prospective device study. There is no Indian-population evidence, no secured clinical partner and no treatment advice. LTAF patient independence across records is unverified. Development estimates follow exploration across many candidates, and already examined test cohorts cannot supply a fresh confirmation claim. Clinical metadata are limited, signal preprocessing is source-specific, and RR variability is not automatically validated normal-to-normal heart-rate variability. Local replay latency describes this software and workload; it does not certify battery use, wireless reliability or continuous wearable hardware performance. The dashboard's manufactured profiles must remain visibly separate from real patient evidence.
 
-The path to Indian validation is a plan, not something we have started. First, an ethically approved clinical partner. We do not have one secured. Second, a prospective silent evaluation, where alerts are logged but not shown to clinicians, at a pre-registered operating point. Third, fresh cohorts and pre-declared gates for any new model. Until then, we do not claim Indian performance."
+A future validation program would begin with an ethically approved clinical partner and a clearly specified monitoring setting. Before fitting a new model, declare the target, patient roles, missing-data rules, warning budget and advancement gates. Diagnose measurement and calibration first, then compare against simple references on the same complete timelines. Preserve failed attempts rather than silently change thresholds after seeing results. If a model earns further study, use a fresh prospective silent evaluation: log alerts without showing them to clinicians, then assess events, false warnings, coverage and burden with uncertainty. Only later could a separate study examine whether acting on warnings improves care. None of those stages has been completed here. For this submission, the appropriate action is to preserve the weak result and make the workflow inspectable, reproducible and clear about what remains unmeasured. The acceptance gates remain research assumptions."
 
 Only name a partner or timeline if one really exists.
 
 ### 7. Reproducibility and close (19:00-20:00)
 
-**On screen:** the public repository page and the README top box. Repository: https://github.com/sumitjadhav1703/lazarus_ECG_traces (confirm it is public first).
+**On screen:** canonical repository URL and shipped-versus-omitted checklist. Show the recorded test date.
 
 **Say:**
 
-"Everything is in the public repository. Dependencies are locked. The code is MIT licensed, and the datasets keep their own licenses. In the public repository the full test run is 841 passed, 83 skipped and none failed without PyTorch; the skipped tests need private research receipts or the optional PyTorch install.
+"The repository shown here is Lazarus, MGM, Jawaharlal Nehru Engineering College, under sumitjadhav1703 on GitHub. It ships source, locked dependencies, tests, selected evaluation reports and submission documents. Raw ECG, model binaries, local patient state and private research receipts are omitted. The recorded public test run on seventeenth October had eight hundred and forty-one passes and eighty-three skips without PyTorch; this is not a fresh test claim. The full canonical repository address stays visible on screen. Data retain their own licences; code is MIT licensed.
 
-CardioTwin is a research prototype. Its contribution is a leak-controlled, strictly scored evaluation pipeline and an honest negative result, not a working predictor. Thank you. Team Lazarus, MGM's Jawaharlal Nehru Engineering College."
+CardioTwin remains a research prototype. Its contribution is a causal replay system, explicit evaluation gates and a documented negative forecasting result. A usable interface has not made the model clinically useful. Thank you from Team Lazarus."
 
 ## Results card (show during segment 5; finalist only)
 
@@ -207,6 +207,12 @@ After recording
 - [ ] Uploaded as **Unlisted**, not Private or Public.
 - [ ] Anonymous check: open the link in a private window of a different browser, signed out of Google. It must play without login or an access request.
 - [ ] Audio audible and UI readable at 720p and 1080p.
-- [ ] Link placed in README (`<<YOUTUBE UNLISTED URL>>`) and in the submission form.
+- [ ] Verified unlisted link placed in README and in the submission form.
 
-Segment 3 shows manufactured data and a synthetic-trained model by default. The real frozen model is replayed only through the opt-in research mode, with its red banner and an in-sample record, and only if rehearsed. The default server still refuses the failed-gate model. Do not change that to make the demo look better.
+Segment 3 shows manufactured data and a synthetic-trained model by default. The optional real-record replay is omitted from this production. Any later use requires the opt-in research mode, a visible red banner and an explicitly in-sample development record. The default server still refuses the failed-gate model. Do not change that to make the demo look better.
+
+## Editorial evidence and timing notes
+
+Narration is grounded in the current local public snapshot: `README.md` (model schema, frozen results, chance re-analysis, limits and recorded 17 October tests), `docs/submission.md` (replay proof scope), `src/cardiotwin/{service,features,modeling,alerts,evaluation}.py` (runtime and evaluation semantics), and `scripts/prepare_single_record_replay.py` (development-only helper with `--split-file`). No fresh external claims or fresh test results are introduced. The canonical repository URL supplied for this revision is https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College; verify final anonymous access separately.
+
+All seven scheduled segments total exactly 1,200 seconds. The optional 10:00 bullet is excluded from narration and visuals. Keep paragraph and mandatory quote-unit counts unchanged for the current visual mapping. Aim for natural 135–155 words per minute, with short pauses to inspect on-screen evidence. Final export duration, intelligibility, caption synchronization and residual silence require measurement by the video builder.

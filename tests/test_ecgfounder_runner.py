@@ -14,6 +14,8 @@ from cardiotwin.ecgfounder_tables import identity_digest
 from cardiotwin.investigation import _record_contract
 from cardiotwin.precursor import compact_cache_binding
 
+pytestmark = pytest.mark.usefixtures("historical_ecgfounder_clock")
+
 NOW = datetime(2026, 10, 15, 12, tzinfo=timezone.utc)
 
 
@@ -1052,3 +1054,16 @@ def test_cleanup_timeout_stops_auxiliary_hashes_and_preserves_primary_error(tmp_
     receipt = json.loads((tmp_path / "cleanup-timeout/receipt.json").read_text())
     assert receipt["original_error"] == "primary failure before cleanup"
     assert receipt["cleanup"]["posthash_status"] == "partial_cleanup_deadline"
+
+
+def test_historical_clock_is_module_local_and_default_calendar_expiry_still_fails(monkeypatch):
+    import datetime as standard_datetime
+
+    assert standard_datetime.datetime is datetime
+    assert runner.datetime is not datetime
+    assert runner.datetime.now(timezone.utc) == NOW
+    guard = runner.ExecutionGuard(session_started=runner.time.monotonic(), stage_seconds=100)
+    guard()
+    monkeypatch.setattr(runner, "datetime", SimpleNamespace(now=lambda tz: runner.DEADLINE))
+    with pytest.raises(TimeoutError, match="calendar deadline"):
+        guard()

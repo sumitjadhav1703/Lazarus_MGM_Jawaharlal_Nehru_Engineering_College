@@ -6,6 +6,9 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from conftest import HistoricalECGFounderDatetime
+
+pytestmark = pytest.mark.usefixtures("historical_ecgfounder_clock")
 
 
 def load_cli():
@@ -13,6 +16,8 @@ def load_cli():
     spec = importlib.util.spec_from_file_location("study_cli_test", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
+    if hasattr(module, "datetime"):
+        module.datetime = HistoricalECGFounderDatetime
     return module
 
 

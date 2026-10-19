@@ -36,8 +36,8 @@ PLACEHOLDER = '<font color="#9A5B00"><b>[%s]</b></font>'
 TEAM = "Lazarus"
 COLLEGE = "MGM's Jawaharlal Nehru Engineering College"
 LEADER = "Atharva Kulkarni; members Pranav Mirkar, Sumit Jadhav"
-REPO_URL = "https://github.com/sumitjadhav1703/lazarus_ECG_traces"
-VIDEO_URL = PLACEHOLDER % "UNLISTED YOUTUBE URL - to be supplied"
+REPO_URL = "https://github.com/sumitjadhav1703/Lazarus_MGM_Jawaharlal_Nehru_Engineering_College"
+VIDEO_URL = "Upload pending; see repository README for current status"
 
 
 def style(size=13, color=NAVY, bold=False, leading=None, bullet=False):

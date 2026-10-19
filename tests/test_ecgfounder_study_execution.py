@@ -11,6 +11,8 @@ import test_ecgfounder_study as preparation
 from cardiotwin import ecgfounder_study as study
 from cardiotwin.precursor import PRESETS
 
+pytestmark = pytest.mark.usefixtures("historical_ecgfounder_clock")
+
 
 class SyntheticTransforms:
     def __init__(self, pairs):

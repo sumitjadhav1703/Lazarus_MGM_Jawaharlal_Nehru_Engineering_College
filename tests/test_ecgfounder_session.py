@@ -6,6 +6,10 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from conftest import HistoricalECGFounderDatetime
+
+pytestmark = pytest.mark.usefixtures("historical_ecgfounder_clock")
+
 
 needs_addendum = pytest.mark.skipif(
     not (
@@ -31,6 +35,17 @@ def load():
     spec = importlib.util.spec_from_file_location("session_test", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
+    if hasattr(module, "datetime"):
+        module.datetime = HistoricalECGFounderDatetime
+    real_load_script = module.load_script
+
+    def load_script(root, name):
+        loaded = real_load_script(root, name)
+        if hasattr(loaded, "datetime"):
+            loaded.datetime = HistoricalECGFounderDatetime
+        return loaded
+
+    module.load_script = load_script
     return module
 
 
