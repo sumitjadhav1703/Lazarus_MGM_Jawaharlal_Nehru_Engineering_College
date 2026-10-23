@@ -1,0 +1,111 @@
+{
+  "scope": "Bounded engineering validation; no forecasting evaluation",
+  "run_date": "2026-10-22",
+  "verified_date": "2026-10-23",
+  "kernel_id": 140163494,
+  "version": 1,
+  "source_sha256": "0edf084343b012c935980c2cc957b091bfb2047ec8f3d8379f809e21218cdd30",
+  "source_identity": "a85d893a7c8e2c762132fa2864a3080293697515e654b343fa7d7465ce3b8242",
+  "provider_status": "COMPLETE",
+  "bootstrap_status": "complete_engineering_measurements_only",
+  "bootstrap_elapsed_seconds": 2609.715989963,
+  "phases": {
+    "staging_identity": {
+      "status": "complete",
+      "supervisor_elapsed_seconds": 486.3342453139999,
+      "peak_process_group_rss_bytes": 224989184,
+      "exit_code": 0,
+      "cleanup_complete": true,
+      "drain_complete": true
+    },
+    "synthetic_cpu": {
+      "status": "complete",
+      "supervisor_elapsed_seconds": 1554.298142924,
+      "peak_process_group_rss_bytes": 959995904,
+      "exit_code": 0,
+      "cleanup_complete": true,
+      "drain_complete": true
+    },
+    "synthetic_table": {
+      "status": "complete",
+      "supervisor_elapsed_seconds": 389.0573562569998,
+      "peak_process_group_rss_bytes": 2837737472,
+      "exit_code": 0,
+      "cleanup_complete": true,
+      "drain_complete": true
+    },
+    "dense_native": {
+      "status": "complete",
+      "supervisor_elapsed_seconds": 115.20040132300028,
+      "peak_process_group_rss_bytes": 1325449216,
+      "exit_code": 0,
+      "cleanup_complete": true,
+      "drain_complete": true
+    }
+  },
+  "dense": {
+    "device": "cuda:0",
+    "device_name": "Tesla T4",
+    "rows": 396,
+    "slots": 36,
+    "new_dense_chunks": 3240,
+    "parity_checks_passed": 36,
+    "parity_checks_total": 36,
+    "maximum_delta_absolute_error": 3.129243850708008e-07,
+    "child_elapsed_seconds": 107.50421750199985,
+    "full_storage_scans": 111,
+    "storage_scan_seconds": 43.18090815700043,
+    "resource_checks": 3449,
+    "peak_cuda_reserved_bytes": 180355072,
+    "measurement_limit": "Frozen chunk helper/native I/O; excludes full iter_record scheduler; OS cache uncontrolled after checksum pass"
+  },
+  "actual_outcome_fits": 0,
+  "forecasting_performance": "unmeasured",
+  "full_run_eligible": false,
+  "accepted_11_cost_upper_seconds": {
+    "source_data_hashing": null,
+    "bootstrap_checkpoint_transfer_loading": null,
+    "feature_transfer_persistence": null,
+    "six_primary_fits": null,
+    "null_nuisance_fits": null,
+    "six_calibrators": null,
+    "policy_selection": null,
+    "complete_timelines": null,
+    "person_bootstrap": null,
+    "artifact_verification_download": null,
+    "review": null
+  },
+  "prelaunch_software_verification": {
+    "date": "2026-10-22",
+    "passed": 1036,
+    "failed": 0,
+    "seconds": 266.82,
+    "scope": "Private development workspace; not a fresh public CI run"
+  },
+  "original_receipt_sha256": {
+    "bootstrap-receipt.json": "59663377e2b5befb36c026c7f5f8d732e778335f2fb56776a723ccf8ffea6092",
+    "dense-receipt.json": "e261ba5d101c67e7f9f6661dcf01dbbe7264163a82651a453d2d8c363a32254d",
+    "staging-receipt.json": "46a6fca5b00f17928a88d75a8642269d57342a16b6e8db59b867067e901bf22c",
+    "synthetic-cost-receipt.json": "c7734b9ed5928904ecc281a0ae18f8865ee9f4124f5c6298127669fc9e30ea57",
+    "table-receipt.json": "869f16eabe52d053cb7f1af1d6727b229cb041c77a6f9b0ded970bcc03bf3ff2"
+  },
+  "limits": {
+    "session_seconds": 41400,
+    "cleanup_seconds": 300,
+    "post_checkpoint_seconds": 3600,
+    "cpu_seconds": 1800,
+    "table_seconds": 900,
+    "dense_seconds": 600,
+    "rss_bytes": 10000000000,
+    "cuda_reserved_bytes": 12000000000,
+    "storage_bytes": 25000000000,
+    "reserve_bytes": 250000000
+  },
+  "limitations": [
+    "Selected normal fit histories, not full chronological or population coverage",
+    "No outcome model fitted; no accuracy, sensitivity, AUROC or clinical benefit established",
+    "All eleven full-cost upper bounds still unavailable; coverage and original-pair support gates remain",
+    "Original22October18IST calendar expired; no successor study launched"
+  ],
+  "independent_terminal_review_sha256": "4062431de0f591c5166ecef319ab78a5c12141759e5578616dd108fd9cb043b3"
+}

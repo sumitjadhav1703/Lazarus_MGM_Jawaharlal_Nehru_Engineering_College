@@ -43,7 +43,7 @@ Mapped in the README [Submission checklist](../README.md#submission-checklist): 
 | Against random timing | dev 6 observed vs about 4.5 expected; held-out 3/72 vs about 0.7 (post-hoc, no skill claim) |
 | LTAF low false-warning rate | not skill: 392 of 398 warning starts in unassessable time |
 | Fusion benefit | not shown: ECG-only reference 7/241 vs fused 6/241 |
-| Deep learning | RR-TCN16 4/241 and 7/241; waveform CNN 4/241 at 33.13% occupancy; ECGFounder no outcome results |
+| Deep learning | RR-TCN16 4/241 and 7/241; waveform CNN 4/241 at 33.13% occupancy; ECGFounder bounded engineering passed; outcome fits 0 |
 | Calibration defect (dev fold 0) | AUROC 0.573 raw to 0.427 calibrated; frozen models unaffected |
 | Test suite (public repository, no PyTorch) | 842 passed, 83 skipped, 0 failed on 19 Oct 2026; skips need private receipts or PyTorch |
 | Static fields | Code supports 16 EHR-style fields; the manufactured demo fills all; real IRIDIA-AF gives age and sex only. Whether that meets "static EHR" is a judgement call |
@@ -81,3 +81,5 @@ uv run --with reportlab==4.4.9 python scripts/build_delivery_pdfs.py
 ```
 
 Running the builder does not complete recording, upload or submission.
+
+Post-submission research update (23 October 2026): [ECGFounder engineering results](ecgfounder-engineering-20261022.md). This adds engineering evidence; frozen forecasting outcomes and the original submission remain unchanged.

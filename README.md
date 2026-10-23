@@ -243,7 +243,7 @@ Constraints are from [pyproject.toml](pyproject.toml) and [dashboard/package.jso
 | RR-TCN16 | Temporal convolutional network on RR-interval sequences | 4/241 and 7/241 |
 | Waveform CNN with causal TCN head | `ResidualChunkEncoder` with GroupNorm on raw two-lead ECG chunks | 4/241, 33.13% warning occupancy |
 | Precursor ranking | Linear precursor ranking | 5/241 |
-| ECGFounder frozen encoder | Foundation-model features (attempt) | No outcome fit: 0 fits; the last private Kaggle job failed during pip setup |
+| ECGFounder frozen encoder | Frozen features; bounded engineering validation | ✅ Engineering passed: 396/396 dense rows, 36/36 parity checks. **Outcome fits: 0; forecasting unmeasured.** [Report](docs/ecgfounder-engineering-20261022.md) |
 
 See [Deep-learning work](#deep-learning-work) for the caveats and the chance comparison.
 
@@ -387,7 +387,7 @@ All deep-learning arms are development-only and none became the frozen finalist.
 | --- | --- | --- |
 | RR-TCN16 | Temporal convolutional network on RR-interval sequences | Two controls: 4/241 and 7/241. Their sensitivity-difference interval includes zero, so 7/241 is not an established superior model. Only arm clearly above random timing (7/241 vs 1.5 expected, uncorrected p 0.016), fold 0 only, 1 of 8 arms. |
 | Waveform CNN with causal TCN temporal head | `ResidualChunkEncoder` (two ECG leads plus a validity mask per 500-sample chunk, residual blocks, GroupNorm) feeding the existing causal temporal head | 4/241, but warning occupancy 33.13% of monitored time (226 assessed false starts), AUROC about 0.458. No improvement or promotion followed. |
-| ECGFounder frozen encoder ([arXiv 2410.04133](https://arxiv.org/abs/2410.04133)) | Attempted frozen foundation-model features for a heads-on-top study | **No outcome results.** Actual outcome fits: 0. The last private Kaggle T4 job failed during pip dependency setup before any data were read. Forecasting is unmeasured and the full run was never eligible. |
+| ECGFounder frozen encoder ([arXiv 2410.04133](https://arxiv.org/abs/2410.04133)) | Frozen single-lead features for a planned heads-on-top study | **Bounded engineering validated, 22 Oct:** all four stages completed; 396/396 selected dense rows and 36/36 parity checks passed on T4. **Outcome fits: 0; forecasting remains unmeasured.** Full comparison remains ineligible. [Measurements and limits](docs/ecgfounder-engineering-20261022.md). |
 
 Related: precursor ranking caught 5/241 versus 6/241 for the pointwise control (advancement rejected). No reviewed model approaches the 50% research sensitivity goal. Code: `neural.py`, `neural_architectures.py` (optional PyTorch), `ecgfounder*.py`.
 

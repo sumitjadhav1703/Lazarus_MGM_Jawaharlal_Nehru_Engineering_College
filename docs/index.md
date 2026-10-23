@@ -32,7 +32,7 @@ Frozen clinical (age/sex) plus causal-ECG logistic regression, at most 0.25 asse
 - Not clearly above random timing; no fusion benefit shown (ECG-only reference 7/241).
 - Per-patient baseline is twin state shown to the clinician, not a model input; the real cohort supplies only age and sex as static fields.
 - Default dashboard demo is manufactured data; the real frozen model replays only in opt-in `--research-model` mode (banner, in-sample record).
-- Deep-learning arms (RR-TCN16 4/241 and 7/241, waveform CNN 4/241) and the ECGFounder attempt (no outcome results) did not change this.
+- Deep-learning arms (RR-TCN16 4/241 and 7/241, waveform CNN 4/241) and ECGFounder (engineering validated on 22 October; no outcome results) did not change this.
 - Details: [investigation report](../reports/ml-investigation/report.md), [model card](../reports/ml-investigation/frozen-challenge-fusion/model_card.md), [requirements audit](../reports/ml-investigation/CHALLENGE_REQUIREMENTS.md).
 
 ## Technical documents
@@ -53,3 +53,5 @@ These were written on earlier dates (6-10 Oct 2026). `development-plan.txt` and 
 ## Licensing
 
 Code: [MIT](../LICENSE). Data: [DATA_LICENSE.md](../DATA_LICENSE.md).
+
+ECGFounder update: [completed bounded engineering validation and its limits](ecgfounder-engineering-20261022.md), verified 23 October 2026. Forecasting remains unmeasured.
