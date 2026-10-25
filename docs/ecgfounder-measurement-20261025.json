@@ -1,0 +1,96 @@
+{
+  "schema": "cardiotwin-generated-measurement-public-v1",
+  "date": "2026-10-25",
+  "status": "complete_generated_measurement_only",
+  "source_sha256": "9cdad825729c3bbc56e46472ff6f96f30d9a5c1bdc7376ee614af5aadf128544",
+  "source_identity": "faebfbf7a3b0f54b7cf9347a5c09ccb57d14389febc8b4b6cbcb25f25a1a0a00",
+  "stages": {
+    "A": {
+      "seconds": 4.583718106,
+      "generated_rows": 5676,
+      "records": 132
+    },
+    "B": {
+      "seconds": 144.745083629,
+      "generated_rows": 1232,
+      "synthetic_head_fits": 66,
+      "synthetic_calibrator_fits": 6,
+      "independent_no_fit_replay_packages": 66
+    },
+    "C": {
+      "seconds": 44.322287632,
+      "generated_rows": 629444,
+      "generated_drift_pairs": 4946,
+      "proposed_original_chronology_pair_upper": 5244,
+      "original_chronology_conditions_verified_by_this_run": false
+    },
+    "D": {
+      "seconds": 116.812976525,
+      "prediction_rows_written": 629444,
+      "prediction_rows_decoded": 629444,
+      "prediction_rows_compared": 629444,
+      "generated_report_warning_objects": 316050,
+      "sample_policies": 10,
+      "baseline_warnings": 0
+    },
+    "E": {
+      "seconds": 51.878774397,
+      "payload_bytes": 200000000,
+      "full_study_publication_complete": false
+    }
+  },
+  "clocks": {
+    "outer_seconds": 437.262392472,
+    "dependencies_seconds": 70.12281304,
+    "worker_supervisor_seconds": 366.87546079,
+    "provider_ui_seconds": 443.7,
+    "scope": "Outer includes dependencies and supervised worker; components contain nested operations. Provider UI uses a different clock. Do not sum overlapping scopes."
+  },
+  "worker_peak_process_group_rss_bytes": 832061440,
+  "runtime": {
+    "allocation": "Tesla T4",
+    "computation_scope": "generated CPU workflow; no real encoder inference",
+    "numerical_threads": 1,
+    "python": "3.13.15",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit_learn": "1.9.1"
+  },
+  "payload_retrieval": {
+    "status": "verified",
+    "bytes": 200000000,
+    "sha256": "56399f79e588d792f1937c7ff761635aa26439c9bc8a87f9253fd9bebe037e10",
+    "transfer_seconds": 41.880502208005055,
+    "scope": "One actual generated-payload transfer; not full-study publication or a future-throughput guarantee"
+  },
+  "real_ecg_reads": 0,
+  "real_checkpoint_loads": 0,
+  "real_encoder_calls": 0,
+  "actual_outcome_fits": 0,
+  "accepted_intended_worker_cost_upper_seconds": {
+    "source_data_hashing": null,
+    "bootstrap_checkpoint_transfer_loading": null,
+    "feature_transfer_persistence": null,
+    "six_primary_fits": null,
+    "null_nuisance_fits": null,
+    "six_calibrators": null,
+    "policy_selection": null,
+    "complete_timelines": null,
+    "person_bootstrap": null,
+    "artifact_verification_download": null,
+    "review": null
+  },
+  "full_run_eligible": false,
+  "forecasting_performance": "unmeasured",
+  "complete_cost_proposal": "not accepted; proposed upper is not measured runtime",
+  "calendar": "No full study authorized; remaining launch window insufficient under retained reservations",
+  "limitations": [
+    "Generated workflow is software evidence only",
+    "Existing5244pair bound conditional on original complete chronology; this run did not verify those conditions",
+    "Native I/O/cache applicability unresolved; previous dense helper excludes full scheduler",
+    "Full chronological coverage and original-pair support remain gated",
+    "Full report/bundle scaling and final publication proof remain separate",
+    "No physical-impossibility or negative-efficacy conclusion"
+  ],
+  "prior_report": "ecgfounder-engineering-20261022.md"
+}
