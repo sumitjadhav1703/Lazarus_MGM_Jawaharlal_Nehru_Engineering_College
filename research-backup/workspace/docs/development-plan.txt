@@ -1,0 +1,200 @@
+CURRENT IMPLEMENTATION - 10 October 2026
+
+Challenge compliance is the highest delivery priority. The original blueprint below records earlier choices and is superseded by this status, reports/ml-investigation/approved-plan.md and the dated CHALLENGE_REQUIREMENTS.md audit.
+
+Primary real cohort: IRIDIA-AF v1.0.1, 167 recordings / 152 patients. Development: 121 groups; frozen primary test: 31 groups / 35 recordings. External transfer: all 84 LTAF records, with patient identity across records unverified. SHDB remains an earlier feasibility audit and is not the final training cohort.
+
+Challenge predictor: frozen logistic_combined, genuinely paired age/sex plus causal ECG. Scientific comparator: separately frozen logistic_current_recipe. Deep learning was actually screened on MPS and CUDA; RR16 completed, waveform remained incomplete and RR32 was not reached. No family is retained by assumption. Development detects 6/241, 7/241 and 4/241 events respectively; acceptance gates fail. Do not claim fusion improvement, clinical usefulness or Indian population validation.
+
+Keep the unchanged 600-second history, new onset 120-600 seconds ahead, 30-second cadence, duration/washout rules and predeclared warning policies. Freeze precedes any primary/external evaluation; no test-driven retuning. Historical replay evolves patient state while model weights remain frozen. The normal serving gate refuses failed research artifacts; a trusted research replay is explicit.
+
+Official requirements: static historical EHR plus dynamic sensor fusion, permitted anonymous/open/synthetic data, clinician UI, public repository/README, architecture and presentation PDF/PPT, and a real demonstration. Use a 20:00-minute unlisted YouTube video to satisfy the body/form duration intersection. Registration:18Oct2026 19:00IST; submission:20Oct2026 19:00IST. Team identity and registration details are deferred to the final stage at the user's request; never invent them or claim publication/submission.
+
+Final measured results and reproducible artifacts live in reports/ml-investigation/report.md. Technical/source conflicts and remaining delivery checks live in docs/submission.md and reports/ml-investigation/CHALLENGE_REQUIREMENTS.md. The original blueprint follows for historical rationale, not current model/data status.
+
+----- ORIGINAL BLUEPRINT -----
+
+CardioTwin Development Plan
+AF early warning digital twin for the Happiest Health Digital Twin Challenge 2026
+Development specification • 6 October 2026 • Version 1.0
+Project direction
+Build a patient-specific research prototype that combines clinical history with an ECG stream to estimate the risk of a new atrial fibrillation (AF) episode. The dashboard should help a clinician review the signal, the warning and its uncertainty. This gives the cardiac direction a measurable target and a practical development scope.
+Heart attack, stroke and AF are different outcomes. This prototype forecasts AF onset; it does not forecast a heart attack or stroke. Epilepsy remains outside the selected cardiac scope.
+Decision | Development choice
+Outcome | New AF onset within a defined future interval.
+Primary data | SHDB-AF: ECG recordings linked to clinical metadata.
+Primary model | Calibrated XGBoost with causal ECG and clinical features.
+Digital twin | Persistent patient profile, evolving baseline, risk and alert history.
+Interface | Clinician dashboard driven by historical ECG replay.
+Delivery | Reproducible prototype, evaluation report and hackathon materials.
+
+Medical performance principle
+Zero false positives cannot be guaranteed. A model that never issues a warning can achieve zero false alerts while missing every event. The development objective is therefore to reduce false warnings while preserving useful event sensitivity, report uncertainty, and abstain when data are unreliable.
+Scope and status
+This document specifies work to build and validate. It does not report completed training or measured accuracy. The forecasting horizon is provisional until the data audit passes. The prototype is for research and demonstration, with clinician review and no automated treatment decisions.
+
+1  Data selection and feasibility
+Primary dataset
+SHDB-AF v1.0.1 is a Japanese database with 128 approximately 24-hour, two-channel Holter ECG recordings from 122 subjects. The supervised subset contains 98 annotated recordings from 93 subjects, with linked clinical metadata. Thirty recordings lack rhythm annotations. The documented 809 AF intervals are not necessarily independent, usable forecasting events. [2]
+This pairing is useful for the proposed prototype, but it is not evidence of performance in Indian patients. Position the use case for Indian healthcare and keep the validation claim limited to the population actually evaluated.
+Audit before model development
+Read WFDB signals, rhythm intervals and clinical metadata; create a subject-to-record manifest and verify sampling rates and durations.
+Count new AF transitions with sufficient clean history and future coverage. Report usable events, event-bearing subjects and eligible monitoring hours.
+Keep all records from one subject in the same split. Audit duplicate or overlapping recordings before inclusion.
+Use annotated data for supervised labels. Do not label unannotated recordings as negative.
+Document missing fields, signal quality, rhythm ambiguity, annotation fragmentation and exclusion reasons.
+Metadata and processing safeguards
+SHDB-AF describes AF_Type as the final Holter diagnosis: exclude it as a forecasting input. Exclude post-recording procedures and undated free text; use echocardiography only when available beforehand. The (N annotation means other/unlabelled rhythm, not confirmed normal sinus rhythm. The supplied signals have already undergone zero-phase filtering; disclose this limitation in any streaming claim. [2]
+Supplementary benchmark
+The PhysioNet PAF Prediction Challenge database can support a separate pre-event ECG benchmark. Its paired segments and task construction differ from continuous SHDB-AF replay. Do not combine unrelated clinical profiles or present a mismatched benchmark as external validation of the same forecast. [3]
+Feasibility gate
+Proceed only if the audit finds enough independent event-bearing subjects for grouped development and a meaningful untouched test. If events are too sparse, revise the horizon or dataset and document the change. Existing-AF detection must not be relabelled as future prediction.
+
+2  Target definition and features
+Proposed forecast contract
+Component | Initial specification to validate
+History | ECG and patient state available during the previous 10 minutes.
+Future target | A new AF onset between 2 and 10 minutes after prediction time t.
+Update cadence | Initially every 30 seconds; tune only during development.
+Positive label | An eligible new AF onset occurs in the target interval.
+Negative label | No AF onset occurs through t + 10 minutes, with adequate labels.
+Exclude or separate | Current AF, onset in the first 2 minutes, incomplete follow-up, uncertain labels and insufficient history.
+
+The 2-minute gap tests useful advance warning rather than near-onset recognition. These values are experimental choices, not established clinical lead-time requirements. Set episode duration and event washout rules before evaluation, with clinical review where available.
+Causal feature groups
+ECG: heart rate, RR interval summaries, beat-to-beat variability, validated HRV statistics and short-versus-long window trends.
+Quality: missing fraction, flatline or saturation indicators, R-peak reliability and disagreement between leads.
+Clinical: age, sex, BMI, eligible prior diagnoses and prior medication fields; retain an availability audit for every field.
+Personalization: deviations from a patient baseline computed only from earlier reliable samples; carry baseline confidence and warm-up status.
+Use HRV measures only where valid beat selection and sufficient window duration exist. Do not assume every irregular interval is artefact; arrhythmia and poor recording quality require different handling.
+Label construction and leakage control
+Convert rhythm boundaries into intervals, then construct onset labels in a separate training/evaluation module. The runtime feature service cannot access future annotations. Fit imputers, normalizers and feature selection on training patients only. Preserve missingness indicators.
+Use causal processing in the implementation. A prefix invariance test must show that changing future samples cannot change earlier features, state or predictions. Archive the target, exclusion and timing rules in a versioned configuration file.
+
+3  Model strategy and training
+Recommended model ladder
+Model | Role | Decision rule
+Logistic regression | Simple clinical-only and ECG-only baselines. | Establish whether the forecast has signal.
+XGBoost | Primary model combining ECG, eligible clinical features and patient deviations. | Retain if it improves event performance at the selected alert budget.
+Small TCN | Optional temporal convolutional model for RR sequences plus a clinical branch. | Use only if it adds credible benefit with acceptable runtime.
+
+XGBoost is the initial engineering choice because feature-based development is manageable with a small patient cohort and supports interpretable feature comparisons. Model superiority must be measured. Large numbers of overlapping windows do not create a large number of independent patients.
+Training workflow
+Create patient-grouped development folds and reserve an untouched patient test set before feature tuning.
+Tune regularization, shallow tree depth and early stopping within grouped validation; keep the parameter search modest.
+Handle imbalance through training weights or training-only sampling. Preserve natural event prevalence and continuous monitoring in validation and test.
+Calibrate scores using held-out development patients or grouped out-of-fold predictions. A held-out logistic calibration step is the initial option.
+Freeze preprocessing, weights, calibration, quality gates and alert policy before opening the final test results.
+Required comparisons
+Evaluate clinical-only, ECG-only, combined, and combined-with-personal-baseline variants using the same patients and alert evaluation. This demonstrates whether clinical fusion and the evolving twin add value. Patient identifiers and record filenames must never be predictive inputs.
+Explainability and uncertainty
+Show leading contributing features alongside their current values, trends and baseline deviations. Feature contribution is an explanation of the model score, not proof of causation. Report calibration error and optional disagreement across development models; do not convert these into an unsupported clinical confidence percentage.
+Model release package
+Save the fitted pipeline, feature schema, calibration object, versioned configuration, split manifest, training seed, dependency versions and model card. The model card must state the forecast contract, exclusions, cohort limits and measured results.
+
+4  Alert safety and evaluation
+Alert policy
+A clinician-review warning requires sufficient history, acceptable signal quality and calibrated risk above a threshold for a validated persistence period. Use hysteresis and a cooldown to reduce duplicate warnings. Treat an uncertain or rejected forecast as unavailable, never as reassurance.
+Choose the threshold on validation data against a declared false-warning budget and minimum acceptable event sensitivity. Agree the numerical targets with a clinician where possible. Freeze them before final testing. A high probability threshold alone does not establish safety.
+Metric | What to report
+Event sensitivity | Fraction of eligible AF onsets preceded by a qualifying warning.
+False warnings | Distinct unmatched warnings per monitored hour and per patient-day.
+Warning precision | Fraction of warnings linked to an eligible future event.
+Lead time | Distribution of time from qualifying warning to AF onset.
+Alert burden | Time under warning, duplicate suppression and warning duration.
+Abstention | Coverage, rejected time and events missed during abstention.
+Probability quality | PR-AUC, calibration plot and Brier score; AUROC as secondary.
+Efficiency | Median and 95th-percentile inference latency on documented hardware.
+
+Evaluation protocol
+Replay complete held-out records rather than testing a balanced set of selected windows. Group splits by subject, separate overlapping periods and keep adequate temporal gaps within development. Select split sizes after counting event-bearing patients; use grouped cross-validation where separate small partitions would be unstable.
+Match warnings to events with a predeclared one-to-one event rule using the forecast interval. Report excluded monitoring time and its reasons. Evaluate quality gates and cooldowns together with the predictor so rejected time or suppressed warnings cannot conceal missed events.
+Calculate confidence intervals by resampling patients, not overlapping windows. Publish counts of test patients, events and monitored hours. Zero observed false warnings in a small sample does not establish a zero future error rate.
+Acceptance gate
+The model must beat a simple baseline under the agreed operating constraint, pass leakage checks and expose misses and false alerts. If uncertainty is wide or sensitivity collapses, present a feasibility finding and the next validation step rather than a clinical readiness claim.
+
+5  System architecture and implementation
+Processing path
+Clinical profile and historical ECG replay feed a causal feature service. The service updates the persistent patient state, runs the frozen calibrated predictor and applies the alert policy. A clinician dashboard reads the state and warning history. Ground-truth annotations remain in a separate evaluator.
+Module | Responsibility | Suggested stack
+Data and audit | WFDB ingestion, metadata joins, onset labels, cohort manifest. | Python, wfdb, pandas
+Features | Causal processing, beat extraction, quality and trends. | NumPy, SciPy
+Learning | Grouped training, calibration, comparisons and model export. | scikit-learn, XGBoost
+Twin service | State updates, baseline, forecast and warning history. | FastAPI, SQLite
+Clinician UI | Patient overview, ECG view, trends, warnings and evidence. | React with Vite
+Evaluation | Continuous replay, event matching, metrics and confidence intervals. | Python evaluation scripts
+
+Patient state contract
+Persist pseudonymous patient ID, permitted clinical fields, last signal timestamp, recent feature buffer, baseline statistics, signal quality, current forecast, model version, abstention reason and warning state. Store bounded buffers and recover replay deterministically after restart.
+Update the baseline only with prior reliable samples using a predefined rule. Keep model weights frozen during the demonstration. Personalization means evolving patient state; it does not mean uncontrolled online retraining.
+API and repository
+Provide patient listing and state endpoints, replay controls, forecast retrieval, warning history and evaluation metrics. Each forecast response carries its timestamp, target interval, data quality, availability reason and model version. Clearly label replay as historical simulation.
+Organize the repository into data loaders, feature code, model training, twin/API services, dashboard, meaningful tests, configuration and reports. Keep large data outside Git; provide authorized source download instructions. Publish code licensing separately from dataset attribution and reuse terms.
+Scope control
+The core demo requires one reliable pipeline and one usable dashboard. A TCN challenger, live hardware and advanced simulation are optional after the audited baseline works. No EEG device is needed for this ECG-based project.
+
+6  Dashboard and verification
+Clinician dashboard specification
+View | Required information
+Patient overview | Permitted history, monitoring status, warm-up and data availability.
+ECG and trends | Recent trace, heart-rate/RR trends and signal quality.
+Future risk | Forecast interval, calibrated score, model version and uncertainty context.
+Warning details | Issue time, persistence, evidence and clinician-review status.
+Timeline | Baseline changes, prior warnings, abstention periods and review actions.
+Evaluation view | Held-out counts, false warnings, sensitivity, lead time and limitations.
+
+Keep existing-AF detection, if implemented, visually separate from future risk. A low forecast score must not display “safe” or “no heart problem”. The interface should not recommend medication or changing anticoagulation.
+Meaningful verification tests
+Patient separation: no subject appears in both training and held-out test; duplicate records cannot cross splits.
+Causality: altering future ECG or annotations does not change earlier features, baseline or risk.
+Label boundaries: current AF, the 2-minute gap, the 10-minute boundary and truncated recordings follow the target rules.
+Metadata timing: future diagnoses, procedures and unverified clinical timestamps cannot enter the model.
+State and alert logic: warm-up, quality rejection, persistence, cooldown and restart behave consistently.
+Evaluation: synthetic timing fixtures verify warning-to-event matching and false-warning denominators.
+End-to-end replay: the same inputs and model version reproduce the same state and warnings.
+Demo evidence
+Show a continuous low-risk period, an actual advance warning if achieved, a missed event or false warning, and an unreliable-signal abstention. Use held-out cases and distinguish measured evidence from UI examples. Do not fabricate successful clinical predictions.
+India-oriented validation path
+After the hackathon, work with an Indian clinical partner on ethically approved, de-identified ECG plus baseline records. Validate across devices and patient groups, assess calibration and alert burden, and run prospective silent evaluation before considering a care workflow. Synthetic Indian profiles can demonstrate interface localization, but cannot establish Indian model performance.
+
+7  Roadmap and hackathon delivery
+The following schedule begins on 6 October 2026. Complete the forecasting feasibility gate before committing to a high-performance claim.
+Dates | Milestone | Reviewable output
+7-9 Oct | Audit and target feasibility | Cohort manifest, eligible event counts, field audit and go/no-go.
+10-12 Oct | Baseline and XGBoost | Grouped development results, reproducible training pipeline.
+13-14 Oct | Calibration and alerts | Frozen operating policy; optional TCN comparison only if time permits.
+15-16 Oct | Twin service and dashboard | Working continuous replay with evolving patient state.
+17 Oct | Verification and test report | Leakage/causality checks, untouched test metrics and limitations.
+18 Oct | Registration and documentation | Register before 7 PM IST; complete README and architecture.
+19 Oct | Video and submission rehearsal | At least 20-minute demonstration; verify public links.
+20 Oct | Final submission | Submit before 7 PM IST, with time for upload or link failures.
+
+Hackathon fit and required package
+The challenge requires a specific adverse-outcome digital twin combining historical clinical/EHR data with a dynamic sensor stream, plus a clinician dashboard. Open, anonymized or synthetic data are permitted. Teams comprise 1-4 full-time students. Registration closes 18 October and prototype submission closes 20 October 2026, both at 7 PM IST. [1]
+Submit a public GitHub repository with team/college details, problem statement, stack and model, licenses, a minimum 20-minute video, architecture PDF/PPT and presentation PDF/PPT. Use the required Team Name_College Name folder convention. [1]
+Suggested 20-minute video
+Use 3 minutes for the problem and exact forecast target, 4 for data and leakage safeguards, 4 for model/evaluation, 6 for continuous replay and dashboard, and 3 for measured limitations and the Indian validation roadmap. Extend the recording if needed to meet the minimum length.
+Delivery gate
+Verify installation from a clean environment, all public links, model/data attribution and honest result reporting. Include split and feature manifests, evaluation outputs and model card. The final presentation should explain what changes per patient over time and what evidence supports each warning.
+
+8  Decisions and references
+Decisions to freeze after the audit
+Item | Owner decision required
+Forecast horizon | Confirm the proposed 10-minute history and 2-10-minute target.
+Eligible events | Define minimum episode duration, washout and uncertain-label exclusions.
+Operating constraint | Set a clinician-informed false-warning budget and sensitivity target.
+Test design | Choose patient groups and event counts sufficient for meaningful uncertainty.
+Final model | Retain XGBoost unless a challenger demonstrates a credible advantage.
+
+Implementation priorities
+First, prove that valid pre-onset forecasting examples exist. Second, establish patient-separated baseline performance. Third, demonstrate that clinical fusion and the patient baseline help. Finally, integrate the verified model with a transparent replay dashboard. These gates protect the project from building an impressive interface around an unproven outcome.
+References
+Source links checked on 6 October 2026. The implementation choices and acceptance gates in this document are proposed development specifications.
+[1] Unstop — Happiest Health Digital Twin Challenge 2026
+Official scope, permitted data, eligibility, deadlines and submission materials. Confirm organizer updates before submission.
+[2] PhysioNet — SHDB-AF version 1.0.1
+Tsutsui, K., Biton Brimer, S., and Behar, J. (2025). Dataset DOI: 10.13026/n6yq-fq90. Review the dataset license and cite both the resource and associated publication in the project.
+[3] PhysioNet — PAF Prediction Challenge database
+Supplementary pre-event ECG benchmark; assess the protocol and label differences before use.
+Expected outcome
+A reproducible research prototype that maintains a patient state, estimates a clearly defined future AF risk and exposes signal quality, warning evidence and honest held-out performance. Clinical usefulness, Indian generalization and zero-error performance remain unproven until separately evaluated.
