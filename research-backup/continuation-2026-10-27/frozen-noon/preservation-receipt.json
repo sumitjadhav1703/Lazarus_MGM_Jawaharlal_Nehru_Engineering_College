@@ -1,0 +1,32 @@
+{
+  "status": "EXACT22FILE_SNAPSHOT_PRESERVED",
+  "recorded_utc": "2026-10-27T07:14:41.433327+00:00",
+  "original_receipt_sha256": "74123e0a177eb3f61725fd4bd01018596950270d788d5a78b33efaf6a9fe6b7a",
+  "files_sha256": {
+    "council/work/preservation-20261026/launch-26a/SOURCE_ONLY_HANDOFF.md": "44c48128423a3237673e2729a5c0c3bafd14df8d0043a2500b62b393b9960093",
+    "council/work/preservation-20261026/launch-26a/child.py": "7585a24c6149c4055b20106c692e295589e1b7ef87d845b699381455844f8d32",
+    "council/work/preservation-20261026/launch-26a/entry.py": "93e24e4facc5ca19de83683fa01422bb8f1b609fe6756737d737815b888aa0df",
+    "council/work/preservation-20261026/launch-26a/input-pins.json": "d53d81f1253422adc58743ab4987dbc3aeb62bc8412ffb1c92ed7ba122919769",
+    "council/work/preservation-20261026/launch-26a/prepare.py": "652f7f1d2a7174e21c1a217fabcb717d34e767d4eef7d94cb55582d0742408dc",
+    "council/work/preservation-20261026/native-gap/control-source-map.json": "e4eb9df2965533a14b6245d2b1a1f37f070342942004208c7d798bafd91149cf",
+    "council/work/preservation-20261026/native-gap/fixed_metadata.py": "a76c2a80761fbcae62498c48454f47fc400dc6e42e92b751920052ebb99cf905",
+    "council/work/preservation-20261026/native-gap/frozen_replay.py": "a0f5e478bfe98810f96abf280b9278b45a359bfffef07583f0f33c922dccbe67",
+    "council/work/preservation-20261026/native-gap/leaf_measurement.py": "b75fdef6d44cc222be1c037a44d4ed8566b52c267c9be2ae6734b55f733a393d",
+    "council/work/preservation-20261026/native-gap/package_replay.py": "c86bebdada78ab1f1863d9d828081741e0eb154059417b1af57a36aa45ef4f31",
+    "council/work/preservation-20261026/native-gap/report-metadata-counts.json": "aa7c9b13da8f83f5210159c382e5e5a9f18121916de72b0f5ac7821d3ab9e61d",
+    "council/work/preservation-20261026/native-gap/report_codec.py": "decfe79fd795d16cfa996a12a4f4bebe97a2f6cb67c424bf685be2b008951ed2",
+    "council/work/preservation-20261026/native-gap/scaffold-status.json": "9bc5ff1445e0daa386d0393be703c1420d0e3580eadf8c29d1e8a4bb2cda674f",
+    "council/work/preservation-20261026/native-gap/structural-leaf-map.json": "7f8e31c3bdb79a5266c85262af27fca81b9611ea58892f3484008f55f67cab0c",
+    "council/work/preservation-20261026/native-gap/table_scoring.py": "aebbd50f8481b0f0441fd399b4efcfa37955972ee1e3ea189f21d1a8d74e297e",
+    "council/work/preservation-20261026/native-gap/test_fixed_metadata.py": "6c95be3cf409f4e0abfa72ffdffcf404963c21fe481a7f2a0e0fee6769f0eca2",
+    "council/work/preservation-20261026/native-gap/test_frozen_replay.py": "2e8794acfa785eb315863cb343821746a0a8038719687aafd161eaf4260cfbf2",
+    "council/work/preservation-20261026/native-gap/test_leaf_measurement.py": "9ed9c8ed077f35f378eda014af41d79be5d76f5f0e065912afc3c6f700dcac8b",
+    "council/work/preservation-20261026/native-gap/test_package_replay.py": "e3b12cfb7206473deeddfe60c8e9e4745548fd60c143d8828b3b1b56c37daa0c",
+    "council/work/preservation-20261026/native-gap/test_report_codec.py": "5b0b903b0588c1bfc2a8a0782baf7a75c2959f79f47a7f3e799a097ddebcaea5",
+    "council/work/preservation-20261026/native-gap/test_table_scoring.py": "a6136f65c06f93b0178c4343998077fa141a1d0714aa13efdb3aa739fd731381",
+    "council/work/preservation-20261026/native-gap/worker.py": "0794dee992d11e4717c18049df5e6b05238c75bc3ee939df28d1f1f431fcc06b"
+  },
+  "original_files_unchanged": true,
+  "copy_mode": "exclusive directory and exclusive file writes",
+  "new_jobs": 0
+}

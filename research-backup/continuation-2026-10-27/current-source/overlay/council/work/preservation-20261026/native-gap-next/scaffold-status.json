@@ -1,0 +1,59 @@
+{
+  "accepted_cost_uppers": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "full_run_eligible": false,
+  "implemented_source_routes": [
+    "complete629444 native chronological/scattered _timing_matrix passes +133single-row fixed controls",
+    "production metadata AST coverage/comparison/identity/label blocks twice; class scan3times; saved pairs twice; both support availability branches",
+    "generated full629444x1024 FP32 table with actual VerifiedTables.batch/PointwiseHead.logits; timing46/candidate1070/nuisance52 x2orders;76single-row controls/kind",
+    "generated direct-state66packages,241pairs and131072-byte identity; production independent _replay_package, no fits",
+    "generated eight-report production gzip/write/read schema,1896300persistedwarnings/14460missed details, dynamic burden/category fields and varied identity entropy",
+    "source-shaped controls/drift-pair arithmetic and fullN identity adapter with declared fake-logit slack",
+    "Pinned-index runtime-only generated record/event geometry;48full-index role calls and12native _CommonRows drift scans, exact source cardinalities and<=7533per-owner pairs",
+    "24exactper-role generated finite/legacy policy/outer evaluation kernels;3192168generated row visits;480search/60outer target calls;no row ratio or540fixed controls",
+    "Generated scoring table retains original record spans and generated group mapping;one chronological and one scattered pass/kind",
+    "Complete6policyfreeze+combinedreference codec source;independent2MB fixedfield/131072identity bounds plus8bytes/index;actual JSON write/hash/parse/equality;no selector",
+    "Shared250MB retainedtree guard includes outer/worker/dependency guard receipts,packages,policies,reports",
+    "Named64bitCPython source RSS reservation9457189864B reportpeak/4599464428B tablepeak;two liveobjecttrees,three JSONbuffers;no measured peak claim"
+  ],
+  "new_checkpoint_reads": 0,
+  "new_jobs": 0,
+  "new_raw_reads": 0,
+  "new_real_outcome_fits": 0,
+  "not_executed": [
+    "full native cache/table/report/replay measurement",
+    "raw/checkpoint/encoder reads",
+    "real fits",
+    "provider calls",
+    "capsule prepare()/release/dispatch"
+  ],
+  "recorded_utc": "2026-10-27",
+  "remaining_gaps": [
+    "No full working-set native/table/report/evaluation measurement; all eleven accepted H remain null.",
+    "Complete source/pass/schema/byte/storage ledger is separate source-pass-byte-ledger-next-20261027 work and requires final review.",
+    "Named policy fixedfield2MB and report scalar/entropy/Pythonobject reservations are prospective bounds; generated codec fields do not prove actual future fullpacket fits or compression/runtime applicability.",
+    "Storage reservation still requires actual future mounted input/dependency/scratch phase-liveness verification; current RSS reservation is not observed peak.",
+    "Existing22H/24C mixed/exclusive rate applicability and one-owner target projection remain scientific postmeasurement review, including coldcache/chronological/scattered assumptions.",
+    "No final prospective calendar, fresh runtime/privateT4/freequota/input review, executable package or dispatch. V3 remains closed; prepare() fails closed.",
+    "Full forecasting scientific coverage/support and cost/storage/source gates remain; no outcome result or new job."
+  ],
+  "ruff": "passed",
+  "schema": "ecgfounder-native-source-only-snapshot-v1",
+  "status": "SOURCE_ONLY_NEXT_FROZEN_NOT_RELEASED",
+  "tiny_tests": {
+    "passed": 24,
+    "seconds": 2.82,
+    "scope": "tiny generated fixtures only"
+  }
+}

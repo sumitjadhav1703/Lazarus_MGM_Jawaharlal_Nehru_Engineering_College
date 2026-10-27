@@ -1,0 +1,190 @@
+{
+  "dataset": "sumit1703/cardiotwin-research-archive-20261026",
+  "dataset_id": 12889972,
+  "version": 1,
+  "private": true,
+  "purpose": "Preservation only; never a forecasting-study input",
+  "remote_verification_status": "complete_all_27_hashes_match",
+  "archive_sha256": "2dde4e893f9f2ca253319c9f748839c65d8f0a23350b5acb03c60fa12ce3e25b",
+  "manifest_sha256": "27fab1f97786fb810eece26671d45cd20fac5d672510c709dbe05fd2f45c023f",
+  "archive_compressed_bytes": 18976407397,
+  "original_unique_bytes": 26734577785,
+  "selected_files": 11836,
+  "files": [
+    {
+      "name": "CODE_LICENSE.txt",
+      "bytes": 1080,
+      "sha256": "a794f3d7628189a2ddca05777d6d752d31d74fb7d9827a67001bc872c039c68b"
+    },
+    {
+      "name": "DATA_LICENSE.md",
+      "bytes": 6820,
+      "sha256": "d11b328603a6d3d3e13b074add779500d347d2a376d19d1bfae2141adcd051af"
+    },
+    {
+      "name": "RESTORE.md",
+      "bytes": 4254,
+      "sha256": "bba3477b674ff19cbacae154510080391b9941fbd0e41160d0bfb55904a34dbd"
+    },
+    {
+      "name": "archive.tar.gz.part00000.bin",
+      "bytes": 1000000000,
+      "sha256": "6242990ee719562b12e8306dd6266effb6b36cfb96d5779848dc3d545d25556e"
+    },
+    {
+      "name": "archive.tar.gz.part00001.bin",
+      "bytes": 1000000000,
+      "sha256": "aadd44c257a4672143d8b9eda7850c873d3a2dd0fde8f8034e91e40ea4e00af5"
+    },
+    {
+      "name": "archive.tar.gz.part00002.bin",
+      "bytes": 1000000000,
+      "sha256": "d589337a401448f36bc93158692433414bcf3d6a4757f5019960b748a28d636e"
+    },
+    {
+      "name": "archive.tar.gz.part00003.bin",
+      "bytes": 1000000000,
+      "sha256": "76555121b0e4c3a3d4cb2c4adb19f154927c34e836e6dffc1909fad41c6deb79"
+    },
+    {
+      "name": "archive.tar.gz.part00004.bin",
+      "bytes": 1000000000,
+      "sha256": "8a3ece007444a7cba08bf2c31e9d640767eb07689e60293ccf8b21463a68d5a3"
+    },
+    {
+      "name": "archive.tar.gz.part00005.bin",
+      "bytes": 1000000000,
+      "sha256": "55d0cb587734441d5f3958051ec94dc72c5d8f7c61f5f62c88f1df2ad5d0ecd5"
+    },
+    {
+      "name": "archive.tar.gz.part00006.bin",
+      "bytes": 1000000000,
+      "sha256": "07da1bb9aa5f66475bdb0956c15b8fc2e90d7e36478f0a785d41a051ac5d884c"
+    },
+    {
+      "name": "archive.tar.gz.part00007.bin",
+      "bytes": 1000000000,
+      "sha256": "339c1a5d761810bc6fb2c3c87d04f474d121eaaa7b9d8d5aab1d2eb233052975"
+    },
+    {
+      "name": "archive.tar.gz.part00008.bin",
+      "bytes": 1000000000,
+      "sha256": "e499738af9345b9ed0895232dced806d6d624d563123647f0af4158c0ce0db40"
+    },
+    {
+      "name": "archive.tar.gz.part00009.bin",
+      "bytes": 1000000000,
+      "sha256": "d730f9f82d1c0ddc5b3f5c2b19c82ba759106fa52714601a5f054f5afa1fdec8"
+    },
+    {
+      "name": "archive.tar.gz.part00010.bin",
+      "bytes": 1000000000,
+      "sha256": "ab35f81f3988d83455938c7b19d69bcc98bfbe0b420f6bfc30666ab259e24397"
+    },
+    {
+      "name": "archive.tar.gz.part00011.bin",
+      "bytes": 1000000000,
+      "sha256": "0c529ad751b9608ee481ffe8368dc1d46cdf71d709b065729132f936eb541606"
+    },
+    {
+      "name": "archive.tar.gz.part00012.bin",
+      "bytes": 1000000000,
+      "sha256": "5a7528dc2402f745e0a0ac2557acbbd7297858f8304222808e4fec32733102e9"
+    },
+    {
+      "name": "archive.tar.gz.part00013.bin",
+      "bytes": 1000000000,
+      "sha256": "2110434d49845c1be4dcfd09d33125de60b0041750172d2b0bcfbbc691fb61ed"
+    },
+    {
+      "name": "archive.tar.gz.part00014.bin",
+      "bytes": 1000000000,
+      "sha256": "d265d4ec502451bafbbb31892a6078d88dee5ce8b7297362ff957c2d89f0cf9b"
+    },
+    {
+      "name": "archive.tar.gz.part00015.bin",
+      "bytes": 1000000000,
+      "sha256": "a805d6c376c72bf68c4bedef73486e2580cb2476be37145509c92fbce34c4b37"
+    },
+    {
+      "name": "archive.tar.gz.part00016.bin",
+      "bytes": 1000000000,
+      "sha256": "7cfcb0c7d5cdf01842f0fe5f77ab3616aa75f48aef7c1cea4176475eaf599861"
+    },
+    {
+      "name": "archive.tar.gz.part00017.bin",
+      "bytes": 1000000000,
+      "sha256": "27d3695dae6d4b115b1a545e0246ab1fbc072787d95d9ebba14a6cde7f708772"
+    },
+    {
+      "name": "archive.tar.gz.part00018.bin",
+      "bytes": 976407397,
+      "sha256": "bb47f86e8a41ce1c825b0f3eb47a4f64b073e1de02de5991247d5c550187b856"
+    },
+    {
+      "name": "archive_tools.py",
+      "bytes": 13736,
+      "sha256": "7819c10a8d82c228323d88d4c40a89f90cee076bc2fb24e5d0c604e84c55dd36"
+    },
+    {
+      "name": "continuation-inventory.json",
+      "bytes": 8196,
+      "sha256": "02045585aca357c8693293e805cf884ea6798bfded1bb2b55062d9d6839301b0"
+    },
+    {
+      "name": "continuation.tar.bin",
+      "bytes": 1423360,
+      "sha256": "a57c8e11eb99c7d8b80f9b5929c4d70760bd952b51d701b3a8ec6bbbbe3e8d31"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 3003420,
+      "sha256": "27fab1f97786fb810eece26671d45cd20fac5d672510c709dbe05fd2f45c023f"
+    },
+    {
+      "name": "remote-part-mapping.json",
+      "bytes": 4392,
+      "sha256": "9695be471b23af41de0cc2fcb389fe56b07df6bd6ef755d6c850cbd1607f8944"
+    }
+  ],
+  "full_materialized_restore_tested": false,
+  "original_files_deleted": 0,
+  "remote_verified_files": 27,
+  "remote_verified_bytes": 18980872655,
+  "remote_verified_utc": "2026-10-27T17:44:05.265268+00:00",
+  "verification_method": "Full local streamed member/hash/CRC validation plus every pinned private remote file downloaded and SHA256/size matched",
+  "private_continuation": {
+    "dataset": "sumit1703/cardiotwin-research-continuation-20261027",
+    "dataset_id": 12902358,
+    "version": 1,
+    "private": true,
+    "remote_hashes_verified": true,
+    "bytes_verified": 108448,
+    "completed_utc": "2026-10-27T17:50:01.454116+00:00",
+    "source_files": 37,
+    "archive_name": "continuation.tar.gz.bin",
+    "archive_sha256": "9da5ee6d2a361d869ce46d9f66a160874d34508a237b5c2f03462b815d5e7e5b",
+    "files": [
+      {
+        "name": "DATA_LICENSE.md",
+        "bytes": 6820,
+        "sha256": "d11b328603a6d3d3e13b074add779500d347d2a376d19d1bfae2141adcd051af"
+      },
+      {
+        "name": "CODE_LICENSE.txt",
+        "bytes": 1080,
+        "sha256": "a794f3d7628189a2ddca05777d6d752d31d74fb7d9827a67001bc872c039c68b"
+      },
+      {
+        "name": "inventory.json",
+        "bytes": 7988,
+        "sha256": "832592be4ff22a579b97e585fc3992bbb8d3d1417aa45b6299308f6acf05d4b4"
+      },
+      {
+        "name": "continuation.tar.gz.bin",
+        "bytes": 92560,
+        "sha256": "9da5ee6d2a361d869ce46d9f66a160874d34508a237b5c2f03462b815d5e7e5b"
+      }
+    ]
+  }
+}

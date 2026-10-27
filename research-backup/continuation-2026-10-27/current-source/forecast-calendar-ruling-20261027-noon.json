@@ -1,0 +1,38 @@
+{
+  "schema": "ecgfounder-v3-noon-calendar-ruling",
+  "recorded_utc": "2026-10-27T07:11:55.560038+00:00",
+  "status": "V3_ROUTE_CLOSED_WITHOUT_DISPATCH_CALENDAR_INFEASIBLE",
+  "source_sha256": {
+    "forecast-calendar-scope-v3.md": "29cbceb8f2721c0d8c53c14b9f46089e715878ae00e9dfdc6a2fb1ab57d15ee3",
+    "forecast-calendar-scope-v3.json": "82079640d0aa76f6be6389bd787045a166b785877d8f797360b553ba44154459",
+    "forecast-calendar-ruling-20261027-noon.md": "cd76ec07e99e204bd2db7643f7669ceaf128104d0cb3e2d95781919c6db832de"
+  },
+  "stop_utc": "2026-10-27T12:30:00+00:00",
+  "conditional_encoding_seconds": 21234.517488834423,
+  "optimistic_all_H_zero_calendar_seconds": 39351.776233251636,
+  "optimistic_latest_dispatch_all_H_zero_utc": "2026-10-27T01:34:08.223767+00:00",
+  "optimistic_latest_dispatch_review_H_only_utc": "2026-10-27T00:49:08.223767+00:00",
+  "full_study_release": false,
+  "dependent_composite_measurement_release": false,
+  "standalone_measurement_for_later_study_authorized_by_this_ruling": false,
+  "new_calendar": false,
+  "accepted_H": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "real_outcome_fits": 0,
+  "new_jobs": 0,
+  "historical_named_jobs": 10,
+  "historical_local_residual_seconds": 101.9174447070036,
+  "scientific_meaning": "Current declared calendar fails independently of missing cost. Not general physical impossibility, predictive failure, or experimental failure.",
+  "source_review": "Pending frozen source snapshot; source-only completion continues."
+}

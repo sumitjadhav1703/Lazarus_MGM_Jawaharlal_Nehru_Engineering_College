@@ -1,0 +1,72 @@
+{
+  "schema": "ecgfounder-final-bounded-source-review-v1",
+  "recorded_utc": "2026-10-27T17:39:21.584106+00:00",
+  "status": "ACCEPT_SOURCE_ONLY_HANDOFF_NOT_MEASUREMENT_RELEASE",
+  "source_only": true,
+  "bindings_sha256": {
+    "launch-next/source-only-snapshot-next-20261027.json": "fef95da6a40c052a5c92dac1619cdc9506be5eef8656092c94d1fe0a57f62181",
+    "source-pass-byte-ledger-next-20261027.json": "2f82a54c1346afafc8bc790f8fc416aa385ae7244f93e060e7182fd819857e62",
+    "source-pass-byte-ledger-next-20261027.md": "7b824f66fd24ffa7748f06150531cf639e4a6059ad25e5fda2074c0840c4fea5",
+    "forecast-source-theorems-20261027-evening.md": "ecebb5820f425dd307a755f3d6af84b4777238ac8be0a67223cecfb9dd5ba867",
+    "forecast-source-closure-checklist-next-20261027.md": "ffb49e71cc708b1c0765573674249316df087f982acfbe3122a11c22b0eb9a1b",
+    "forecast-calendar-ruling-20261027-noon.md": "cd76ec07e99e204bd2db7643f7669ceaf128104d0cb3e2d95781919c6db832de",
+    "native-gap-next/resource_reservation.py": "fc2804d0bd894325768b974e6886401173fd6d1ceef194dd2bd6f76f9f655799"
+  },
+  "source_files_verified": 29,
+  "source_hash_mismatches": [],
+  "source_identity": "0ea7e530c3381488e9b5898ffade0ae29deea20f5a525789ca0575e7e8e88cf1",
+  "source_facts": {
+    "role_index_calls": 48,
+    "generated_drift_scans": 12,
+    "exact_role_evaluation_kernels": 24,
+    "generated_evaluation_row_visits": 3192168,
+    "replay_search_call_upper": 480,
+    "outer_calls": 60,
+    "one_tree_person_group_nodes": 4840,
+    "live_object_trees_reserved": 2,
+    "serialized_buffers_reserved": 3,
+    "report_rss_reservation_bytes": 9457189864,
+    "table_rss_reservation_bytes": 4599464428,
+    "rss_limit_bytes": 10000000000,
+    "storage_limit_bytes": 25000000000,
+    "storage_reserve_bytes": 250000000,
+    "retained_artifact_limit_bytes": 250000000
+  },
+  "bounded_ruling": "Finite implementation can be preserved as a candidate for one future composite cost measurement; source/resource/capsule readiness is not established by this review. No scientific or runtime impossibility claim.",
+  "remaining": [
+    "Before a future measurement: separately prospective scope/calendar and exact identity/package release; v3 remains closed and prepare() fails closed.",
+    "Before measurement readiness: complete mounted-input, staged-cache, dependencies/scratch and phase-live storage reservations, plus applicability of runtime-specific object/string widths. The corrected RSS reservation is source arithmetic, not demonstrated fit.",
+    "Before accepting complete cost coverage: named dynamic runner/preparation/support/caller/manifest schemas and exclusive-leaf applicability, finite serialized widths and complete retained/retrieved artifact bound. A 250 MB enforcement cap alone is not a byte estimate.",
+    "Before full-study release: resolve symbolic full-session path/member/pass sets and exact authority schemas; then accept empirical native/cache/geometry applicability and all eleven H values. These unknown H values do not prohibit measuring H."
+  ],
+  "all_11_accepted_H": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "full_run_eligible": false,
+  "new_research_jobs": 0,
+  "real_outcome_fits": 0,
+  "historical_named_jobs": 10,
+  "calendar_extended": false,
+  "reviewer_tests_run": 0,
+  "reviewer_real_input_reads": 0,
+  "reviewer_provider_calls": 0,
+  "verification_scope": "Independent own-source hash comparison and bounded source/checklist/ledger review; builder reports 24 tiny generated checks and Ruff passed in separate seal; no independent rerun.",
+  "frozen_descriptor_conflict": {
+    "files": [
+      "native-gap-next/control-source-map.json",
+      "native-gap-next/structural-leaf-map.json"
+    ],
+    "observed": "Descriptors retain eight full-N kernels, 540 fixed controls and role-index leaf absent claims; current code implements 24 exact-role kernels and the generated 48-call/12-scan leaves.",
+    "ruling": "Preserve frozen bytes and mark descriptors non-authoritative for future release; reconcile once within any future prospective package, not by an immediate repair/reseal loop."
+  }
+}

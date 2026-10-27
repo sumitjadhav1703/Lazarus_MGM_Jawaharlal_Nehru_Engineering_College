@@ -1,6 +1,6 @@
 # CardioTwin research continuation archive
 
-This branch preserves the development source separately from the competition entry. The repository's default `main` branch, root README, dashboard and submitted deliverables are unchanged.
+This branch preserves the development source separately from the competition entry. Archive changes are confined to `research-backup/`; the application, dashboard and submitted deliverables are untouched. The separately requested, 12-line forecasting summary was published to the main README at `662474066901aa932d51ea422638595d0d1f8578`.
 
 ## What is preserved here
 
@@ -23,9 +23,13 @@ Use Python3.12–3.14 as declared by the project. Optional neural work also need
 
 ## Large private research archive
 
-**Status: upload and full remote verification are pending. Do not delete the original project yet.**
+**Status: private version 1 is uploaded; all 27 remote files were downloaded and their SHA256/lengths verified.** [Pinned archive reference](archive-reference.json). A complete materialized-tree restore has not been tested; retain the original until you have tested restoration.
 
-The separate private Kaggle archive is being prepared at `sumit1703/cardiotwin-research-archive-20261026`. It preserves large datasets, feature caches, trained model artifacts, prediction streams, source snapshots, historical failures, access ledgers and video source/export files. The existing training-input dataset remains unchanged. The archive's exact version, manifest digest and verified part inventory will be added here after recovery verification.
+The separate [private Kaggle archive, version 1](https://www.kaggle.com/datasets/sumit1703/cardiotwin-research-archive-20261026/versions/1) preserves 11,836 files: large datasets, feature caches, trained model artifacts, prediction streams, source snapshots, historical failures, access ledgers and video source/export files. Compressed size: 18,976,407,397 bytes. Original unique file bytes: 26,734,577,785. The existing development training-input dataset remains unchanged. This all-cohort preservation dataset must never be attached as a forecasting-study input.
+
+Download the pinned files with your Kaggle account. Keep the authentic manifest SHA256 from `archive-reference.json`; follow the downloaded `RESTORE.md`, verify each `.bin` part against the reference, rename it using `remote-part-mapping.json`, then run this branch's `archive_tools.py verify --archive-dir downloads --restore /absolute/empty/restore-root`. Reserve at least 48 GB for parts plus the restored hardlinked tree. A whole-dataset ZIP needs additional space.
+
+[Source continuation saved on 27 October](continuation-2026-10-27/README.md) includes the exact historical and later source-only preparations with tests, hashes and scientific limitations. It is not a released experiment or forecasting result.
 
 Credentials, browser authentication, virtual environments, installed dependencies, build caches and the200MB random transfer fixture are excluded. Source/data licenses and attribution remain with the archive. Some omitted video-cache symlinks need recreation or regeneration; their original targets are recorded in the private selection summary.
 

@@ -1,0 +1,44 @@
+{
+  "status": "metadata_only_cardinality_not_forecast_outcome",
+  "folds": [
+    {
+      "fold": 0,
+      "rows": 195736,
+      "records": 45,
+      "people": 41,
+      "events": 96,
+      "warning_upper": 9832
+    },
+    {
+      "fold": 1,
+      "rows": 196655,
+      "records": 43,
+      "people": 40,
+      "events": 81,
+      "warning_upper": 9876
+    },
+    {
+      "fold": 2,
+      "rows": 237053,
+      "records": 44,
+      "people": 40,
+      "events": 64,
+      "warning_upper": 11897
+    }
+  ],
+  "totals": {
+    "rows": 629444,
+    "records": 132,
+    "people": 121,
+    "events": 241,
+    "warnings_per_arm_policy": 31605
+  },
+  "input_sha256": {
+    "data/iridia-development-cache-recovered/index.json": "d935548d2d2912322342b904a18b945810733ea09b0227f2c01027d2e23c0f83",
+    "reports/ml-investigation/next-cycle/precursor-diagnostic-20261012-cadence-fix/roles.json": "3d5659e1f00700b0c4def0adb82306615eaa2a18ae4fc7c371228c86b693ffba"
+  },
+  "array_reads": 0,
+  "raw_reads": 0,
+  "checkpoint_reads": 0,
+  "outcome_fits": 0
+}

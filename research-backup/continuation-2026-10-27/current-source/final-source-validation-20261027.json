@@ -1,0 +1,216 @@
+{
+  "schema": "ecgfounder-source-finalization-check-v1",
+  "recorded_utc": "2026-10-27T17:39:26.606406+00:00",
+  "status": "SOURCE_ONLY_FROZEN_WITH_EXPLICIT_UNRESOLVED_OBLIGATIONS",
+  "snapshot": {
+    "path": "council/work/preservation-20261026/launch-next/source-only-snapshot-next-20261027.json",
+    "sha256": "fef95da6a40c052a5c92dac1619cdc9506be5eef8656092c94d1fe0a57f62181"
+  },
+  "static_ledger": {
+    "path": "council/work/preservation-20261026/source-pass-byte-ledger-next-20261027.json",
+    "sha256": "2f82a54c1346afafc8bc790f8fc416aa385ae7244f93e060e7182fd819857e62"
+  },
+  "verification": {
+    "own_source_hashes_match": true,
+    "original_python_source_hashes_match": true,
+    "ledger_source_hashes_match": true,
+    "tiny_generated_tests": {
+      "passed": 24,
+      "seconds": 4.06
+    },
+    "ruff": "passed"
+  },
+  "resource_reservation_not_measurement": {
+    "report_rss_bytes": 9457189864,
+    "table_rss_bytes": 4599464428,
+    "unchanged_rss_cap_bytes": 10000000000,
+    "unique_person_group_nodes_per_tree": 4840,
+    "live_object_trees": 2,
+    "serialized_buffers": 3
+  },
+  "new_jobs": 0,
+  "new_real_outcome_fits": 0,
+  "new_local_raw_array_checkpoint_index_roles_pair_content_reads": 0,
+  "original_named_jobs": 10,
+  "accepted_H": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "full_run_eligible": false,
+  "v3_closed": true,
+  "new_calendar": false,
+  "source_implementation_changed": false,
+  "existing_snapshot_preserved": true,
+  "remaining_obligations": [
+    "No full working-set native/table/report/evaluation measurement; all eleven accepted H remain null.",
+    "Complete source/pass/schema/byte/storage ledger is separate source-pass-byte-ledger-next-20261027 work and requires final review.",
+    "Named policy fixedfield2MB and report scalar/entropy/Pythonobject reservations are prospective bounds; generated codec fields do not prove actual future fullpacket fits or compression/runtime applicability.",
+    "Storage reservation still requires actual future mounted input/dependency/scratch phase-liveness verification; current RSS reservation is not observed peak.",
+    "Existing22H/24C mixed/exclusive rate applicability and one-owner target projection remain scientific postmeasurement review, including coldcache/chronological/scattered assumptions.",
+    "No final prospective calendar, fresh runtime/privateT4/freequota/input review, executable package or dispatch. V3 remains closed; prepare() fails closed.",
+    "Full forecasting scientific coverage/support and cost/storage/source gates remain; no outcome result or new job.",
+    "Frozen descriptive control-source-map and structural-leaf-map retain old eight-kernel/540-control prose; current worker and SOURCE_ONLY_HANDOFF describe 24 per-role kernels. These historical descriptors do not supply cost applicability or execution authority."
+  ],
+  "public_safe_own_source_files": [
+    {
+      "path": "council/work/preservation-20261026/launch-next/SOURCE_ONLY_HANDOFF.md",
+      "sha256": "db1a26f057d6c86f7ffe4c17e62eb9b92473e59b8c9e5dd93a149eed163a9f56",
+      "bytes": 2419
+    },
+    {
+      "path": "council/work/preservation-20261026/launch-next/child.py",
+      "sha256": "6170ecbc4ca714202f58f37ba78e30412b1f3e39b976c0f5a5c54efe524c56a1",
+      "bytes": 2608
+    },
+    {
+      "path": "council/work/preservation-20261026/launch-next/entry.py",
+      "sha256": "e24d4bd0d172382d88b5e7634fa552afaca3f1c683645ff250dc8e30cdc59dc8",
+      "bytes": 8343
+    },
+    {
+      "path": "council/work/preservation-20261026/launch-next/input-pins.json",
+      "sha256": "d53d81f1253422adc58743ab4987dbc3aeb62bc8412ffb1c92ed7ba122919769",
+      "bytes": 1101
+    },
+    {
+      "path": "council/work/preservation-20261026/launch-next/prepare.py",
+      "sha256": "a1e48d1b60b4a52efd5436e0b4a0a108cc6d62b46910625ee45d2e33e6fcc3dc",
+      "bytes": 5360
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/artifact_limits.py",
+      "sha256": "7e7c23f66ac2caa2179ea7007ec8d0991eac2a592f1617e8a4877d33ac506d63",
+      "bytes": 740
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/control-source-map.json",
+      "sha256": "e4eb9df2965533a14b6245d2b1a1f37f070342942004208c7d798bafd91149cf",
+      "bytes": 5606
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/fixed_metadata.py",
+      "sha256": "a76c2a80761fbcae62498c48454f47fc400dc6e42e92b751920052ebb99cf905",
+      "bytes": 10884
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/frozen_replay.py",
+      "sha256": "3c99a1ae420123e67f12c8004234a7efa311785486ec97261bbd3b8667ed938d",
+      "bytes": 9292
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/leaf_measurement.py",
+      "sha256": "b75fdef6d44cc222be1c037a44d4ed8566b52c267c9be2ae6734b55f733a393d",
+      "bytes": 11118
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/metadata_geometry.py",
+      "sha256": "6d3d853bddc2659a65cd4e489a7d11fbf7906d7d88cc39208d73c113ffd770db",
+      "bytes": 10428
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/package_replay.py",
+      "sha256": "b4f426051bfad330b8b76b33bfc1e503a2a4b47dfc1d0664b400271f7ab3b4a4",
+      "bytes": 3306
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/policy_codec.py",
+      "sha256": "24ef3a389bb58f81ed92d0297f734fd6e3b7a358ec7a22f6afd75deb6caf37dd",
+      "bytes": 5885
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/report-metadata-counts.json",
+      "sha256": "aa7c9b13da8f83f5210159c382e5e5a9f18121916de72b0f5ac7821d3ab9e61d",
+      "bytes": 1038
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/report_codec.py",
+      "sha256": "19b59ee0e5f646857771819c2ea131ff812bb6afa9b213ca94f66fc9ff3ea1bc",
+      "bytes": 13978
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/resource_reservation.py",
+      "sha256": "fc2804d0bd894325768b974e6886401173fd6d1ceef194dd2bd6f76f9f655799",
+      "bytes": 2391
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/scaffold-status.json",
+      "sha256": "6c977e5e8477a60a2f23ad9b30f16bd2a69e459614d18a7f70bc6a7776e7884d",
+      "bytes": 3643
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/structural-leaf-map.json",
+      "sha256": "7f8e31c3bdb79a5266c85262af27fca81b9611ea58892f3484008f55f67cab0c",
+      "bytes": 7024
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/table_scoring.py",
+      "sha256": "95c95ade10ec1ea7c90d2eac8a6dbf98ddb8579c60409872d1ffca516034d315",
+      "bytes": 8190
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_artifact_limits.py",
+      "sha256": "ccbbc680d417894e405dcac1b1958b86245531806692729430976d580640db95",
+      "bytes": 632
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_fixed_metadata.py",
+      "sha256": "6c95be3cf409f4e0abfa72ffdffcf404963c21fe481a7f2a0e0fee6769f0eca2",
+      "bytes": 3771
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_frozen_replay.py",
+      "sha256": "e80c1a11e06b7d092c085d6fa66b5411fec08539a54227c16348f53a21537143",
+      "bytes": 2233
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_leaf_measurement.py",
+      "sha256": "9ed9c8ed077f35f378eda014af41d79be5d76f5f0e065912afc3c6f700dcac8b",
+      "bytes": 5582
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_metadata_geometry.py",
+      "sha256": "676f198f8cbe5916cbea57ce66af31b8121bc334bc4d006a5f5d107f655b87d4",
+      "bytes": 3250
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_package_replay.py",
+      "sha256": "e3b12cfb7206473deeddfe60c8e9e4745548fd60c143d8828b3b1b56c37daa0c",
+      "bytes": 649
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_policy_codec.py",
+      "sha256": "1ed08dcc304b216502e00928a152e0d9ec2f67db46738374c633974ccc3f49ce",
+      "bytes": 1723
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_report_codec.py",
+      "sha256": "5b0b903b0588c1bfc2a8a0782baf7a75c2959f79f47a7f3e799a097ddebcaea5",
+      "bytes": 4183
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/test_table_scoring.py",
+      "sha256": "a6136f65c06f93b0178c4343998077fa141a1d0714aa13efdb3aa739fd731381",
+      "bytes": 1626
+    },
+    {
+      "path": "council/work/preservation-20261026/native-gap-next/worker.py",
+      "sha256": "b4f3a5ba0886ed79ca4eb584004dbc0f97ed0c44dee211a934d40d054edf1e0a",
+      "bytes": 10612
+    }
+  ],
+  "publication_excludes": [
+    "Real patient identifiers, index/roles/pair contents and raw/cache/checkpoint data",
+    "Any base64 source-payload files or encoded private payload",
+    "Private upload credentials, signed URLs and upload state"
+  ],
+  "publication_note": "Own-source allowlist contains code, generated tests, aggregate metadata and path/hash pins only. It does not authorize recursively publishing referenced real input files. All encoded private source payloads are excluded."
+}

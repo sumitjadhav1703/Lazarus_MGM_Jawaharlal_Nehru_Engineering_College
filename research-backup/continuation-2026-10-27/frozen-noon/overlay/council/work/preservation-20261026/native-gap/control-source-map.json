@@ -1,0 +1,92 @@
+{
+  "charge_rules": {
+    "control_pair_measurement": "Generated63control calls at723pair slack,12smallidentity calls,6drift-pair adapters and one fullNidentity adapter. Fake logits are measurement slack; no numeric cost accepted.",
+    "fixed_metadata_factory": "Engineering fixture construction including10generated bootstrap calls; no new target bootstrap charge beyond retained22H owner.",
+    "frozen_replay": "Six reconstruction targets,480search evaluations/26975680row visits,60outer evaluations/12588880row visits. Eight generated kernels cover branch patterns; choose accepted measured envelope after same-unit run, do not sum eight rates per target.",
+    "native_matrix_measurement": "owns only _timing_matrix over one complete 112-column feature working set",
+    "package_replay": "66production independent no-fit packages using direct numeric states; hashes remain nested here unless explicitly subtracted once.",
+    "report_codec": "eight gzip writes and reads, including summary and review embedded copies; warning and missed details are already multiplied by three",
+    "table_scoring": "Extra targets only:3507366 nominal rows +131844 table-only slack,1000batch calls ceiling. Six fullN passes supply924calls;76fixed controls/kind close deficit conditionally. Never duplicate old22H umbrellas.",
+    "unassigned_native_calls": "48role-index fullN maps and12drift metadata scan applicability remain unclosed; generated scoring does not supply these costs."
+  },
+  "codec_must_override_per_fold": [
+    "outer_rows",
+    "outer_events",
+    "outer_groups",
+    "availability",
+    "model.path",
+    "model.numeric_manifest",
+    "policy_freeze.path",
+    "predictions"
+  ],
+  "full_run_eligible": false,
+  "owner": "fixed_metadata.py",
+  "production_cardinalities": {
+    "all_missed_details_with_three_copies": 14460,
+    "all_warning_details_with_three_copies": 1896300,
+    "arms": 2,
+    "bootstrap_draws_per_call": 10000,
+    "calibrators": 6,
+    "control_pair_diagnostics_fit": 63,
+    "control_pair_diagnostics_replay": 63,
+    "drift_pair_bound_total_per_arm": 7533,
+    "drift_pair_bounds_fit_stop_by_fold": [
+      [
+        2453,
+        332
+      ],
+      [
+        2067,
+        331
+      ],
+      [
+        2128,
+        222
+      ]
+    ],
+    "event_pair_bound_per_call": 241,
+    "events": 241,
+    "folds": 3,
+    "identity_role_rows_per_run_upper": 1814868,
+    "identity_variance_fit": 12,
+    "identity_variance_replay": 12,
+    "nuisance_models": 3,
+    "null_models": 57,
+    "paired_bootstrap_calls": 10,
+    "people": 121,
+    "policies": 10,
+    "primary_models": 6,
+    "primary_pair_diagnostics_fit": 24,
+    "primary_pair_diagnostics_replay": 24
+  },
+  "production_source_sha256": {
+    "advancement": "6ba0400e933161089588ee2d89ec9b20d795d1284bfa990dd821c9c898988aab",
+    "calibration_summary": "3f16867d8803c424c900236536d91f1713ea9146cda68ba833cedbf74f9f0df3",
+    "compare_person_counts": "aff98715a712009a9952633a7f4da7c1ba31e9603382d76002096fc301434ab1",
+    "identity_variance": "44b34c20752c42c244435fbe45db715e210f40832530aec5662aa046e183dcbb",
+    "pair_diagnostics": "4480a8e3e03f038579b65a043d6b1608a9318c6bfb385cccfe42e734c026c800"
+  },
+  "real_outcome_fits": 0,
+  "report_fixed_fields": {
+    "entry_fields": 12,
+    "fold_receipts": 6,
+    "one_shared_identity_in_both_fields": true,
+    "review_copy": 1,
+    "serialized_identity_copies": 26,
+    "summary_fields": 18,
+    "summary_files": 1
+  },
+  "status": "SOURCE_ONLY_SNAPSHOT_CURRENT_V3_NON_DISPATCHABLE",
+  "unmeasured_in_this_unit": [
+    "No full-working-set measurement has run; all11acceptedHnull",
+    "48 role-index calls require fullN numeric index-map evidence; current unit does not implement this leaf or an accepted24C source/count applicability projection.",
+    "12 negative-drift metadata scans require exact native _CommonRows lookup/sort applicability and source-count projection to7533 pairs per arm; current generated pair arithmetic does not measure those scans.",
+    "Table scoring uses one generated record/group and declared all-available/unavailable branches;132-record/121-group validation and all branch/fixed-call applicability require final acceptance.",
+    "Numerical evaluation fixture has near-equal132record lengths and2/1events per record. Production missed-event scan cost includes sum(record_rows * missed_events_per_record), plus warning/event matching; row ratio and540fixedcalls alone do not establish applicability. Exact original record-length/event-count metadata projection remains required.",
+    "Execution original-pair partition theorem and disjoint3507366 extra scoring rows +131844 table-only rows/1000batches need final accepted formula and H ownership; no numerical rate is inferred.",
+    "131072-byte report/package identity envelope exists; full fixed-authority schemas/copies/call inventory (_bridge/_load_original/coverage/audit/caller/manifests/seals) is not implemented or projected.",
+    "Complete source/input/table/raw/checkpoint path x bytes x filesystem-class x pass ledger is absent; no new raw/checkpoint reads are permitted merely to create it.",
+    "Future176+sourcepins bundle bytes, six prediction streams,66numeric packages, policy freezes, diagnostics, eightreports, temporary compression/decoded-object coexistence and groupRSS/storage projections remain incomplete.",
+    "Eight-report schema includes dynamic burden/category fields and varied finite-width fixtures; full compression/entropy and maximum finite-width applicability are unmeasured, and eventual actual artifacts must fit declared bounds."
+  ]
+}

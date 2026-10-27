@@ -1,0 +1,59 @@
+{
+  "accepted_cost_uppers": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "full_run_eligible": false,
+  "implemented_source_routes": [
+    "complete629444 native chronological/scattered _timing_matrix passes +133single-row fixed controls",
+    "production metadata AST coverage/comparison/identity/label blocks twice; class scan3times; saved pairs twice; both support availability branches",
+    "generated full629444x1024 FP32 table with actual VerifiedTables.batch/PointwiseHead.logits; timing46/candidate1070/nuisance52 x2orders;76single-row controls/kind",
+    "generated direct-state66packages,241pairs and131072-byte identity; production independent _replay_package, no fits",
+    "production frozen-search reconstruction measured separately from explicit evaluate_stream stub; eight fullN actual evaluation kernels +540fixed132-row controls are source only",
+    "generated eight-report production gzip/write/read schema,1896300persistedwarnings/14460missed details, dynamic burden/category fields and varied identity entropy",
+    "source-shaped controls/drift-pair arithmetic and fullN identity adapter with declared fake-logit slack"
+  ],
+  "new_checkpoint_reads": 0,
+  "new_jobs": 0,
+  "new_raw_reads": 0,
+  "new_real_outcome_fits": 0,
+  "not_executed": [
+    "full native cache/table/report/replay measurement",
+    "raw/checkpoint/encoder reads",
+    "real fits",
+    "provider calls",
+    "capsule prepare()/release/dispatch"
+  ],
+  "recorded_utc": "2026-10-27T07:12:33.201385+00:00",
+  "remaining_gaps": [
+    "No full629444 native/cache/table/report/evaluation cost measurement exists for this unit; eleven accepted H values remain null.",
+    "48 role-index calls require fullN numeric index-map evidence; current unit does not implement this leaf or an accepted24C source/count applicability projection.",
+    "12 negative-drift metadata scans require exact native _CommonRows lookup/sort applicability and source-count projection to7533 pairs per arm; current generated pair arithmetic does not measure those scans.",
+    "Table scoring uses one generated record/group and declared all-available/unavailable branches;132-record/121-group validation and all branch/fixed-call applicability require final acceptance.",
+    "Numerical evaluation fixture has near-equal132record lengths and2/1events per record. Production missed-event scan cost includes sum(record_rows * missed_events_per_record), plus warning/event matching; row ratio and540fixedcalls alone do not establish applicability. Exact original record-length/event-count metadata projection remains required.",
+    "Execution original-pair partition theorem and disjoint3507366 extra scoring rows +131844 table-only rows/1000batches need final accepted formula and H ownership; no numerical rate is inferred.",
+    "131072-byte report/package identity envelope exists; full fixed-authority schemas/copies/call inventory (_bridge/_load_original/coverage/audit/caller/manifests/seals) is not implemented or projected.",
+    "Complete source/input/table/raw/checkpoint path x bytes x filesystem-class x pass ledger is absent; no new raw/checkpoint reads are permitted merely to create it.",
+    "Future176+sourcepins bundle bytes, six prediction streams,66numeric packages, policy freezes, diagnostics, eightreports, temporary compression/decoded-object coexistence and groupRSS/storage projections remain incomplete.",
+    "Eight-report schema includes dynamic burden/category fields and varied finite-width fixtures; full compression/entropy and maximum finite-width applicability are unmeasured, and eventual actual artifacts must fit declared bounds.",
+    "Capsule is prepared source only: no final independent source/storage/runtime/privateT4/quota/input review; no executable release, new declaration, package directory or launch was produced.",
+    "V3 requires a viable subsequent full candidate. At27Octnoon even encoding-only lower bound plus unchanged queue/cleanup/contingency no longer fits18IST; no cost dispatch or automatic calendar extension is allowed."
+  ],
+  "ruff": "passed",
+  "schema": "ecgfounder-native-source-only-snapshot-v1",
+  "status": "SOURCE_ONLY_SNAPSHOT_CURRENT_V3_NON_DISPATCHABLE",
+  "tiny_tests": {
+    "passed": 17,
+    "scope": "generated fixtures only; no complete native working set or full reports",
+    "seconds": 6.12
+  }
+}

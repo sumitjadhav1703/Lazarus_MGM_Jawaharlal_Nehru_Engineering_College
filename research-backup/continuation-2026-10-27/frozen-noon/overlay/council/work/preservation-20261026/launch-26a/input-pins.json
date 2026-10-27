@@ -1,0 +1,10 @@
+{
+  "data/iridia-development-cache-recovered/index.json": "d935548d2d2912322342b904a18b945810733ea09b0227f2c01027d2e23c0f83",
+  "data/iridia-development-cache-recovered/compact.json": "8995ee3b3810bd4c35ce199c79298182da2e533a5b25dd1f63ff23ebbab058f4",
+  "data/iridia-development-cache-recovered/features.npy": "998256ece50da53ab108608811cee9a34868d01d2c000437657f6f81cf803c2a",
+  "data/iridia-development-cache-recovered/metadata.npy": "823a1c02e7d2829447ea9a3020520c33c84ac74c7651e0a708cd53e99ace1edf",
+  "reports/ml-investigation/next-cycle/precursor-diagnostic-20261012-cadence-fix/roles.json": "3d5659e1f00700b0c4def0adb82306615eaa2a18ae4fc7c371228c86b693ffba",
+  "reports/ml-investigation/next-cycle/precursor-diagnostic-20261012-cadence-fix/pair-support.json": "e8078fbb7564fd0ce83ba72469a1edf1b34f63c94ed4923c3dfa5f8aac59e4a0",
+  "reports/ml-investigation/next-cycle/precursor-diagnostic-20261012-cadence-fix/pairs.jsonl": "64ed8d720b1700d99160106fcac5dd9623d522d99f58c241f02365ec06f729fe",
+  "configs/precursor-cycle.json": "a4bfda6a382342040df42aa2d0db64415452254eb122b973692c653ed4e9052b"
+}
