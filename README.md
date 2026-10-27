@@ -22,6 +22,18 @@ CardioTwin asks whether historical ECG plus age and sex can warn about a **new a
 >
 > **The video and default dashboard use manufactured data and a synthetic-trained model.** They demonstrate software behavior, not patient performance. The default server refuses the gate-failed real model (`deployment_ready=false`); explicit, bannered [research replay](#replay-the-real-frozen-model-research-mode) is available separately.
 
+## 📊 Forecasting performance at a glance
+
+For this task, **event sensitivity** means the percentage of eligible AF onsets correctly warned about **2–10 minutes before onset**. The measured results below belong to the frozen **ECG + age/sex logistic-regression model**.
+
+| Evaluation cohort | Correctly forecast onsets | Event sensitivity | Assessed false warnings / eligible hour |
+| --- | --- | --- | --- |
+| **Primary held-out** | **1 / 43** | **2.33%** | **0.085** |
+| Development, grouped cross-validation | 6 / 241 | 2.49% | 0.171 |
+| External LTAF | 2 / 29 | 6.90% | 0.008 |
+
+**ECGFounder forecasting performance: not yet measured (0 real-outcome fits).** Its completed engineering checks do not supply a forecasting score. The real models failed our 50% sensitivity target; the external false-warning rate excludes substantial unassessable warning time. See [full results, confidence intervals and limitations](#results) and the [frozen model card](reports/ml-investigation/frozen-challenge-fusion/model_card.md).
+
 ## Reviewer guide
 
 Choose the path that fits your review. You do not need to read every technical section first.
